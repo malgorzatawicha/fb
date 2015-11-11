@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Fb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

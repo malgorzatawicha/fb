@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Fb\Events;
 
 abstract class Event
 {

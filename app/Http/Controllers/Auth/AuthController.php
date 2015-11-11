@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Fb\Http\Controllers\Auth;
 
-use App\User;
+use Fb\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Fb\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
