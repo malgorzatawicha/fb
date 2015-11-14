@@ -42,8 +42,9 @@
                                 <form action="{{route('pages.destroy', [$page->id])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-
-                                    <button class="btn btn-xs btn-danger">Delete Page</button>
+                                    <a class="btn btn-xs btn-success" href="{{route('pages.show', [$page->id])}}">View</a>
+                                    <a class="btn btn-xs btn-primary" href="{{route('pages.edit', [$page->id])}}">Edit</a>
+                                    <button class="btn btn-xs btn-danger">Delete</button>
                                 </form>
                             </td>
                         </tr>
