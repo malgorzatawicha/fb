@@ -31,13 +31,21 @@
         <div class="panel-body">
             @if (count($pages) > 0)
                 <table class="table table-striped">
-                    <thead><tr><th>ID</th><th>Title</th><th>Body</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Title</th><th>Body</th><th>&nbsp;</th></tr></thead>
                     <tbody>
                     @foreach($pages as $page)
                         <tr>
                             <td>{{$page->id}}</td>
                             <td>{{$page->title}}</td>
                             <td>{{$page->body}}</td>
+                            <td>
+                                <form action="{{route('pages.destroy', [$page->id])}}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+
+                                    <button class="btn btn-xs btn-danger">Delete Page</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
