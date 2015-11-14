@@ -43,6 +43,13 @@ class PagesController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255'
         ]);
+
+        $page = new Page();
+        $page->title = $request->title;
+        $page->body = $request->body;
+        $page->save();
+
+        return Redirect::route('pages.index');
     }
 
     /**
