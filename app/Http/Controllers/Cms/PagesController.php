@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Cms;
 
+use Fb\Models\Cms\Page;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
@@ -16,7 +17,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        //
+        return view('cms.pages.index', ['pages' => Page::all()]);
     }
 
     /**
