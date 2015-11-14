@@ -23,34 +23,35 @@
     </nav>
 @stop
 
-@section('header')
-    <h1>Pages - Create</h1>
-@stop
-
 @section('content')
-    <div class="panel-body">
-        @include('common.errors')
-        <form action="{{ route('pages.store') }}" method="POST" class="form-horizontal">
-            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-            <div class="form-group">
-                <label for="page-title" class="col-sm-3 control-label">Title</label>
-                <div class="col-sm-6">
-                    <input type="text" name="title" id="page-title" class="form-control"/>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Pages - Create
+        </div>
+        <div class="panel-body">
+            @include('common.errors')
+            <form action="{{ route('pages.store') }}" method="POST" class="form-horizontal">
+                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                <div class="form-group">
+                    <label for="page-title" class="col-sm-3 control-label">Title</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" id="page-title" class="form-control"/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="page-body" class="col-sm-3 control-label">Body</label>
-                <div class="col-sm-6">
-                    <input type="text" name="body" id="page-body" class="form-control"/>
+                <div class="form-group">
+                    <label for="page-body" class="col-sm-3 control-label">Body</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="body" id="page-body" class="form-control"/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-plus-sign"></span> Add Page
-                    </button>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Add Page
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 @stop

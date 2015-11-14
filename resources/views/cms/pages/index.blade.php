@@ -23,25 +23,28 @@
     </nav>
 @stop
 
-@section('header')
-    <h1>Pages</h1>
-@stop
-
 @section('content')
-    <div class="row">
-        <div>
-            <table class="table table-striped">
-                <thead><tr><th>ID</th><th>Title</th><th>Body</th></tr></thead>
-                <tbody>
-                @foreach($pages as $page)
-                    <tr>
-                        <td>{{$page->id}}</td>
-                        <td>{{$page->title}}</td>
-                        <td>{{$page->body}}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Pages
+        </div>
+        <div class="panel-body">
+            @if (count($pages) > 0)
+                <table class="table table-striped">
+                    <thead><tr><th>ID</th><th>Title</th><th>Body</th></tr></thead>
+                    <tbody>
+                    @foreach($pages as $page)
+                        <tr>
+                            <td>{{$page->id}}</td>
+                            <td>{{$page->title}}</td>
+                            <td>{{$page->body}}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p>No pages</p>
+            @endif
         </div>
     </div>
 

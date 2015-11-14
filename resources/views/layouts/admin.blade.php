@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Template that use Bootstrap</title>
+    <title>FB Shop</title>
 
     <!-- Bootstrap CSS served from a CDN -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
@@ -13,12 +13,8 @@
 
 <body>
 
-@yield('navbar')
-
 <div class="container" role="main">
-    <div class="page-header">
-        @yield('header')
-    </div>
+    @yield('navbar')
     @yield('content')
 </div>
 
