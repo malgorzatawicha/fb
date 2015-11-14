@@ -29,8 +29,7 @@
 
 @section('content')
     <div class="panel-body">
-        <!-- Display Validation Errors -->
-
+        @include('common.errors')
         <form action="{{ route('pages.store') }}" method="POST" class="form-horizontal">
             <div class="form-group">
                 <label for="page-title" class="col-sm-3 control-label">Title</label>
