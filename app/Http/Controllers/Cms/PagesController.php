@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Redirect;
 
 class PagesController extends Controller
 {
@@ -38,7 +40,9 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255'
+        ]);
     }
 
     /**
