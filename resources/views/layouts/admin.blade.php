@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS served from a CDN -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="public/css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 
 <body>
