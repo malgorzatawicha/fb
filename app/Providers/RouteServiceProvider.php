@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        $router->model('pages', 'Fb\Models\Cms\Page');
 
         parent::boot($router);
     }

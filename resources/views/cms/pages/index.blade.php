@@ -39,7 +39,7 @@
                             <td>{{$page->title}}</td>
                             <td>{{$page->body}}</td>
                             <td>
-                                <form action="{{route('pages.destroy', [$page->id])}}" method="POST">
+                                <form action="{{route('pages.destroy', [666])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
