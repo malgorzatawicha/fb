@@ -78,12 +78,20 @@ class PagesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Page $page)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255'
+        ]);
+
+        $page->title = $request->title;
+        $page->body = $request->body;
+        $page->save();
+
+        return Redirect::route('pages.index');
     }
 
     /**

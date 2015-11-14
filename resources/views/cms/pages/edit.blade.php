@@ -31,6 +31,7 @@
         <div class="panel-body">
             @include('common.errors')
             <form action="{{ route('pages.update', [$page->id]) }}" method="POST" class="form-horizontal">
+                {{ method_field('PUT') }}
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">
                     <label for="page-title" class="col-sm-3 control-label">Title</label>
