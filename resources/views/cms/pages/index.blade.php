@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{$page->id}}</td>
                             <td>{{$page->title}}</td>
-                            <td>{{$page->body}}</td>
+                            <td>{!! $page->body !!}</td>
                             <td>
                                 <form action="{{route('pages.destroy', [$page->id])}}" method="POST">
                                     {{ csrf_field() }}
