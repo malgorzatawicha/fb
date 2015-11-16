@@ -47,6 +47,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
+                        <a href="{{route('pages.index')}}" class="btn btn-primary">Back</a>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus-sign"></span> Edit Page
                         </button>
