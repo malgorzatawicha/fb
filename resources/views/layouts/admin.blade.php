@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FB Shop</title>
 
-    <!-- Bootstrap CSS served from a CDN -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
 </head>
 
 <body>
@@ -18,8 +15,6 @@
     @yield('navbar')
     @yield('content')
 </div>
-
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
 </body>
 </html>
