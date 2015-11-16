@@ -26,7 +26,8 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            Pages
+            <div class="pull-right"><a href="{{route('pages.create')}}" class="btn btn-primary">Create</a></div>
+            <h4>Pages</h4>
         </div>
         <div class="panel-body">
             @if (count($pages) > 0)

@@ -26,7 +26,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            {{$page->title}}
+            <h4>{{$page->title}}</h4>
         </div>
         <div class="panel-body">
           {!! $page->body !!}

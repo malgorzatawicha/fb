@@ -26,7 +26,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            Pages - Update Page {{$page->title}}
+            <h4>Pages - Update Page {{$page->title}}</h4>
         </div>
         <div class="panel-body">
             @include('common.errors')
@@ -49,7 +49,7 @@
                     <div class="col-sm-offset-3 col-sm-6">
                         <a href="{{route('pages.index')}}" class="btn btn-primary">Back</a>
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Edit Page
+                            <span class="glyphicon glyphicon-plus-sign"></span> Save Page
                         </button>
                     </div>
                 </div>
