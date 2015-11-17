@@ -10,5 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::bind('pages', function($slug){
+   return Fb\Models\Cms\Page::where('slug', $slug)->first();
+});
 
 Route::resource('pages', 'Cms\PagesController');
