@@ -20,9 +20,9 @@ Route::bind('products', function($slug){
 Route::group(
     ['prefix' => 'admin', 'middleware' => ['auth']],
     function () use ($router) {
-
-       $router->resource('pages', 'Cms\PagesController');
-       $router->resource('products', 'Shop\ProductsController');
+        $router->get('/', 'Admin\DashboardController@index');
+        $router->resource('pages', 'Cms\PagesController');
+        $router->resource('products', 'Shop\ProductsController');
     }
 );
 

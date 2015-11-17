@@ -12,7 +12,28 @@
 <body>
 
 <div class="container" role="main">
-    @yield('navbar')
+
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Fb shop</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin">Home</a></li>
+                    <li><a href="{{ route('admin.pages.index') }}">Pages</a></li>
+                    <li><a href="{{ route('admin.products.index') }}">Products</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
     @yield('content')
 </div>
 <script src="{{ elixir('js/all.js') }}"></script>
