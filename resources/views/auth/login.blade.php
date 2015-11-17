@@ -3,7 +3,7 @@
 
     <div class="row center-box" id="panel-login">
         <div class="col-lg-4 col-lg-offset-4">
-            <form method="POST" action="login" accept-charset="UTF-8">
+            <form method="POST" action="{{ route('auth.login') }}" accept-charset="UTF-8">
 
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
 
