@@ -108,4 +108,17 @@ class ProductsController extends Controller
 
         return Redirect::route('admin.products.index');
     }
+
+
+    public function activate(Product $product)
+    {
+        $this->dispatchFromArray(ActivateProduct::class, ['product' => $product]);
+        return Redirect::route('admin.products.index');
+    }
+
+    public function deactivate(Product $product)
+    {
+        $this->dispatchFromArray(DeactivateProduct::class, ['product' => $product]);
+        return Redirect::route('admin.products.index');
+    }
 }

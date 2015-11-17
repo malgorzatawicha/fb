@@ -22,7 +22,12 @@ Route::group(
     function () use ($router) {
         $router->get('/', 'Admin\DashboardController@index');
         $router->resource('pages', 'Cms\PagesController');
+        $router->patch('pages/{pages}/activate', 'Cms\PagesController@activate');
+        $router->patch('pages/{pages}/deactivate', 'Cms\PagesController@deactivate');
+
         $router->resource('products', 'Shop\ProductsController');
+        $router->patch('products/{products}/activate', 'Shop\ProductsController@activate');
+        $router->patch('products/{products}/deactivate', 'Shop\ProductsController@deactivate');
     }
 );
 

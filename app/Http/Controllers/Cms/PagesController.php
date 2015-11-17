@@ -109,4 +109,16 @@ class PagesController extends Controller
 
         return Redirect::route('admin.pages.index');
     }
+
+    public function activate(Page $page)
+    {
+        $this->dispatchFromArray(ActivatePage::class, ['page' => $page]);
+        return Redirect::route('admin.pages.index');
+    }
+
+    public function deactivate(Page $page)
+    {
+        $this->dispatchFromArray(DeactivatePage::class, ['page' => $page]);
+        return Redirect::route('admin.pages.index');
+    }
 }

@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('body');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
