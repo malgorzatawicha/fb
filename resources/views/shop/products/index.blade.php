@@ -9,13 +9,28 @@
         <div class="panel-body">
             @if (count($products) > 0)
                 <table class="table table-striped">
-                    <thead><tr><th>{{trans('shop.product.id')}}</th><th>{{trans('shop.product.name')}}</th><th>{{trans('shop.product.description')}}</th><th>&nbsp;</th></tr></thead>
+                    <thead><tr><th>{{trans('shop.product.id')}}</th><th>{{trans('shop.product.name')}}</th><th>{{trans('shop.product.description')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
                     <tbody>
                     @foreach($products as $product)
                         <tr>
                             <td>{{$product->id}}</td>
                             <td>{{$product->name}}</td>
                             <td>{!! $product->description !!}</td>
+                            <td>
+                                @if($product->active)
+                                    <form action="{{route('admin.products.activate', [$page->slug])}}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
+                                    </form>
+                                @else
+                                    <form action="{{route('admin.products.deactivate', [$page->slug])}}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button class="btn btn-xs btn-warning">{{trans('admin.deactivate')}}</button>
+                                    </form>
+                                @endif
+                            </td>
                             <td>
                                 <form action="{{route('admin.products.destroy', [$product->slug])}}" method="POST">
                                     {{ csrf_field() }}

@@ -5,5 +5,7 @@ return [
     'back'               => 'Back',
     'view'               => 'View',
     'edit'               => 'Edit',
-    'delete'             => 'Delete'
+    'delete'             => 'Delete',
+    'activate'           => 'Activate',
+    'deactivate'         => 'Deactivate'
 ];
