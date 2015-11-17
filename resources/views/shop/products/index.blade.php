@@ -26,7 +26,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="pull-right"><a href="{{route('products.create')}}" class="btn btn-primary">Create</a></div>
+            <div class="pull-right"><a href="{{route('admin.products.create')}}" class="btn btn-primary">Create</a></div>
             <h4>Products</h4>
         </div>
         <div class="panel-body">
@@ -40,11 +40,11 @@
                             <td>{{$product->name}}</td>
                             <td>{!! $product->description !!}</td>
                             <td>
-                                <form action="{{route('products.destroy', [$product->slug])}}" method="POST">
+                                <form action="{{route('admin.products.destroy', [$product->slug])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a class="btn btn-xs btn-success" href="{{route('products.show', [$product->slug])}}">View</a>
-                                    <a class="btn btn-xs btn-primary" href="{{route('products.edit', [$product->slug])}}">Edit</a>
+                                    <a class="btn btn-xs btn-success" href="{{route('admin.products.show', [$product->slug])}}">View</a>
+                                    <a class="btn btn-xs btn-primary" href="{{route('admin.products.edit', [$product->slug])}}">Edit</a>
                                     <button class="btn btn-xs btn-danger">Delete</button>
                                 </form>
                             </td>

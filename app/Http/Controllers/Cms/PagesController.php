@@ -49,7 +49,7 @@ class PagesController extends Controller
         $page->body = $request->body;
         $page->save();
 
-        return Redirect::route('pages.index');
+        return Redirect::route('admin.pages.index');
     }
 
     /**
@@ -91,7 +91,7 @@ class PagesController extends Controller
         $page->body = $request->body;
         $page->save();
 
-        return Redirect::route('pages.index');
+        return Redirect::route('admin.pages.index');
     }
 
     /**
@@ -104,6 +104,6 @@ class PagesController extends Controller
     {
         $page->delete();
 
-        return Redirect::route('pages.index');
+        return Redirect::route('admin.pages.index');
     }
 }

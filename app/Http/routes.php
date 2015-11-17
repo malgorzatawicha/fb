@@ -16,5 +16,13 @@ Route::bind('products', function($slug){
 Route::bind('products', function($slug){
    return Fb\Models\Shop\Product::where('slug', $slug)->first();
 });
-Route::resource('products', 'Cms\PagesController');
-Route::resource('products', 'Shop\ProductsController');
+
+Route::group(
+    ['prefix' => 'admin', 'middleware' => ['auth']],
+    function () use ($router) {
+
+       $router->resource('pages', 'Cms\PagesController');
+       $router->resource('products', 'Shop\ProductsController');
+    }
+);
+

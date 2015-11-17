@@ -30,7 +30,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('pages.store') }}" method="POST" class="form-horizontal">
+            <form action="{{ route('admin.pages.store') }}" method="POST" class="form-horizontal">
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">
                     <label for="page-title" class="col-sm-3 control-label">Title</label>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('pages.index')}}" class="btn btn-primary">Back</a>
+                        <a href="{{route('admin.pages.index')}}" class="btn btn-primary">Back</a>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus-sign"></span> Add Page
                         </button>

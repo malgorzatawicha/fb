@@ -33,7 +33,7 @@
         </div>
 
         <div class="centered">
-            <a href="{{route('pages.index')}}" class="btn btn-primary">Back</a>
+            <a href="{{route('admin.pages.index')}}" class="btn btn-primary">Back</a>
         </div>
     </div>
 

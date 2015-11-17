@@ -48,7 +48,7 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->save();
 
-        return Redirect::route('products.index');
+        return Redirect::route('admin.products.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class ProductsController extends Controller
         $product->body = $request->body;
         $product->save();
 
-        return Redirect::route('products.index');
+        return Redirect::route('admin.products.index');
     }
 
     /**
@@ -103,6 +103,6 @@ class ProductsController extends Controller
     {
         $product->delete();
 
-        return Redirect::route('products.index');
+        return Redirect::route('admin.products.index');
     }
 }

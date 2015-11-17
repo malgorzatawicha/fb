@@ -30,7 +30,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('products.store') }}" method="POST" class="form-horizontal">
+            <form action="{{ route('admin.products.store') }}" method="POST" class="form-horizontal">
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">
                     <label for="product-name" class="col-sm-3 control-label">Name</label>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('products.index')}}" class="btn btn-primary">Back</a>
+                        <a href="{{route('admin.products.index')}}" class="btn btn-primary">Back</a>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus-sign"></span> Add Product
                         </button>
