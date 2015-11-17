@@ -149,6 +149,7 @@ return [
          * Vendor Service Providers...
          */
         Unisharp\Ckeditor\ServiceProvider::class,
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
     ],
 
