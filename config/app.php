@@ -145,6 +145,11 @@ return [
         Fb\Providers\EventServiceProvider::class,
         Fb\Providers\RouteServiceProvider::class,
 
+        /**
+         * Vendor Service Providers...
+         */
+        Unisharp\Ckeditor\ServiceProvider::class,
+
     ],
 
     /*
