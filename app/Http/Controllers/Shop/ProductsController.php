@@ -2,6 +2,9 @@
 
 namespace Fb\Http\Controllers\Shop;
 
+use Fb\Jobs\Shop\Products\DestroyProduct;
+use Fb\Jobs\Shop\Products\StoreProduct;
+use Fb\Jobs\Shop\Products\UpdateProduct;
 use Fb\Models\Shop\Product;
 use Illuminate\Http\Request;
 
@@ -42,11 +45,7 @@ class ProductsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255'
         ]);
-
-        $product = new Product();
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->save();
+        $this->dispatchFromArray(StoreProduct::class, ['data' => $request->all()]);
 
         return Redirect::route('admin.products.index');
     }
@@ -86,9 +85,13 @@ class ProductsController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->save();
+        $this->dispatchFromArray(
+            UpdateProduct::class,
+            [
+                'product' => $product,
+                'data' => $request->all()
+            ]
+        );
 
         return Redirect::route('admin.products.index');
     }
@@ -101,7 +104,7 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        $this->dispatchFromArray(DestroyProduct::class,['product' => $product]);
 
         return Redirect::route('admin.products.index');
     }
