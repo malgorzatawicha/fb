@@ -38,9 +38,9 @@ Route::group(
             'uses' => 'Shop\ProductsController@activate',
             'as'   => 'admin.products.activate'
         ]);
-        $router->patch('products/{products}/activate', [
-            'uses' => 'Shop\ProductsController@activate',
-            'as'   => 'admin.products.activate'
+        $router->patch('products/{products}/deactivate', [
+            'uses' => 'Shop\ProductsController@deactivate',
+            'as'   => 'admin.products.deactivate'
         ]);
     }
 );
