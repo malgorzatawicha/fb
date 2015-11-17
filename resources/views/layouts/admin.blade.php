@@ -15,6 +15,7 @@
     @yield('navbar')
     @yield('content')
 </div>
-<script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
+<script src="{{ elixir('js/all.js') }}"></script>
+@yield('scripts')
 </body>
 </html>
