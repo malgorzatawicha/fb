@@ -1,5 +1,4 @@
 var elixir = require('laravel-elixir');
-var bowerDir = 'bower_components/';
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -12,24 +11,18 @@ var bowerDir = 'bower_components/';
  */
 
 elixir(function(mix) {
-    mix.copy(bowerDir + 'ckeditor', 'public/ckeditor');
-    mix.copy(bowerDir + 'bootstrap/fonts', 'public/build/fonts');
-    mix.copy(bowerDir + 'bootstrap/dist/js/bootstrap.min.js', 'resources/assets/js/vendor/bootstrap.min.js');
-    mix.copy(bowerDir + 'jquery/dist/jquery.min.js', 'resources/assets/js/vendor/jquery.js');
-    mix.copy(bowerDir + 'ckeditor/ckeditor.js', 'resources/assets/js/vendor/ckeditor.js');
+    mix
+        .copy('/vendor/twbs/bootstrap/dist/fonts/', '/public/fonts')
 
-    mix.copy(bowerDir + 'bootstrap/dist/css/bootstrap.min.css', 'resources/assets/css/vendor/bootstrap.min.css');
+        .scripts([
+            "../../../vendor/components/jquery/jquery.min.js",
+            "../../../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"
+        ], 'public/js')
 
-    mix.styles([
-        "vendor/*.css",
-        'app.css'
-    ], 'public/css');
+        .styles([
+            '../../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
+            'app.css'
+        ], 'public/css')
 
-    mix.scripts([
-            "vendor/jquery.js",
-            "vendor/ckeditor.js",
-            "vendor/bootstrap.min.js"
-        ], 'public/js', 'resources/assets/js');
-
-    mix.version(["css/all.css", "js/all.js"]);
+        .version(["css/all.css", "js/all.js"]);
 });
