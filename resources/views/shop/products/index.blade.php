@@ -45,7 +45,7 @@
                     </tbody>
                 </table>
             @else
-                <p>{{trans('shop.products.no_records')}}</p>
+                <p>{{trans('shop.product.no_records')}}</p>
             @endif
         </div>
     </div>
