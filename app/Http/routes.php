@@ -20,18 +20,41 @@ Route::bind('products', function($slug){
 Route::group(
     ['prefix' => 'admin', 'middleware' => ['auth']],
     function () use ($router) {
-        $router->get('/', 'Admin\DashboardController@index');
+        $router->get('/', [
+            'uses' => 'Admin\DashboardController@index',
+            'as'   => 'admin.home'
+        ]);
         $router->resource('pages', 'Cms\PagesController');
-        $router->patch('pages/{pages}/activate', 'Cms\PagesController@activate');
-        $router->patch('pages/{pages}/deactivate', 'Cms\PagesController@deactivate');
-
+        $router->patch('pages/{pages}/activate', [
+            'uses' => 'Cms\PagesController@activate',
+            'as'   => 'admin.pages.activate'
+        ]);
+        $router->patch('pages/{pages}/deactivate', [
+            'uses' => 'Cms\PagesController@deactivate',
+            'as'   => 'admin.pages.deactivate'
+        ]);
         $router->resource('products', 'Shop\ProductsController');
-        $router->patch('products/{products}/activate', 'Shop\ProductsController@activate');
-        $router->patch('products/{products}/deactivate', 'Shop\ProductsController@deactivate');
+        $router->patch('products/{products}/activate', [
+            'uses' => 'Shop\ProductsController@activate',
+            'as'   => 'admin.products.activate'
+        ]);
+        $router->patch('products/{products}/activate', [
+            'uses' => 'Shop\ProductsController@activate',
+            'as'   => 'admin.products.activate'
+        ]);
     }
 );
 
 // Authentication Routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/login', [
+    'uses' => 'Auth\AuthController@getLogin',
+    'as'   => 'auth.login.form'
+]);
+Route::post('auth/login', [
+    'uses' => 'Auth\AuthController@postLogin',
+    'as'   => 'auth.login'
+]);
+Route::get('auth/logout', [
+    'uses' => 'Auth\AuthController@getLogout',
+    'as'   => 'auth.logout'
+]);

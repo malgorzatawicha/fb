@@ -5,6 +5,8 @@ namespace Fb\Http\Controllers\Cms;
 use Fb\Jobs\Cms\Pages\StorePage;
 use Fb\Jobs\Cms\Pages\UpdatePage;
 use Fb\Jobs\Cms\Pages\DestroyPage;
+use Fb\Jobs\Cms\Pages\ActivatePage;
+use Fb\Jobs\Cms\Pages\DeactivatePage;
 use Fb\Models\Cms\Page;
 use Illuminate\Http\Request;
 

@@ -5,6 +5,8 @@ namespace Fb\Http\Controllers\Shop;
 use Fb\Jobs\Shop\Products\DestroyProduct;
 use Fb\Jobs\Shop\Products\StoreProduct;
 use Fb\Jobs\Shop\Products\UpdateProduct;
+use Fb\Jobs\Shop\Products\ActivateProduct;
+use Fb\Jobs\Shop\Products\DeactivateProduct;
 use Fb\Models\Shop\Product;
 use Illuminate\Http\Request;
 
