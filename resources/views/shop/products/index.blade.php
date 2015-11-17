@@ -18,13 +18,13 @@
                             <td>{!! $product->description !!}</td>
                             <td>
                                 @if($product->active)
-                                    <form action="{{route('admin.products.activate', [$page->slug])}}" method="POST">
+                                    <form action="{{route('admin.products.activate', [$product->slug])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
                                     </form>
                                 @else
-                                    <form action="{{route('admin.products.deactivate', [$page->slug])}}" method="POST">
+                                    <form action="{{route('admin.products.deactivate', [$product->slug])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.deactivate')}}</button>
