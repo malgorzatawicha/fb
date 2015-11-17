@@ -41,7 +41,8 @@
                 <div class="form-group">
                     <label for="page-body" class="col-sm-3 control-label">Body</label>
                     <div class="col-sm-6">
-                        <input type="text" name="body" id="page-body" class="form-control"/>
+
+                        <textarea name="body" id="page-body" class="form-controll ckeditor" rows="10" cols="80"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,4 +56,8 @@
             </form>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @stop
