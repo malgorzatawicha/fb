@@ -30,7 +30,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('pages.update', [$page->id]) }}" method="POST" class="form-horizontal">
+            <form action="{{ route('pages.update', [$page->slug]) }}" method="POST" class="form-horizontal">
                 {{ method_field('PUT') }}
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">

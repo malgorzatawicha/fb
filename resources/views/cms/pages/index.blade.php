@@ -40,11 +40,11 @@
                             <td>{{$page->title}}</td>
                             <td>{!! $page->body !!}</td>
                             <td>
-                                <form action="{{route('pages.destroy', [$page->id])}}" method="POST">
+                                <form action="{{route('pages.destroy', [$page->slug])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a class="btn btn-xs btn-success" href="{{route('pages.show', [$page->id])}}">View</a>
-                                    <a class="btn btn-xs btn-primary" href="{{route('pages.edit', [$page->id])}}">Edit</a>
+                                    <a class="btn btn-xs btn-success" href="{{route('pages.show', [$page->slug])}}">View</a>
+                                    <a class="btn btn-xs btn-primary" href="{{route('pages.edit', [$page->slug])}}">Edit</a>
                                     <button class="btn btn-xs btn-danger">Delete</button>
                                 </form>
                             </td>
