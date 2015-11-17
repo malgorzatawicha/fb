@@ -18,16 +18,16 @@
                             <td>{!! $page->body !!}</td>
                             <td>
                                 @if($page->active)
-                                    <form action="{{route('admin.pages.activate', [$page->slug])}}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
-                                    </form>
-                                @else
                                     <form action="{{route('admin.pages.deactivate', [$page->slug])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.deactivate')}}</button>
+                                    </form>
+                                @else
+                                    <form action="{{route('admin.pages.activate', [$page->slug])}}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
                                     </form>
                                 @endif
                             </td>
