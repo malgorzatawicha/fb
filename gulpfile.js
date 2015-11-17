@@ -12,7 +12,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix
-        .copy('/vendor/twbs/bootstrap/dist/fonts/', '/public/fonts')
+        .copy('vendor/twbs/bootstrap/dist/fonts', 'public/build/fonts/')
 
         .scripts([
             "../../../vendor/components/jquery/jquery.min.js",
