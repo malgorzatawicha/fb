@@ -2,12 +2,14 @@
 
 namespace Fb\Http\Controllers\Cms;
 
+use Fb\Jobs\Cms\Pages\StorePage;
+use Fb\Jobs\Cms\Pages\UpdatePage;
+use Fb\Jobs\Cms\Pages\DestroyPage;
 use Fb\Models\Cms\Page;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Redirect;
 
 class PagesController extends Controller
@@ -44,10 +46,7 @@ class PagesController extends Controller
             'title' => 'required|max:255'
         ]);
 
-        $page = new Page();
-        $page->title = $request->title;
-        $page->body = $request->body;
-        $page->save();
+        $this->dispatchFromArray(StorePage::class, ['data' => $request->all()]);
 
         return Redirect::route('admin.pages.index');
     }
@@ -87,9 +86,13 @@ class PagesController extends Controller
             'title' => 'required|max:255'
         ]);
 
-        $page->title = $request->title;
-        $page->body = $request->body;
-        $page->save();
+        $this->dispatchFromArray(
+            UpdatePage::class,
+            [
+                'page' => $page,
+                'data' => $request->all()
+            ]
+        );
 
         return Redirect::route('admin.pages.index');
     }
@@ -102,7 +105,7 @@ class PagesController extends Controller
      */
     public function destroy(Page $page)
     {
-        $page->delete();
+        $this->dispatchFromArray(DestroyPage::class,['page' => $page]);
 
         return Redirect::route('admin.pages.index');
     }
