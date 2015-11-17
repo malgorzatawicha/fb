@@ -70,7 +70,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('shop.products.edit', ['page' => $product]);
+        return view('shop.products.edit', ['product' => $product]);
     }
 
     /**
@@ -83,11 +83,11 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->validate($request, [
-            'title' => 'required|max:255'
+            'name' => 'required|max:255'
         ]);
 
-        $product->title = $request->title;
-        $product->body = $request->body;
+        $product->name = $request->name;
+        $product->description = $request->description;
         $product->save();
 
         return Redirect::route('admin.products.index');

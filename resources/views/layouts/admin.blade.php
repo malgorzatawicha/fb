@@ -27,8 +27,8 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/admin">Home</a></li>
-                    <li><a href="{{ route('admin.pages.index') }}">Pages</a></li>
-                    <li><a href="{{ route('admin.products.index') }}">Products</a></li>
+                    <li><a href="{{ route('admin.pages.index') }}">{{trans('cms.pages')}}</a></li>
+                    <li><a href="{{ route('admin.products.index') }}">{{trans('shop.products')}}</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
