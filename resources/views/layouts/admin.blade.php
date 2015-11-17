@@ -29,6 +29,8 @@
                     <li><a href="/admin">Home</a></li>
                     <li><a href="{{ route('admin.pages.index') }}">{{trans('cms.pages')}}</a></li>
                     <li><a href="{{ route('admin.products.index') }}">{{trans('shop.products')}}</a></li>
+                    <li><a href="{{ route('admin.galleries.index') }}">{{trans('gallery.galleries')}}</a></li>
+
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

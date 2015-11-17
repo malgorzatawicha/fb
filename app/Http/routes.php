@@ -16,6 +16,9 @@ Route::bind('pages', function($slug){
 Route::bind('products', function($slug){
    return Fb\Models\Shop\Product::where('slug', $slug)->first();
 });
+Route::bind('galleries', function($slug){
+    return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
+});
 
 Route::group(
     ['prefix' => 'admin', 'middleware' => ['auth']],
@@ -24,6 +27,7 @@ Route::group(
             'uses' => 'Admin\DashboardController@index',
             'as'   => 'admin.home'
         ]);
+
         $router->resource('pages', 'Cms\PagesController');
         $router->patch('pages/{pages}/activate', [
             'uses' => 'Cms\PagesController@activate',
@@ -41,6 +45,16 @@ Route::group(
         $router->patch('products/{products}/deactivate', [
             'uses' => 'Shop\ProductsController@deactivate',
             'as'   => 'admin.products.deactivate'
+        ]);
+
+        $router->resource('galleries', 'Gallery\GalleriesController');
+        $router->patch('galleries/{galleries}/activate', [
+            'uses' => 'Gallery\GalleriesController@activate',
+            'as'   => 'admin.galleries.activate'
+        ]);
+        $router->patch('galleries/{galleries}/deactivate', [
+            'uses' => 'Gallery\GalleriesController@deactivate',
+            'as'   => 'admin.galleries.deactivate'
         ]);
     }
 );
