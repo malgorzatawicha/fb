@@ -56,6 +56,8 @@ Route::group(
             'uses' => 'Gallery\GalleriesController@deactivate',
             'as'   => 'admin.galleries.deactivate'
         ]);
+
+        Route::resource('products.images', 'Shop\ProductImagesController');
     }
 );
 
