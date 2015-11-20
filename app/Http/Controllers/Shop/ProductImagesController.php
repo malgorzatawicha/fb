@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
+use Fb\Jobs\Shop\ProductImages\StoreImage;
 
 class ProductImagesController extends Controller
 {
@@ -38,6 +39,19 @@ class ProductImagesController extends Controller
      */
     public function store(Request $request, Product $product)
     {
+        $this->dispatchFromArray(StoreImage::class, [
+            'product' => $product,
+            'data' => [
+                'image_name' => $request->get('image_name'),
+                'image_extension' => $request->file('image')->getClientOriginalExtension(),
+                'mobile_image_name' => $request->get('mobile_image_name'),
+                'mobile_extension' => $request->file('mobile_image')->getClientOriginalExtension(),
+                'active' => $request->get('active'),
+                'is_featured' => $request->get('is_featured'),
+                'image_file' => \Input::file('image'),
+                'mobile_file' => \Input::file('mobile_image')
+            ]
+        ]);
         return Redirect::route('admin.products.images.index', $product);
     }
 
