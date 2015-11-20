@@ -18,4 +18,9 @@ class ProductImage extends Model
         'mobile_image_path',
         'mobile_extension'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
