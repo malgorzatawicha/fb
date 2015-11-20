@@ -9,6 +9,7 @@ use Redirect;
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Jobs\Shop\ProductImages\StoreImage;
+use Fb\Http\Requests\Shop\ProductImages\EditImageRequest;
 
 class ProductImagesController extends Controller
 {
@@ -78,17 +79,24 @@ class ProductImagesController extends Controller
         return view('shop.product_images.edit', ['product' => $product, 'image' => $image]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(EditImageRequest $request, Product $product, ProductImage $image)
     {
-        //
+        $this->dispatchFromArray(UpdateImage::class, [
+            'product' => $product,
+            'image' => $image,
+            'data' => [
+                'image_extension' => $request->file('image')?$request->file('image')->getClientOriginalExtension():null,
+                'mobile_extension' => $request->file('mobile_image')?$request->file('mobile_image')->getClientOriginalExtension():null,
+                'active' => $request->get('active'),
+                'is_featured' => $request->get('is_featured'),
+                'image_file' => \Input::file('image'),
+                'mobile_file' => \Input::file('mobile_image')
+            ]
+        ]);
+        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
     }
+
+
 
     /**
      * Remove the specified resource from storage.

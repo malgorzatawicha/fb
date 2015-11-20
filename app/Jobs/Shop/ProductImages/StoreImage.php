@@ -13,9 +13,9 @@ class StoreImage extends Job implements SelfHandling
     /**
      * @var array
      */
-    private $data = [];
+    protected $data = [];
 
-    private $product;
+    protected $product;
 
     const DESTINATION_FOLDER = '/images/products/';
     const DESTINATION_MOBILE = '/images/products/mobile/';
@@ -43,7 +43,7 @@ class StoreImage extends Job implements SelfHandling
         $this->saveMobileFile($mobileFile);
     }
 
-    private function createImageObject()
+    protected function createImageObject()
     {
         $image = new ProductImage([
             'image_name' => $this->data['image_name'],
@@ -57,14 +57,14 @@ class StoreImage extends Job implements SelfHandling
         return $image;
     }
 
-    private function assignImagePaths(ProductImage $image)
+    protected function assignImagePaths(ProductImage $image)
     {
         $image->image_path = self::DESTINATION_FOLDER;
         $image->mobile_image_path = self::DESTINATION_MOBILE;
         return $image;
     }
 
-    private function saveImageFile(\Intervention\Image\Image $image)
+    protected function saveImageFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['image_name'];
         $extension = $this->data['image_extension'];
@@ -74,7 +74,7 @@ class StoreImage extends Job implements SelfHandling
         $image->save($path);
     }
 
-    private function saveThumnailFile(\Intervention\Image\Image $image)
+    protected function saveThumnailFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['image_name'];
         $extension = $this->data['image_extension'];
@@ -84,7 +84,7 @@ class StoreImage extends Job implements SelfHandling
         $image->resize(60, 60)->save($path);
     }
 
-    private function saveMobileFile(\Intervention\Image\Image $image)
+    protected function saveMobileFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['mobile_image_name'];
         $extension = $this->data['mobile_extension'];
@@ -94,7 +94,7 @@ class StoreImage extends Job implements SelfHandling
         $image->save($path);
     }
 
-    private function formatCheckboxValue(ProductImage $image)
+    protected function formatCheckboxValue(ProductImage $image)
     {
         $image->active = ($image->active == null) ? 0 : 1;
         $image->is_featured = ($image->is_featured == null) ? 0 : 1;
