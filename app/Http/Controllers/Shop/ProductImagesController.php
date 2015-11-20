@@ -73,9 +73,9 @@ class ProductImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product, ProductImage $image)
     {
-        //
+        return view('shop.product_images.edit', ['product' => $product, 'image' => $image]);
     }
 
     /**
