@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Cms;
 
+use Fb\Http\Requests\Cms\Pages\EditPageRequest;
 use Fb\Jobs\Cms\Pages\StorePage;
 use Fb\Jobs\Cms\Pages\UpdatePage;
 use Fb\Jobs\Cms\Pages\DestroyPage;
@@ -74,16 +75,12 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EditPageRequest  $request
      * @param  Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(EditPageRequest $request, Page $page)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255'
-        ]);
-
         $this->dispatchFromArray(
             UpdatePage::class,
             [
