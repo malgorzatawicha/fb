@@ -1,6 +1,6 @@
 <?php
 
-namespace Fb\Http\Requests;
+namespace Fb\Http\Requests\Shop\Products;
 
 use Fb\Http\Requests\Request;
 
@@ -24,7 +24,7 @@ class CreateProductRequest extends Request
     public function rules()
     {
         return [
-            'image_name' => 'alpha_num | required | max:255',
+            'name' => 'alpha_num | required | max:255',
         ];
     }
 }
