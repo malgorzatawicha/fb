@@ -3,8 +3,9 @@
 namespace Fb\Http\Controllers\Shop;
 
 use Fb\Models\Shop\Product;
+use Fb\Models\Shop\ProductImage;
 use Illuminate\Http\Request;
-
+use Redirect;
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Jobs\Shop\ProductImages\StoreImage;
@@ -52,7 +53,7 @@ class ProductImagesController extends Controller
                 'mobile_file' => \Input::file('mobile_image')
             ]
         ]);
-        return Redirect::route('admin.products.images.index', $product);
+        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
     }
 
     /**
@@ -61,9 +62,9 @@ class ProductImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product, ProductImage $image)
     {
-        //
+        return view('shop.product_images.show', ['product' => $product, 'image' => $image]);
     }
 
     /**

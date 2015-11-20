@@ -6,7 +6,7 @@ use Fb\Jobs\Job;
 use Fb\Models\Shop\Product;
 use Fb\Models\Shop\ProductImage;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Intervention\Image\ImageManager;
+use Image;
 
 class StoreImage extends Job implements SelfHandling
 {
@@ -64,7 +64,7 @@ class StoreImage extends Job implements SelfHandling
         return $image;
     }
 
-    private function saveImageFile(ImageManager $image)
+    private function saveImageFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['image_name'];
         $extension = $this->data['image_extension'];
@@ -74,7 +74,7 @@ class StoreImage extends Job implements SelfHandling
         $image->save($path);
     }
 
-    private function saveThumnailFile(ImageManager $image)
+    private function saveThumnailFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['image_name'];
         $extension = $this->data['image_extension'];
@@ -84,7 +84,7 @@ class StoreImage extends Job implements SelfHandling
         $image->resize(60, 60)->save($path);
     }
 
-    private function saveMobileFile(ImageManager $image)
+    private function saveMobileFile(\Intervention\Image\Image $image)
     {
         $name = $this->data['mobile_image_name'];
         $extension = $this->data['mobile_extension'];
