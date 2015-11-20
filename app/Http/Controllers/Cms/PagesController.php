@@ -10,7 +10,7 @@ use Fb\Jobs\Cms\Pages\DeactivatePage;
 use Fb\Models\Cms\Page;
 use Illuminate\Http\Request;
 
-use Fb\Http\Requests;
+use Fb\Http\Requests\Cms\Pages\CreatePageRequest;
 use Fb\Http\Controllers\Controller;
 use Redirect;
 
@@ -39,15 +39,11 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreatePageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePageRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255'
-        ]);
-
         $this->dispatchFromArray(StorePage::class, ['data' => $request->all()]);
 
         return Redirect::route('admin.pages.index');
