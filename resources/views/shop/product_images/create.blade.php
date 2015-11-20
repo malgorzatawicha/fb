@@ -10,7 +10,7 @@
         <div class="panel-body">
 
             @include('common.errors')
-            <form action="{{route('admin.products.images.store', ['products' => $product->id])}}" method="POST" class="form" enctype="multipart/form-data">
+            <form action="{{route('admin.products.images.store', ['product' => $product->slug])}}" method="POST" class="form" enctype="multipart/form-data">
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">
                     <label for="image-name">Image Name:</label>
