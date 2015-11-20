@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Gallery;
 
+use Fb\Http\Requests\Galleries\Gallery\EditGalleryRequest;
 use Fb\Jobs\Gallery\Galleries\DestroyGallery;
 use Fb\Jobs\Gallery\Galleries\StoreGallery;
 use Fb\Jobs\Gallery\Galleries\UpdateGallery;
@@ -74,16 +75,12 @@ class GalleriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EditGalleryRequest  $request
      * @param  Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(EditGalleryRequest $request, Gallery $gallery)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255'
-        ]);
-
         $this->dispatchFromArray(
             UpdateGallery::class,
             [
