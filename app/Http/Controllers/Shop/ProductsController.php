@@ -10,7 +10,7 @@ use Fb\Jobs\Shop\Products\DeactivateProduct;
 use Fb\Models\Shop\Product;
 use Illuminate\Http\Request;
 
-use Fb\Http\Requests;
+use Fb\Http\Requests\CreateProductRequest;
 use Fb\Http\Controllers\Controller;
 use Redirect;
 
@@ -39,14 +39,11 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255'
-        ]);
         $this->dispatchFromArray(StoreProduct::class, ['data' => $request->all()]);
 
         return Redirect::route('admin.products.index');
