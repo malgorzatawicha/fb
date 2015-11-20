@@ -20,6 +20,10 @@ Route::bind('galleries', function($slug){
     return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
 });
 
+Route::bind('images', function($id){
+    return Fb\Models\Shop\ProductImage::where('id', $id)->first();
+});
+
 Route::group(
     ['prefix' => 'admin', 'middleware' => ['auth']],
     function () use ($router) {
