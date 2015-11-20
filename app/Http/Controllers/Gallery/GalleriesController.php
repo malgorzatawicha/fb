@@ -10,7 +10,7 @@ use Fb\Jobs\Gallery\Galleries\DeactivateGallery;
 use Fb\Models\Gallery\Gallery;
 use Illuminate\Http\Request;
 
-use Fb\Http\Requests;
+use Fb\Http\Requests\Galleries\Gallery\CreateGalleryRequest;
 use Fb\Http\Controllers\Controller;
 use Redirect;
 
@@ -39,14 +39,11 @@ class GalleriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateGalleryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateGalleryRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255'
-        ]);
         $this->dispatchFromArray(StoreGallery::class, ['data' => $request->all()]);
 
         return Redirect::route('admin.galleries.index');
