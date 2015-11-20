@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Shop;
 
+use Fb\Models\Shop\Product;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
@@ -24,9 +25,9 @@ class ProductImagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
-        //
+        return view('shop.product_images.create', ['product' => $product]);
     }
 
     /**
@@ -35,9 +36,9 @@ class ProductImagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
-        //
+        return Redirect::route('admin.products.images.index', $product);
     }
 
     /**
