@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Shop;
 
+use Fb\Http\Requests\Shop\Products\EditProductRequest;
 use Fb\Jobs\Shop\Products\DestroyProduct;
 use Fb\Jobs\Shop\Products\StoreProduct;
 use Fb\Jobs\Shop\Products\UpdateProduct;
@@ -10,7 +11,7 @@ use Fb\Jobs\Shop\Products\DeactivateProduct;
 use Fb\Models\Shop\Product;
 use Illuminate\Http\Request;
 
-use Fb\Http\Requests\CreateProductRequest;
+use Fb\Http\Requests\Shop\Products\CreateProductRequest;
 use Fb\Http\Controllers\Controller;
 use Redirect;
 
@@ -74,11 +75,11 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EditProductRequest  $request
      * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(EditProductRequest $request, Product $product)
     {
         $this->validate($request, [
             'name' => 'required|max:255'
