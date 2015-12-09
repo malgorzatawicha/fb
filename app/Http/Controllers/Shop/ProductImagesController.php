@@ -2,6 +2,7 @@
 
 namespace Fb\Http\Controllers\Shop;
 
+use Fb\Jobs\Shop\ProductImages\DestroyImage;
 use Fb\Models\Shop\Product;
 use Fb\Models\Shop\ProductImage;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Jobs\Shop\ProductImages\StoreImage;
 use Fb\Http\Requests\Shop\ProductImages\EditImageRequest;
+use Fb\Jobs\Shop\ProductImages\UpdateImage;
 
 class ProductImagesController extends Controller
 {
@@ -104,8 +106,12 @@ class ProductImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product, ProductImage $image)
     {
-        //
+        $this->dispatchFromArray(DestroyImage::class, [
+            'product' => $product,
+            'image' => $image,
+        ]);
+        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
     }
 }
