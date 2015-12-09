@@ -6,31 +6,25 @@
             <h4>{{trans('shop.products')}} - {{trans('shop.product.update')}} {{$product->name}}</h4>
         </div>
         <div class="panel-body">
-            @include('common.errors')
-            <form action="{{ route('admin.products.update', [$product->slug]) }}" method="POST" class="form-horizontal">
-                {{ method_field('PUT') }}
-                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-                <div class="form-group">
-                    <label for="product-name" class="col-sm-3 control-label">{{trans('shop.product.name')}}</label>
-                    <div class="col-sm-6">
-                        <input type="text" value="{{$product->name}}" name="name" id="product-name" class="form-control"/>
+            <div class="row">
+                <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="productTabs">
+                    <li class="active" role="presentation">
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a aria-controls="images" data-toggle="tab" id="images-tab" role="tab" href="#images" aria-expanded="false">Images</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content col-sm-9" id="productTabsContent">
+                    <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
+                        @include('shop.products.partial.create_basics')
+                    </div>
+                    <div aria-labelledby="images-tab" id="images" class="tab-pane fade" role="tabpanel">
+                        @include('shop.products.partial.images', ['product'=>$product])
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="product-description" class="col-sm-3 control-label">{{trans('shop.product.description')}}</label>
-                    <div class="col-sm-6">
-                        <textarea name="description" id="product-description" class="form-controll ckeditor" rows="10" cols="80">{{$product->description}}</textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('admin.products.index')}}" class="btn btn-primary">{{trans('admin.back')}}</a>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> {{trans('shop.product.save')}}
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 @stop
