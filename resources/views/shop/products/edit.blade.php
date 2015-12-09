@@ -31,4 +31,23 @@
 
 @section('scripts')
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        $('#editImageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+
+            var image = button.data('image')
+
+            var recipient = button.data('product') // Extract info from data-* attributes
+
+
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+
+            for (var i in image) {
+                modal.find('.' + i).text(image[i]);
+            }
+        })
+    </script>
 @stop

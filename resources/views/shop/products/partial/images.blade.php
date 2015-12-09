@@ -7,7 +7,10 @@
            $image->image_extension . '?'. 'time='. time() }}">
                     </a>
                 <div class="btn-group btn-group-justified">
-                    <a class="btn btn-primary btn-sm" title="edit" data-imageid="{{$image->id}}" href="#">
+                    <a class="btn btn-primary btn-sm" title="edit" href="#"
+                       data-image="{{json_encode($image)}}"
+                       data-product="{{json_encode($image->product)}}"
+                       data-toggle="modal" data-target="#editImageModal" >
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
                     <a class="btn btn-danger btn-sm" title="delete" data-imageid="{{$image->id}}" href="#">
@@ -20,3 +23,5 @@
 @else
     <p>{{trans('shop.product_image.no_records')}}</p>
 @endif
+
+@include('shop.products.partial.edit_image_modal')
