@@ -22,7 +22,7 @@ $('#createImageModal').on('show.bs.modal', function(event) {
     $("#image", modal).fileinput({
         showUpload: false
     });
-    $("#mobile-image", modal).fileinput({
+    $("#mobile", modal).fileinput({
         showUpload: false
     });
     prepareSubmitButton(event, modal);
@@ -43,7 +43,7 @@ $('#editImageModal').on('show.bs.modal', function (event) {
         initialPreview: '<img src="' + image.image_path +'/thumbnails/thumb-' + image.image_name + '.' + image.image_extension + '">',
         showUpload: false
     });
-    $("#mobile-image", modal).fileinput({
+    $("#mobile", modal).fileinput({
         initialPreview: '<img src="' + image.image_path +'/thumbnails/thumb-' + image.image_name + '.' + image.image_extension + '">',
         showUpload: false
     });

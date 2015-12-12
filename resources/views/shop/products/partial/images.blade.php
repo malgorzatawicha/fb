@@ -2,6 +2,7 @@
     <div class="pull-right">
         <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
            data-product="{{json_encode($product)}}"
+           data-submit-action="{{ route('admin.products.images.store', [$product->slug]) }}"
            data-toggle="modal" data-target="#createImageModal" >
             {{ trans('admin.create') }}
         </a>

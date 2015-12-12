@@ -14,11 +14,11 @@
                     </div>
                     <div class="form-group">
                         <label for="mobile-image-name">Mobile Image Name:</label>
-                        <input type="text" name="mobile_image_name" id="mobile-image-name" class="form-control">
+                        <input type="text" name="mobile_name" id="mobile-name" class="form-control">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="active" value="0"/> Is Active
+                            <input type="checkbox" name="is_active" value="0"/> Is Active
                         </label>
                     </div>
                     <div class="checkbox">
