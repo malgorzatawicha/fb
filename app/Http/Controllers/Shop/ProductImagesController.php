@@ -52,9 +52,9 @@ class ProductImagesController extends Controller
                 ],
                 'mobile' => [
                     'name' => $request->get('mobile_image_name'),
-                    'file' => $request->file('mobile_file')
+                    'file' => $request->file('mobile_image')
                 ],
-                'active' => $request->get('active'),
+                'is_active' => $request->get('is_active'),
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);
