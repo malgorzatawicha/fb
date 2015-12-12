@@ -20,10 +20,12 @@ $('#createImageModal').on('show.bs.modal', function(event) {
     var product = getDataForModal(event, 'product');
     var modal = $(this);
     $("#image", modal).fileinput({
-        showUpload: false
+        showUpload: false,
+        language: 'pl'
     });
     $("#mobile", modal).fileinput({
-        showUpload: false
+        showUpload: false,
+        language: 'pl'
     });
     prepareSubmitButton(event, modal);
 });
@@ -34,17 +36,25 @@ $('#editImageModal').on('show.bs.modal', function (event) {
     var modal = $(this);
     modal.find('.modal-title').text('Edit image ' + image.image_name);
 
-    for (var i in image) {
-        modal.find('.' + i).text(image[i]);
+    $('.image-name').val(image.image_name);
+    $('.mobile-name').val(image.mobile_name);
+    if (image.is_active == 1) {
+        $('.is_active', modal).prop('checked', true);
+    }
+
+    if (image.is_featured == 1) {
+        $('.is_featured', modal).prop('checked', true);
     }
 
     $("#image", modal).fileinput({
         initialPreview: '<img style="width:auto;height:160px;" src="' + image.image_path + image.image_filename + '">',
-        showUpload: false
+        showUpload: false,
+        language: 'pl'
     });
     $("#mobile", modal).fileinput({
         initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_path + image.mobile_filename+ '">',
-        showUpload: false
+        showUpload: false,
+        language: 'pl'
     });
 
     prepareSubmitButton(event, modal);
