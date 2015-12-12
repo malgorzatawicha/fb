@@ -10,20 +10,20 @@
                     <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                     <div class="form-group">
                         <label for="image-name">Image Name:</label>
-                        <input type="text" name="image_name" id="image-name" class="form-control">
+                        <input type="text" name="image_name" id="image-name" class="form-control image-name">
                     </div>
                     <div class="form-group">
                         <label for="mobile-name">Mobile Image Name:</label>
-                        <input type="text" name="mobile_name" id="mobile-name" class="form-control">
+                        <input type="text" name="mobile_name" id="mobile-name" class="form-control mobile-name">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="is_active" value="0"/> Is Active
+                            <input type="checkbox" name="is_active" value="0" class="is_active"/> Is Active
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="is_featured" value="0"/> Is Featured
+                            <input type="checkbox" name="is_featured" value="0" class="is_featured"/> Is Featured
                         </label>
                     </div>
 
