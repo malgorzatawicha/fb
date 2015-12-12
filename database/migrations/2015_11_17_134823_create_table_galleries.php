@@ -16,7 +16,8 @@ class CreateTableGalleries extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->boolean('active');
+            $table->text('description');
+            $table->boolean('is_active');
             $table->timestamps();
         });    }
 
