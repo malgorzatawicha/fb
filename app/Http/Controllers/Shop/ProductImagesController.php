@@ -46,14 +46,16 @@ class ProductImagesController extends Controller
         $this->dispatchFromArray(StoreImage::class, [
             'product' => $product,
             'data' => [
-                'image_name' => $request->get('image_name'),
-                'image_extension' => $request->file('image')->getClientOriginalExtension(),
-                'mobile_image_name' => $request->get('mobile_image_name'),
-                'mobile_extension' => $request->file('mobile_image')->getClientOriginalExtension(),
+                'image' => [
+                    'name' => $request->get('image_name'),
+                    'file' => $request->file('image'),
+                ],
+                'mobile' => [
+                    'name' => $request->get('mobile_image_name'),
+                    'file' => $request->file('mobile_file')
+                ],
                 'active' => $request->get('active'),
                 'is_featured' => $request->get('is_featured'),
-                'image_file' => \Input::file('image'),
-                'mobile_file' => \Input::file('mobile_image')
             ]
         ]);
         return Redirect::route('admin.products.edit', ['products' => $product->slug]);
