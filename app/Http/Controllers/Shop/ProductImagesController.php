@@ -56,7 +56,7 @@ class ProductImagesController extends Controller
                 'mobile_file' => \Input::file('mobile_image')
             ]
         ]);
-        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
+        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
     }
 
     /**
