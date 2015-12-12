@@ -17,13 +17,24 @@ class StoreImage extends Job implements SelfHandling
 
     protected $product;
 
+    protected $image;
+
     const DST_FOLDER = '/images/products/';
     const DST_IMAGE = '';
     const DST_IMAGE_THUMBNAILS = 'thumbnails/';
     const DST_MOBILE = 'mobile/';
     const DST_MOBILE_THUMBNAILS = 'mobile/thumbnails/';
 
-    private $absolutePath;
+    protected $absolutePath;
+
+    protected $thumbnailSize = [
+        'w' => 60,
+        'h' => 60
+    ];
+
+    protected $imageFilename;
+
+    protected $mobileFilename;
 
     public function __construct(Product $product, array $data)
     {
@@ -34,87 +45,83 @@ class StoreImage extends Job implements SelfHandling
 
     public function handle()
     {
-        $image = $this->createImageObject();
-        $this->assignImagePaths($image);
-
-        $this->formatCheckboxValue($image);
-        $this->product->images()->save($image);
-
+        $this->image = new ProductImage([
+            'is_active' => $this->data['is_active'],
+            'is_featured' => $this->data['is_featured']
+        ]);
+        $this->formatCheckboxValue();
         $this->saveImage();
         $this->saveMobile();
+
+        $this->product->images()->save($this->image);
     }
 
     protected function saveImage()
     {
-        $imageFile = Image::make($this->data['image']['file']->getRealPath());
-        $this->saveImageFile($imageFile);
-        $this->saveImageThumnailFile($imageFile);
+        if (!empty($this->data['image']) && !empty($this->data['image']['file'])) {
+            $imageFile = Image::make($this->data['image']['file']->getRealPath());
+            $imagePath = $this->saveImageFile($imageFile);
+            $thumbPath = $this->saveImageThumnailFile($imageFile);
+
+            $this->image->image_name = $this->data['image']['name'];
+            $this->image->image_extension = $this->data['image']['file']->getClientOriginalExtension();
+            $this->image->image_filename = basename($imagePath);
+            $this->image->image_path = $this->getImagePath();
+            $this->image->image_thumbnail_extension = $this->data['image']['file']->getClientOriginalExtension();
+            $this->image->image_thumbnail_filename = basename($thumbPath);
+            $this->image->image_thumbnail_path = $this->getImageThumbnailPath();
+        }
     }
 
     protected function saveMobile()
     {
-        $mobileFile = Image::make($this->data['mobile']['file']->getRealPath());
-        $this->saveMobileFile($mobileFile);
-        $this->saveMobileThumnailFile($mobileFile);
-    }
+        if (!empty($this->data['mobile']) && !empty($this->data['mobile']['file'])) {
+            $mobileFile = Image::make($this->data['mobile']['file']->getRealPath());
+            $mobilePath = $this->saveMobileFile($mobileFile);
+            $thumbPath = $this->saveMobileThumnailFile($mobileFile);
 
-    protected function createImageObject()
-    {
-        $image = new ProductImage([
-            'image_name' => $this->data['image']['name'],
-            'image_extension' => $this->data['image']['file']->getClientOriginalExtension(),
-            'image_filename' => $this->getImageFileName(),
-            'image_thumbnail_extension' =>$this->data['image']['file']->getClientOriginalExtension(),
-            'mobile_name' => $this->data['mobile']['name'],
-            'mobile_extension' => $this->data['mobile']['file']->getClientOriginalExtension(),
-            'mobile_filename' => $this->getMobileFileName(),
-            'image_thumbnail_filename' => $this->getImageThumbnailFileName(),
-            'mobile_thumbnail_filename' => $this->getMobileThumbnailFileName(),
-            'mobile_thumbnail_extension' =>$this->data['mobile']['file']->getClientOriginalExtension(),
-            'is_active' => $this->data['is_active'],
-            'is_featured' => $this->data['is_featured']
-        ]);
-
-        return $image;
-    }
-
-    protected function assignImagePaths(ProductImage $image)
-    {
-        $image->image_path = $this->getImagePath();
-        $image->image_thumbnail_path = $this->getImageThumbnailPath();
-        $image->mobile_path = $this->getMobilePath();
-        $image->mobile_thumbnail_path = $this->getMobileThumbnailPath();
-        return $image;
+            $this->image->mobile_name = $this->data['mobile']['name'];
+            $this->image->mobile_extension = $this->data['mobile']['file']->getClientOriginalExtension();
+            $this->image->mobile_filename = basename($mobilePath);
+            $this->image->mobile_path = $this->getMobilePath();
+            $this->image->mobile_thumbnail_extension = $this->data['mobile']['file']->getClientOriginalExtension();
+            $this->image->mobile_thumbnail_filename = basename($thumbPath);
+            $this->image->mobile_thumbnail_path = $this->getMobileThumbnailPath();
+        }
     }
 
     protected function saveImageFile(\Intervention\Image\Image $image)
     {
         $path = $this->getAbsolutePath($this->getImagePath()) . $this->getImageFileName();
         $image->save($path);
+        return $path;
     }
 
     protected function saveImageThumnailFile(\Intervention\Image\Image $image)
     {
         $path = $this->getAbsolutePath($this->getImageThumbnailPath()) . $this->getImageThumbnailFileName();
-        $image->resize(60, 60)->save($path);
+        $image->resize($this->thumbnailSize['w'], $this->thumbnailSize['h'])->save($path);
+        return $path;
     }
 
     protected function saveMobileFile(\Intervention\Image\Image $image)
     {
         $path = $this->getAbsolutePath($this->getMobilePath()) . $this->getMobileFileName();
         $image->save($path);
+        return $path;
     }
 
     protected function saveMobileThumnailFile(\Intervention\Image\Image $image)
     {
         $path = $this->getAbsolutePath($this->getMobileThumbnailPath()) . $this->getMobileThumbnailFileName();
-        $image->resize(60, 60)->save($path);
+        $image->resize($this->thumbnailSize['w'], $this->thumbnailSize['h'])->save($path);
+        return $path;
     }
 
-    protected function formatCheckboxValue(ProductImage $image)
+    protected function formatCheckboxValue()
     {
-        $image->is_active = ($image->is_active == null) ? 0 : 1;
-        $image->is_featured = ($image->is_featured == null) ? 0 : 1;
+        $this->image->is_active = ($this->image->is_active == null) ? 0 : 1;
+        $this->image->is_featured = ($this->image->is_featured == null) ? 0 : 1;
     }
 
     protected function getImagePath()
@@ -142,11 +149,31 @@ class StoreImage extends Job implements SelfHandling
         return $this->absolutePath . $relativePath;
     }
 
+    protected function generateFileNameInFolder($path, $basename, $ext)
+    {
+            $name = md5($basename . time()) . '.' . $ext;
+
+            while(\File::exists($path . '/' . $name)) {
+                $name = md5($name . time()) . '.' . $ext;
+            }
+            return $name;
+
+    }
+
     protected function getImageFileName()
     {
-        $name = $this->data['image']['name'];
-        $extension = $this->data['image']['file']->getClientOriginalExtension();
-        return $name . '.' . $extension;
+        if (empty($this->imageFilename)) {
+            $extension = $this->data['image']['file']->getClientOriginalExtension();
+
+            $name = $this->generateFileNameInFolder(
+                $this->getImagePath(),
+                $this->data['image']['file']->getClientOriginalName(),
+                $extension
+            );
+
+            $this->imageFilename = $name;
+        }
+        return $this->imageFilename;
     }
 
     protected function getImageThumbnailFileName()
@@ -156,9 +183,18 @@ class StoreImage extends Job implements SelfHandling
 
     protected function getMobileFileName()
     {
-        $name = $this->data['mobile']['name'];
-        $extension = $this->data['mobile']['file']->getClientOriginalExtension();
-        return $name . '.' . $extension;
+        if (empty($this->mobileFilename)) {
+            $extension = $this->data['mobile']['file']->getClientOriginalExtension();
+
+            $name = $this->generateFileNameInFolder(
+                $this->getMobilePath(),
+                $this->data['mobile']['file']->getClientOriginalName(),
+                $extension
+            );
+
+            $this->mobileFilename = $name;
+        }
+        return $this->mobileFilename;
     }
 
     protected function getMobileThumbnailFileName()
