@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> {{ trans('shop.product_image.add') }}</button>
+                <button class="btn btn-primary submit-form"><span class="glyphicon glyphicon-plus-sign"></span> {{ trans('shop.product_image.add') }}</button>
             </div>
         </div>
     </div>
