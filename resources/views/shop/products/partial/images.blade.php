@@ -15,8 +15,7 @@
             @foreach($product->images as $image )
                 <div class="col-sm-3 thumb">
                         <a class="thumbnail" href="{{route('admin.products.images.show', ['product' => $product->slug, 'image' =>$image->id])}}">
-                            <img class="img-responsive" src="/images/products/thumbnails/{{ 'thumb-'. $image->image_name . '.' .
-               $image->image_extension . '?'. 'time='. time() }}">
+                            <img class="img-responsive" src="{{$image->image_thumbnail_path }}{{ $image->image_thumbnail_filename . '?'. 'time='. time() }}">
                         </a>
                     <div class="btn-group btn-group-justified">
                         <a class="btn btn-primary btn-sm" title="edit" href="#"
