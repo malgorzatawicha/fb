@@ -97,7 +97,7 @@ class ProductImagesController extends Controller
                     'name' => $request->get('mobile_name'),
                     'file' => $request->file('mobile')?$request->file('mobile')->getClientOriginalExtension():null
                 ],
-                'is_active' => $request->get('active'),
+                'is_active' => $request->get('is_active'),
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);

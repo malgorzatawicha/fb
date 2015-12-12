@@ -20,30 +20,13 @@ class UpdateImage extends StoreImage implements SelfHandling
 
     public function handle()
     {
-        $image = $this->changeImageObject();
-        $this->assignImagePaths($image);
-
-        $this->formatCheckboxValue($image);
-        $image->save();
-
-        if (!empty($this->data['image']['file'])) {
-            $this->saveImage();
-        }
-
-        if (!empty($this->data['mobile']['file'])) {
-            $this->saveMobile();
-        }
-    }
-
-    protected function changeImageObject()
-    {
-        $this->image->image_name = $this->data['image']['name'];
-        $this->image->image_extension = $this->data['image']['file']->getClientOriginalExtension();
-        $this->image->mobile_name = $this->data['mobile']['name'];
-        $this->image->mobile_extension = $this->data['mobile']['file']->getClientOriginalExtension();
         $this->image->is_active = $this->data['is_active'];
         $this->image->is_featured = $this->data['is_featured'];
+        $this->formatCheckboxValue();
 
-        return $this->image;
+        $this->saveImage();
+        $this->saveMobile();
+
+        $this->image->save();
     }
 }
