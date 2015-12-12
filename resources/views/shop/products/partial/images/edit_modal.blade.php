@@ -6,19 +6,16 @@
                 <h4 class="modal-title" id="editImageModalLabel">Edit Image</h4>
             </div>
             <div class="modal-body">
-                <form class='form' action="{{route('admin.products.images.update', ['product' => $product->slug, 'image' => $image->id])}}" method="POST" class="form" enctype="multipart/form-data">
+                <form class='form' action="" method="POST" class="form" enctype="multipart/form-data">
                     <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-                    {{ method_field('PATCH') }}
-                    <div>
-                        <ul>
-                            <li><h4>Image Name:   <span class="image_name"></span>.<span class="image_extension"></span></h4></li>
-                            <li><h4>Image Path:   <span class="image_path"></span> </h4> </li>
-                            <li><h4>Mobile Name:   <span class="mobile_image_name"></span>.<span class="mobile_extension"></span></h4> </li>
-                            <li><h4>Mobile Path:   <span class="mobile_image_path"></span></h4></li>
-
-                        </ul>
+                    <div class="form-group">
+                        <label for="image-name">Image Name:</label>
+                        <input type="text" name="image_name" id="image-name" class="form-control">
                     </div>
-
+                    <div class="form-group">
+                        <label for="mobile-image-name">Mobile Image Name:</label>
+                        <input type="text" name="mobile_image_name" id="mobile-image-name" class="form-control">
+                    </div>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="active" value="0"/> Is Active
@@ -42,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> {{ trans('shop.product_image.add') }}</button>
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> {{ trans('shop.product_image.edit') }}</button>
             </div>
         </div>
     </div>
