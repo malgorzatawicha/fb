@@ -20,19 +20,21 @@ class CreateProductImagesTable extends Migration
             $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);
 
-            $table->string('image_name')->unique();
+            $table->string('image_name');
+            $table->string('image_filename')->unique();
             $table->string('image_path');
             $table->string('image_extension', 10);
 
-            $table->string('image_thumbnail_name')->unique();
+            $table->string('image_thumbnail_filename')->unique();
             $table->string('image_thumbnail_path');
             $table->string('image_thumbnail_extension', 10);
 
-            $table->string('mobile_name')->unique();
+            $table->string('mobile_name');
+            $table->string('mobile_filename')->unique();
             $table->string('mobile_path');
             $table->string('mobile_extension', 10);
 
-            $table->string('mobile_thumbnail_name')->unique();
+            $table->string('mobile_thumbnail_filename')->unique();
             $table->string('mobile_thumbnail_path');
             $table->string('mobile_thumbnail_extension', 10);
 
