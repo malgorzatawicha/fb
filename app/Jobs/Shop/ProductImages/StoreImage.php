@@ -63,9 +63,9 @@ class StoreImage extends Job implements SelfHandling
         $image = new ProductImage([
             'image_name' => $this->data['image']['name'],
             'image_extension' => $this->data['image']['file']->getClientOriginalExtension(),
-            'mobile_image_name' => $this->data['mobile']['name'],
+            'mobile_name' => $this->data['mobile']['name'],
             'mobile_extension' => $this->data['mobile']['file']->getClientOriginalExtension(),
-            'active' => $this->data['active'],
+            'is_active' => $this->data['is_active'],
             'is_featured' => $this->data['is_featured']
         ]);
 
