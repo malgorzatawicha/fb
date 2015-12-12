@@ -39,11 +39,11 @@ $('#editImageModal').on('show.bs.modal', function (event) {
     }
 
     $("#image", modal).fileinput({
-        initialPreview: '<img src="' + image.image_path +'/thumbnails/thumb-' + image.image_name + '.' + image.image_extension + '">',
+        initialPreview: '<img style="width:auto;height:160px;" src="' + image.image_path + image.image_filename + '">',
         showUpload: false
     });
     $("#mobile", modal).fileinput({
-        initialPreview: '<img src="' + image.image_path +'/thumbnails/thumb-' + image.image_name + '.' + image.image_extension + '">',
+        initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_path + image.mobile_filename+ '">',
         showUpload: false
     });
 
