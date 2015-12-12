@@ -13,12 +13,12 @@
                         <input type="text" name="image_name" id="image-name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="mobile-image-name">Mobile Image Name:</label>
-                        <input type="text" name="mobile_image_name" id="mobile-image-name" class="form-control">
+                        <label for="mobile-name">Mobile Image Name:</label>
+                        <input type="text" name="mobile_name" id="mobile-name" class="form-control">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="active" value="0"/> Is Active
+                            <input type="checkbox" name="is_active" value="0"/> Is Active
                         </label>
                     </div>
                     <div class="checkbox">
@@ -32,8 +32,8 @@
                         <input type="file" name="image" id="image">
                     </div>
                     <div class="form-group">
-                        <label for="mobile-image">Mobile Image:</label>
-                        <input type="file" name="mobile_image" id="mobile-image">
+                        <label for="mobile">Mobile Image:</label>
+                        <input type="file" name="mobile" id="mobile">
                     </div>
                 </form>
             </div>

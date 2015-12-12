@@ -89,12 +89,16 @@ class ProductImagesController extends Controller
             'product' => $product,
             'image' => $image,
             'data' => [
-                'image_extension' => $request->file('image')?$request->file('image')->getClientOriginalExtension():null,
-                'mobile_extension' => $request->file('mobile_image')?$request->file('mobile_image')->getClientOriginalExtension():null,
-                'active' => $request->get('active'),
+                'image' => [
+                    'name' => $request->get('image_name'),
+                    'file' => $request->file('image')?$request->file('image')->getClientOriginalExtension():null
+                ],
+                'mobile' => [
+                    'name' => $request->get('mobile_name'),
+                    'file' => $request->file('mobile')?$request->file('mobile')->getClientOriginalExtension():null
+                ],
+                'is_active' => $request->get('active'),
                 'is_featured' => $request->get('is_featured'),
-                'image_file' => \Input::file('image'),
-                'mobile_file' => \Input::file('mobile_image')
             ]
         ]);
         return Redirect::route('admin.products.images.index', ['products' => $product->slug]);

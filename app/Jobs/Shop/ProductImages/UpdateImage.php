@@ -15,67 +15,35 @@ class UpdateImage extends StoreImage implements SelfHandling
     public function __construct(Product $product, ProductImage $image, array $data)
     {
         parent::__construct($product, $data);
+        $this->image = $image;
     }
 
     public function handle()
     {
-        $image = $this->createImageObject();
+        $image = $this->changeImageObject();
         $this->assignImagePaths($image);
 
         $this->formatCheckboxValue($image);
         $image->save();
 
-        if (!empty($this->data['image_file'])) {
-            $imageFile = Image::make($this->data['image_file']->getRealPath());
-            $this->saveImageFile($imageFile);
-            $this->saveThumnailFile($imageFile);
+        if (!empty($this->data['image']['file'])) {
+            $this->saveImage();
         }
 
-        if (!empty($this->data['mobile_file'])) {
-            $mobileFile = Image::make($this->data['mobile_file']->getRealPath());
-            $this->saveMobileFile($mobileFile);
+        if (!empty($this->data['mobile']['file'])) {
+            $this->saveMobile();
         }
     }
 
-    protected function createImageObject()
+    protected function changeImageObject()
     {
-        $image = new ProductImage([
-            'image_extension' => $this->data['image_extension'],
-            'mobile_extension' => $this->data['mobile_extension'],
-            'active' => $this->data['active'],
-            'is_featured' => $this->data['is_featured']
-        ]);
+        $this->image->image_name = $this->data['image']['name'];
+        $this->image->image_extension = $this->data['image']['file']->getClientOriginalExtension();
+        $this->image->mobile_name = $this->data['mobile']['name'];
+        $this->image->mobile_extension = $this->data['mobile']['file']->getClientOriginalExtension();
+        $this->image->is_active = $this->data['is_active'];
+        $this->image->is_featured = $this->data['is_featured'];
 
-        return $image;
-    }
-
-    private function saveImageFile(\Intervention\Image\Image $image)
-    {
-        $name = $this->data['image_name'];
-        $extension = $this->data['image_extension'];
-
-        $path = public_path() . self::DESTINATION_FOLDER . $name . '.' . $extension;
-
-        $image->save($path);
-    }
-
-    private function saveThumnailFile(\Intervention\Image\Image $image)
-    {
-        $name = $this->data['image_name'];
-        $extension = $this->data['image_extension'];
-
-        $path = public_path() . self::DESTINATION_THUMBNAILS . 'thumb-' . $name . '.' . $extension;
-
-        $image->resize(60, 60)->save($path);
-    }
-
-    private function saveMobileFile(\Intervention\Image\Image $image)
-    {
-        $name = $this->data['mobile_image_name'];
-        $extension = $this->data['mobile_extension'];
-
-        $path = public_path() . self::DESTINATION_MOBILE . $name . '.' . $extension;
-
-        $image->save($path);
+        return $this->image;
     }
 }

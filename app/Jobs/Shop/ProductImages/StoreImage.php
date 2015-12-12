@@ -44,14 +44,14 @@ class StoreImage extends Job implements SelfHandling
         $this->saveMobile();
     }
 
-    private function saveImage()
+    protected function saveImage()
     {
         $imageFile = Image::make($this->data['image']['file']->getRealPath());
         $this->saveImageFile($imageFile);
         $this->saveImageThumnailFile($imageFile);
     }
 
-    private function saveMobile()
+    protected function saveMobile()
     {
         $mobileFile = Image::make($this->data['mobile']['file']->getRealPath());
         $this->saveMobileFile($mobileFile);
@@ -111,51 +111,51 @@ class StoreImage extends Job implements SelfHandling
         $image->is_featured = ($image->is_featured == null) ? 0 : 1;
     }
 
-    private function getImagePath()
+    protected function getImagePath()
     {
         return self::DST_FOLDER . self::DST_IMAGE;
     }
 
-    private function getImageThumbnailPath()
+    protected function getImageThumbnailPath()
     {
         return self::DST_FOLDER . self::DST_IMAGE_THUMBNAILS;
     }
 
-    private function getMobilePath()
+    protected function getMobilePath()
     {
         return self::DST_FOLDER . self::DST_MOBILE;
     }
 
-    private function getMobileThumbnailPath()
+    protected function getMobileThumbnailPath()
     {
         return self::DST_FOLDER . self::DST_MOBILE_THUMBNAILS;
     }
 
-    private function getAbsolutePath($relativePath)
+    protected function getAbsolutePath($relativePath)
     {
         return $this->absolutePath . $relativePath;
     }
 
-    private function getImageFileName()
+    protected function getImageFileName()
     {
         $name = $this->data['image']['name'];
         $extension = $this->data['image']['file']->getClientOriginalExtension();
         return $name . '.' . $extension;
     }
 
-    private function getImageThumbnailFileName()
+    protected function getImageThumbnailFileName()
     {
         return 'thumb-' . $this->getImageFileName();
     }
 
-    private function getMobileFileName()
+    protected function getMobileFileName()
     {
         $name = $this->data['mobile']['name'];
         $extension = $this->data['mobile']['file']->getClientOriginalExtension();
         return $name . '.' . $extension;
     }
 
-    private function getMobileThumbnailFileName()
+    protected function getMobileThumbnailFileName()
     {
         return 'thumb-' . $this->getImageFileName();
     }
