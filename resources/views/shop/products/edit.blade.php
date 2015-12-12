@@ -18,7 +18,7 @@
 
                 <div class="tab-content col-sm-9" id="productTabsContent">
                     <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
-                        @include('shop.products.partial.create_basics')
+                        @include('shop.products.partial.edit_basics', ['product' => $product])
                     </div>
                     <div aria-labelledby="images-tab" id="images" class="tab-pane fade" role="tabpanel">
                         @include('shop.products.partial.images', ['product'=>$product])
