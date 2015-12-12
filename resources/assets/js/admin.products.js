@@ -30,7 +30,6 @@ $('#createImageModal').on('show.bs.modal', function(event) {
 $('#editImageModal').on('show.bs.modal', function (event) {
     var image = getDataForModal(event, 'image');
     var product = getDataForModal(event, 'product');
-    var submitAction = getDataForModal(event, 'submit-action');
 
     var modal = $(this);
     modal.find('.modal-title').text('Edit image ' + image.image_name);

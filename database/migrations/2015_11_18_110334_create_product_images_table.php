@@ -17,7 +17,7 @@ class CreateProductImagesTable extends Migration
 
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
-            $table->boolean('active')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);
 
             $table->string('image_name')->unique();

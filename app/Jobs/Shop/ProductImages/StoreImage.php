@@ -107,7 +107,7 @@ class StoreImage extends Job implements SelfHandling
 
     protected function formatCheckboxValue(ProductImage $image)
     {
-        $image->active = ($image->active == null) ? 0 : 1;
+        $image->is_active = ($image->is_active == null) ? 0 : 1;
         $image->is_featured = ($image->is_featured == null) ? 0 : 1;
     }
 

@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="mobile-image">Mobile Image:</label>
-                        <input type="file" name="mobile_image" id="mobile-image">
+                        <input type="file" name="mobile" id="mobile-image">
                     </div>
                 </form>
             </div>
