@@ -101,7 +101,7 @@ class ProductImagesController extends Controller
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);
-        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
+        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
     }
 
 
@@ -118,6 +118,6 @@ class ProductImagesController extends Controller
             'product' => $product,
             'image' => $image,
         ]);
-        return Redirect::route('admin.products.images.index', ['products' => $product->slug]);
+        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
     }
 }

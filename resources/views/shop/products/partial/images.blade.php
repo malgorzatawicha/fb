@@ -17,6 +17,9 @@
                         <a class="thumbnail" href="{{route('admin.products.images.show', ['product' => $product->slug, 'image' =>$image->id])}}">
                             <img class="img-responsive" src="{{$image->image_thumbnail_path }}{{ $image->image_thumbnail_filename . '?'. 'time='. time() }}">
                         </a>
+                    <form action="{{route('admin.products.images.destroy', ['product' => $product->slug, 'image' => $image->id]) }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
                     <div class="btn-group btn-group-justified">
                         <a class="btn btn-primary btn-sm" title="edit" href="#"
                            data-image="{{json_encode($image)}}"
@@ -24,10 +27,13 @@
                            data-toggle="modal" data-target="#editImageModal" >
                             <i class="glyphicon glyphicon-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm" title="delete" data-imageid="{{$image->id}}" href="#">
+
+                        <a class="btn btn-danger btn-sm" title="delete" data-imageid="{{$image->id}}" onclick="$(this).parent().parent().submit()">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
+
                     </div>
+                    </form>
                 </div>
             @endforeach
         </div>
