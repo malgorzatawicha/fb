@@ -12,20 +12,33 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix
-        .copy('vendor/twbs/bootstrap/dist/fonts', 'public/build/fonts/')
+        .copy('bower_components/bootstrap/dist/fonts', 'public/build/fonts/')
         .copy('resources/assets/js/admin.products.js', 'public/js/admin.products.js')
         .copy('resources/assets/js/admin.galleries.js', 'public/js/admin.galleries.js')
+        .copy('bower_components/jquery/dist/jquery.min.js', 'resources/assets/js/vendor/jquery.min.js')
+        .copy('bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js', 'resources/assets/js/vendor/canvas-to-blob.min.js')
+        .copy('bower_components/bootstrap-fileinput/js/fileinput.min.js', 'resources/assets/js/vendor/fileinput.min.js')
+        .copy('bower_components/bootstrap/dist/js/bootstrap.min.js', 'resources/assets/js/vendor/bootstrap.min.js')
+        .copy('bower_components/bootstrap-fileinput/js/fileinput_locale_pl.js', 'resources/assets/js/vendor/fileinput_locale_pl.js')
+        .copy('bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js', 'resources/assets/js/vendor/bootstrap-treeview.min.js')
+
+        .copy('bower_components/bootstrap/dist/css/bootstrap.min.css', 'resources/assets/css/vendor/bootstrap.min.css')
+        .copy('bower_components/bootstrap-fileinput/css/fileinput.min.css', 'resources/assets/css/vendor/fileinput.min.css')
+        .copy('bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css', 'resources/assets/css/vendor/bootstrap-treeview.min.css')
+
         .scripts([
-            "../../../vendor/components/jquery/jquery.min.js",
-            '../../../vendor/kartik-v/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
-            '../../../vendor/kartik-v/bootstrap-fileinput/js/fileinput.min.js',
-            "../../../vendor/twbs/bootstrap/dist/js/bootstrap.min.js",
-            "../../../vendor/kartik-v/bootstrap-fileinput/js/fileinput_locale_pl.js"
+            "vendor/jquery.min.js",
+            'vendor/canvas-to-blob.min.js',
+            'vendor/fileinput.min.js',
+            "vendor/bootstrap.min.js",
+            'vendor/fileinput.min.js',
+            'vendor/bootstrap-treeview.min.js'
         ], 'public/js')
 
         .styles([
-            '../../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
-            '../../../vendor/kartik-v/bootstrap-fileinput/css/fileinput.min.css',
+            'vendor/bootstrap.min.css',
+            'vendor/fileinput.min.css',
+            'vendor/bootstrap-treeview.min.css',
             'app.css'
         ], 'public/css')
 

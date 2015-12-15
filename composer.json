@@ -8,11 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "unisharp/laravel-ckeditor": "dev-master",
-        "twbs/bootstrap": "^3.3",
-        "components/jquery": "^2.1",
         "cviebrock/eloquent-sluggable": "^3.1",
-        "intervention/image": "~2.2",
-        "kartik-v/bootstrap-fileinput": "@dev"
+        "intervention/image": "~2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
