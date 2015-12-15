@@ -16,26 +16,6 @@ use Fb\Jobs\Gallery\GalleryImages\UpdateImage;
 class GalleryImagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Gallery $gallery)
-    {
-        return view('shop.gallery_images.index', ['gallery' => $gallery]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Gallery $gallery)
-    {
-        return view('shop.gallery_images.create', ['gallery' => $gallery]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,33 +38,12 @@ class GalleryImagesController extends Controller
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);
-        return Redirect::route('admin.galleries.edit', ['galleries' => $gallery->slug]);
+        return Redirect::route('admin.gallery.galleries.edit', ['galleries' => $gallery->slug]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gallery $gallery, GalleryImage $image)
+    public function update(EditImageRequest $request, Gallery $gallery, $imageId)
     {
-        return view('shop.gallery_images.show', ['gallery' => $gallery, 'image' => $image]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gallery $gallery, GalleryImage $image)
-    {
-        return view('shop.gallery_images.edit', ['gallery' => $gallery, 'image' => $image]);
-    }
-
-    public function update(EditImageRequest $request, Gallery $gallery, GalleryImage $image)
-    {
+        $image = GalleryImage::findOrFail($imageId);
         $this->dispatchFromArray(UpdateImage::class, [
             'gallery' => $gallery,
             'image' => $image,
@@ -100,7 +59,7 @@ class GalleryImagesController extends Controller
                 'is_active' => $request->get('is_active'),
             ]
         ]);
-        return Redirect::route('admin.galleries.edit', ['galleries' => $gallery->slug]);
+        return Redirect::route('admin.gallery.galleries.edit', ['galleries' => $gallery->slug]);
     }
 
 
@@ -111,12 +70,25 @@ class GalleryImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $gallery, GalleryImage $images)
+    public function destroy(Gallery $gallery, $imageId)
     {
+        $image = GalleryImage::findOrFail($imageId);
         $this->dispatchFromArray(DestroyImage::class, [
             'gallery' => $gallery,
             'image' => $image,
         ]);
-        return Redirect::route('admin.galleries.edit', ['galleries' => $gallery->slug]);
+        return Redirect::route('admin.gallery.galleries.edit', ['galleries' => $gallery->slug]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Gallery $gallery, $imageId)
+    {
+        $image = GalleryImage::findOrFail($imageId);
+        return view('admin.gallery.galleries.images.show', ['gallery' => $gallery, 'image' => $image]);
     }
 }

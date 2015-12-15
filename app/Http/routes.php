@@ -48,11 +48,7 @@ Route::group(
                 'as'   => 'admin.shop.products.deactivate'
             ]);
 
-            $router->bind('images', function($id){
-                return Fb\Models\Shop\ProductImage::where('id', $id)->first();
-            });
-
-            $router->resource('products.images', 'ProductImagesController');
+            $router->resource('products.images', 'ProductImagesController', ['only' => ['store', 'show', 'update', 'destroy']]);
 
         });
 
@@ -69,10 +65,7 @@ Route::group(
                 'uses' => 'GalleriesController@deactivate',
                 'as'   => 'admin.gallery.galleries.deactivate'
             ]);
-            $router->bind('gallery_images', function($id){
-                return Fb\Models\Gallery\GalleryImage::where('id', $id)->first();
-            });
-            $router->resource('galleries.images', 'GalleryImagesController');
+            $router->resource('galleries.images', 'GalleryImagesController', ['only' => ['store', 'show', 'update', 'destroy']]);
         });
     }
 );

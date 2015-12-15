@@ -24,7 +24,7 @@ class GalleriesController extends Controller
      */
     public function index()
     {
-        return view('gallery.galleries.index', ['galleries' => Gallery::all()]);
+        return view('admin.gallery.galleries.index', ['galleries' => Gallery::all()]);
     }
 
     /**
@@ -34,7 +34,7 @@ class GalleriesController extends Controller
      */
     public function create()
     {
-        return view('gallery.galleries.create');
+        return view('admin.gallery.galleries.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class GalleriesController extends Controller
     {
         $this->dispatchFromArray(StoreGallery::class, ['data' => $request->all()]);
 
-        return Redirect::route('admin.galleries.index');
+        return Redirect::route('admin.gallery.galleries.index');
     }
 
     /**
@@ -58,7 +58,7 @@ class GalleriesController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return view('gallery.galleries.show', ['gallery' => $gallery]);
+        return view('admin.gallery.galleries.show', ['gallery' => $gallery]);
     }
 
     /**
@@ -69,7 +69,7 @@ class GalleriesController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        return view('gallery.galleries.edit', ['gallery' => $gallery]);
+        return view('admin.gallery.galleries.edit', ['gallery' => $gallery]);
     }
 
     /**
@@ -93,7 +93,7 @@ class GalleriesController extends Controller
             ]
         );
 
-        return Redirect::route('admin.galleries.index');
+        return Redirect::route('admin.gallery.galleries.index');
     }
 
     /**
@@ -106,19 +106,19 @@ class GalleriesController extends Controller
     {
         $this->dispatchFromArray(DestroyGallery::class,['gallery' => $gallery]);
 
-        return Redirect::route('admin.galleries.index');
+        return Redirect::route('admin.gallery.galleries.index');
     }
 
 
     public function activate(Gallery $gallery)
     {
         $this->dispatchFromArray(ActivateGallery::class, ['gallery' => $gallery]);
-        return Redirect::route('admin.galleries.index');
+        return Redirect::route('admin.gallery.galleries.index');
     }
 
     public function deactivate(Gallery $gallery)
     {
         $this->dispatchFromArray(DeactivateGallery::class, ['gallery' => $gallery]);
-        return Redirect::route('admin.galleries.index');
+        return Redirect::route('admin.gallery.galleries.index');
     }
 }

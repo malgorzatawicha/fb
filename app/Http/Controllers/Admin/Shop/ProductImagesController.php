@@ -16,26 +16,6 @@ use Fb\Jobs\Shop\ProductImages\UpdateImage;
 class ProductImagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Product $product)
-    {
-        return view('shop.product_images.index', ['product' => $product]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Product $product)
-    {
-        return view('shop.product_images.create', ['product' => $product]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,33 +38,12 @@ class ProductImagesController extends Controller
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);
-        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
+        return Redirect::route('admin.shop.products.edit', ['products' => $product->slug]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product, ProductImage $image)
+    public function update(EditImageRequest $request, Product $product, $imageId)
     {
-        return view('shop.product_images.show', ['product' => $product, 'image' => $image]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product, ProductImage $image)
-    {
-        return view('shop.product_images.edit', ['product' => $product, 'image' => $image]);
-    }
-
-    public function update(EditImageRequest $request, Product $product, ProductImage $image)
-    {
+        $image = ProductImage::findOrFail($imageId);
         $this->dispatchFromArray(UpdateImage::class, [
             'product' => $product,
             'image' => $image,
@@ -101,7 +60,7 @@ class ProductImagesController extends Controller
                 'is_featured' => $request->get('is_featured'),
             ]
         ]);
-        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
+        return Redirect::route('admin.shop.products.edit', ['products' => $product->slug]);
     }
 
 
@@ -112,12 +71,25 @@ class ProductImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product, ProductImage $image)
+    public function destroy(Product $product, $imageId)
     {
+        $image = ProductImage::findOrFail($imageId);
         $this->dispatchFromArray(DestroyImage::class, [
             'product' => $product,
             'image' => $image,
         ]);
-        return Redirect::route('admin.products.edit', ['products' => $product->slug]);
+        return Redirect::route('admin.shop.products.edit', ['products' => $product->slug]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Product $product, $imageId)
+    {
+        $image = ProductImage::findOrFail($imageId);
+        return view('admin.shop.products.images.show', ['product' => $product, 'image' => $image]);
     }
 }

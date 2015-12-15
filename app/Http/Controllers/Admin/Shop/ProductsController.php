@@ -24,7 +24,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('shop.products.index', ['products' => Product::all()]);
+        return view('admin.shop.products.index', ['products' => Product::all()]);
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('shop.products.create');
+        return view('admin.shop.products.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductsController extends Controller
     {
         $this->dispatchFromArray(StoreProduct::class, ['data' => $request->all()]);
 
-        return Redirect::route('admin.products.index');
+        return Redirect::route('admin.shop.products.index');
     }
 
     /**
@@ -58,7 +58,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view('shop.products.show', ['product' => $product]);
+        return view('admin.shop.products.show', ['product' => $product]);
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('shop.products.edit', ['product' => $product]);
+        return view('admin.shop.products.edit', ['product' => $product]);
     }
 
     /**
@@ -93,7 +93,7 @@ class ProductsController extends Controller
             ]
         );
 
-        return Redirect::route('admin.products.index');
+        return Redirect::route('admin.shop.products.index');
     }
 
     /**
@@ -106,19 +106,19 @@ class ProductsController extends Controller
     {
         $this->dispatchFromArray(DestroyProduct::class,['product' => $product]);
 
-        return Redirect::route('admin.products.index');
+        return Redirect::route('admin.shop.products.index');
     }
 
 
     public function activate(Product $product)
     {
         $this->dispatchFromArray(ActivateProduct::class, ['product' => $product]);
-        return Redirect::route('admin.products.index');
+        return Redirect::route('admin.shop.products.index');
     }
 
     public function deactivate(Product $product)
     {
         $this->dispatchFromArray(DeactivateProduct::class, ['product' => $product]);
-        return Redirect::route('admin.products.index');
+        return Redirect::route('admin.shop.products.index');
     }
 }
