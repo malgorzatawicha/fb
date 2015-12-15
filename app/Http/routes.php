@@ -20,8 +20,12 @@ Route::bind('galleries', function($slug){
     return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
 });
 
-Route::bind('images', function($id){
+Route::bind('product_images', function($id){
     return Fb\Models\Shop\ProductImage::where('id', $id)->first();
+});
+
+Route::bind('gallery_images', function($id){
+    return Fb\Models\Gallery\GalleryImage::where('id', $id)->first();
 });
 
 Route::group(
@@ -61,7 +65,10 @@ Route::group(
             'as'   => 'admin.galleries.deactivate'
         ]);
 
-        Route::resource('products.images', 'Shop\ProductImagesController');
+        Route::resource('products.product_images', 'Shop\ProductImagesController');
+
+        Route::resource('galleries.gallery_images', 'Gallery\GalleryImagesController');
+
     }
 );
 

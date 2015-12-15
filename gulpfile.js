@@ -14,6 +14,7 @@ elixir(function(mix) {
     mix
         .copy('vendor/twbs/bootstrap/dist/fonts', 'public/build/fonts/')
         .copy('resources/assets/js/admin.products.js', 'public/js/admin.products.js')
+        .copy('resources/assets/js/admin.galleries.js', 'public/js/admin.galleries.js')
         .scripts([
             "../../../vendor/components/jquery/jquery.min.js",
             '../../../vendor/kartik-v/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',

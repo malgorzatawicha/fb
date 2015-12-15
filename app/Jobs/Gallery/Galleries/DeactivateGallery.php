@@ -20,7 +20,7 @@ class DeactivateGallery extends Job implements SelfHandling
 
     public function handle()
     {
-        $this->gallery->active = false;
+        $this->gallery->is_active = false;
         $this->gallery->save();
 
         return $this->gallery;

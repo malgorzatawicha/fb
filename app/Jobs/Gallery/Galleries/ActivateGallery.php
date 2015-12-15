@@ -20,7 +20,7 @@ class ActivateGallery extends Job implements SelfHandling
 
     public function handle()
     {
-        $this->gallery->active = true;
+        $this->gallery->is_active = true;
         $this->gallery->save();
 
         return $this->gallery;

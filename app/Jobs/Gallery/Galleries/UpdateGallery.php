@@ -27,6 +27,7 @@ class UpdateGallery extends Job implements SelfHandling
     public function handle()
     {
         $this->gallery->name = !empty($this->data['name'])?$this->data['name']:'';
+        $this->gallery->description =  !empty($this->data['description'])?$this->data['description']:'';
         $this->gallery->save();
 
         return $this->gallery;

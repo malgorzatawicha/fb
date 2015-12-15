@@ -23,6 +23,7 @@ class StoreGallery extends Job implements SelfHandling
         $gallery = new Gallery();
 
         $gallery->name = !empty($this->data['name'])?$this->data['name']:'';
+        $gallery->description =  !empty($this->data['description'])?$this->data['description']:'';
         $gallery->save();
 
         return $gallery;

@@ -16,4 +16,9 @@ class Gallery extends Model implements SluggableInterface
         'on_update'  => true
     ];
 
+    public function images()
+    {
+        return $this->hasMany(GalleryImage::class);
+    }
+
 }

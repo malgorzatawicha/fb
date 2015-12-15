@@ -6,24 +6,23 @@
             <h4>{{trans('gallery.galleries')}} - {{trans('admin.create')}}</h4>
         </div>
         <div class="panel-body">
-            @include('common.errors')
-            <form action="{{ route('admin.galleries.store') }}" method="POST" class="form-horizontal">
-                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-                <div class="form-group">
-                    <label for="gallery-name" class="col-sm-3 control-label">{{trans('gallery.gallery.name')}}</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="name" id="gallery-name" class="form-control"/>
+            <div class="row">
+                <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="galleryTabs">
+                    <li class="active" role="presentation">
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content col-sm-9" id="galleryTabsContent">
+                    <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
+                        @include('gallery.galleries.partial.create_basics')
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('admin.galleries.index')}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> {{ trans('gallery.gallery.add') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+@stop
+@section('scripts')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/js/admin.galleries.js"></script>
 @stop

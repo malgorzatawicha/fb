@@ -9,12 +9,13 @@
         <div class="panel-body">
             @if (count($galleries) > 0)
                 <table class="table table-striped">
-                    <thead><tr><th>{{trans('gallery.gallery.id')}}</th><th>{{trans('gallery.gallery.name')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
+                    <thead><tr><th>{{trans('gallery.gallery.id')}}</th><th>{{trans('gallery.gallery.name')}}</th><th>{{trans('gallery.gallery.description')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
                     <tbody>
                     @foreach($galleries as $gallery)
                         <tr>
                             <td>{{$gallery->id}}</td>
                             <td>{{$gallery->name}}</td>
+                            <td>{!! $gallery->description !!}</td>
                             <td>
                                 @if($gallery->active)
                                     <form action="{{route('admin.galleries.deactivate', [$gallery->slug])}}" method="POST">

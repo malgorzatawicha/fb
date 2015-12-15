@@ -81,6 +81,10 @@ class GalleriesController extends Controller
      */
     public function update(EditGalleryRequest $request, Gallery $gallery)
     {
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
         $this->dispatchFromArray(
             UpdateGallery::class,
             [
