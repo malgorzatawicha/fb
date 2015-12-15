@@ -10,78 +10,85 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::bind('pages', function($slug){
-   return Fb\Models\Cms\Page::where('slug', $slug)->first();
-});
-Route::bind('products', function($slug){
-   return Fb\Models\Shop\Product::where('slug', $slug)->first();
-});
-Route::bind('galleries', function($slug){
-    return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
-});
-
-Route::bind('product_images', function($id){
-    return Fb\Models\Shop\ProductImage::where('id', $id)->first();
-});
-
-Route::bind('gallery_images', function($id){
-    return Fb\Models\Gallery\GalleryImage::where('id', $id)->first();
-});
 
 Route::group(
-    ['prefix' => 'admin', 'middleware' => ['auth']],
+    ['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']],
     function () use ($router) {
         $router->get('/', [
-            'uses' => 'Admin\DashboardController@index',
+            'uses' => 'DashboardController@index',
             'as'   => 'admin.home'
         ]);
 
-        $router->resource('pages', 'Cms\PagesController');
-        $router->patch('pages/{pages}/activate', [
-            'uses' => 'Cms\PagesController@activate',
-            'as'   => 'admin.pages.activate'
-        ]);
-        $router->patch('pages/{pages}/deactivate', [
-            'uses' => 'Cms\PagesController@deactivate',
-            'as'   => 'admin.pages.deactivate'
-        ]);
-        $router->resource('products', 'Shop\ProductsController');
-        $router->patch('products/{products}/activate', [
-            'uses' => 'Shop\ProductsController@activate',
-            'as'   => 'admin.products.activate'
-        ]);
-        $router->patch('products/{products}/deactivate', [
-            'uses' => 'Shop\ProductsController@deactivate',
-            'as'   => 'admin.products.deactivate'
-        ]);
+        $router->group(['prefix'=>'cms','namespace' => 'Cms'], function() use($router) {
+            $router->bind('pages', function($slug){
+                return Fb\Models\Cms\Page::where('slug', $slug)->first();
+            });
+            $router->resource('pages', 'PagesController');
+            $router->patch('pages/{pages}/activate', [
+                'uses' => 'PagesController@activate',
+                'as'   => 'admin.cms.pages.activate'
+            ]);
+            $router->patch('pages/{pages}/deactivate', [
+                'uses' => 'PagesController@deactivate',
+                'as'   => 'admin.cms.pages.deactivate'
+            ]);
+        });
 
-        $router->resource('galleries', 'Gallery\GalleriesController');
-        $router->patch('galleries/{galleries}/activate', [
-            'uses' => 'Gallery\GalleriesController@activate',
-            'as'   => 'admin.galleries.activate'
-        ]);
-        $router->patch('galleries/{galleries}/deactivate', [
-            'uses' => 'Gallery\GalleriesController@deactivate',
-            'as'   => 'admin.galleries.deactivate'
-        ]);
+        $router->group(['prefix'=>'shop', 'namespace' => 'Shop'], function() use($router){
+            $router->bind('products', function($slug){
+                return Fb\Models\Shop\Product::where('slug', $slug)->first();
+            });
+            $router->resource('products', 'ProductsController');
+            $router->patch('products/{products}/activate', [
+                'uses' => 'ProductsController@activate',
+                'as'   => 'admin.shop.products.activate'
+            ]);
+            $router->patch('products/{products}/deactivate', [
+                'uses' => 'ProductsController@deactivate',
+                'as'   => 'admin.shop.products.deactivate'
+            ]);
 
-        Route::resource('products.product_images', 'Shop\ProductImagesController');
+            $router->bind('images', function($id){
+                return Fb\Models\Shop\ProductImage::where('id', $id)->first();
+            });
 
-        Route::resource('galleries.gallery_images', 'Gallery\GalleryImagesController');
+            $router->resource('products.images', 'ProductImagesController');
 
+        });
+
+        $router->group(['prefix'=>'gallery', 'namespace' => 'Gallery'], function() use($router) {
+            $router->bind('galleries', function($slug){
+                return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
+            });
+            $router->resource('galleries', 'GalleriesController');
+            $router->patch('galleries/{galleries}/activate', [
+                'uses' => 'GalleriesController@activate',
+                'as'   => 'admin.gallery.galleries.activate'
+            ]);
+            $router->patch('galleries/{galleries}/deactivate', [
+                'uses' => 'GalleriesController@deactivate',
+                'as'   => 'admin.gallery.galleries.deactivate'
+            ]);
+            $router->bind('gallery_images', function($id){
+                return Fb\Models\Gallery\GalleryImage::where('id', $id)->first();
+            });
+            $router->resource('galleries.images', 'GalleryImagesController');
+        });
     }
 );
 
-// Authentication Routes...
-Route::get('auth/login', [
-    'uses' => 'Auth\AuthController@getLogin',
-    'as'   => 'auth.login.form'
-]);
-Route::post('auth/login', [
-    'uses' => 'Auth\AuthController@postLogin',
-    'as'   => 'auth.login'
-]);
-Route::get('auth/logout', [
-    'uses' => 'Auth\AuthController@getLogout',
-    'as'   => 'auth.logout'
-]);
+$router->group(['prefix' => 'admin/auth', 'namespace' => 'Admin\Auth'], function()use($router) {
+    // Authentication Routes...
+    $router->get('login', [
+        'uses' => 'AuthController@getLogin',
+        'as'   => 'admin.auth.login.form'
+    ]);
+    $router->post('login', [
+        'uses' => 'AuthController@postLogin',
+        'as'   => 'admin.auth.login'
+    ]);
+    $router->get('logout', [
+        'uses' => 'AuthController@getLogout',
+        'as'   => 'admin.auth.logout'
+    ]);
+});
