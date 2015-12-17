@@ -144,6 +144,7 @@ return [
         Fb\Providers\AuthServiceProvider::class,
         Fb\Providers\EventServiceProvider::class,
         Fb\Providers\RouteServiceProvider::class,
+        Fb\Providers\HelperServiceProvider::class,
 
         /**
          * Vendor Service Providers...
