@@ -3,6 +3,8 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
+            <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.edit')}}" class="btn btn-danger">{{ trans('admin.delete') }}</a></div>
+            <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.edit')}}" class="btn btn-default">{{ trans('admin.edit') }}</a></div>
             <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
             <h4>{{trans('gallery.categories')}}</h4>
         </div>
@@ -32,6 +34,6 @@
             }
 
             location.href = $(this).attr('href');
-        })
+        });
     </script>
 @stop
