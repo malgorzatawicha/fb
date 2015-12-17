@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
+use Fb\Models\Gallery\GalleryCategory;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.gallery.categories.index', [ 'categories' => GalleryCategory::all()->toHierarchy()]);
     }
 
     /**
