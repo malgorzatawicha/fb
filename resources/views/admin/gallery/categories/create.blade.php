@@ -10,6 +10,7 @@
             <form action="{{ route('admin.gallery.categories.store') }}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}
                 <div id="tree"></div>
+                <input type="hidden" name="parent" id='parent' value="">
                 <div class="form-group">
                     <label for="category-name" class="col-sm-3 control-label">{{ trans('gallery.category.name') }}</label>
                     <div class="col-sm-6">
@@ -32,6 +33,14 @@
     <script>
         $("#tree").treeview({
             data: {!! createTree($categories, $parent) !!}
+        });
+
+        @if($parent)
+            $('#parent').val({{$parent->getKey()}});
+        @endif
+
+        $('#tree').on('nodeSelected', function(event, data) {
+            $('#parent').val(data.id);
         });
     </script>
 @stop
