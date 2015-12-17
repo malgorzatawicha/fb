@@ -16,3 +16,12 @@
     </div>
 
 @stop
+
+@section('scripts')
+    <script>
+        $("#tree").treeview({
+            data: {!! createTree($categories) !!}
+        });
+
+    </script>
+@stop
