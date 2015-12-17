@@ -66,6 +66,7 @@ Route::group(
                 'as'   => 'admin.gallery.galleries.deactivate'
             ]);
             $router->resource('galleries.images', 'GalleryImagesController', ['only' => ['store', 'show', 'update', 'destroy']]);
+            $router->resource('categories', 'CategoriesController');
         });
     }
 );
