@@ -1,6 +1,6 @@
 <?php
-
-function createTree(\Illuminate\Support\Collection $collection)
+use Illuminate\Support\Collection;
+function createTree(Collection $collection, $selectedNode = null)
 {
     if ($collection->isEmpty()) {
         return json_encode([]);
@@ -8,20 +8,26 @@ function createTree(\Illuminate\Support\Collection $collection)
 
     $array = [];
     foreach ($collection as $node) {
-        $array[] = collectTree($node);
+        $array[] = collectTree($node, $selectedNode);
     }
 
     return json_encode($array);
 }
 
-function collectTree($node) {
+function collectTree($node, $selectedNode = null) {
+    $nodeData = [
+        'text' => $node->name,
+        'id' => $node->getKey(),
+        'state' => [
+            'selected' => !empty($selectedNode) &&($node->getKey() == $selectedNode->getKey())
+        ]
+    ];
     if( $node->isLeaf() ) {
-        return ['text' => $node->name, 'id' => $node->getKey()];
+        return $nodeData;
     } else {
-        $array = ['text' => $node->name, 'id' => $node->getKey()];
         foreach ($node->children as $child) {
-            $array['nodes'][] = collectTree($child);
+            $nodeData['nodes'][] = collectTree($child, $selectedNode);
         }
-        return $array;
+        return $nodeData;
     }
 }

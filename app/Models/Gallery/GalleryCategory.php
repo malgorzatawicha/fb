@@ -14,4 +14,8 @@ class GalleryCategory extends Node {
    */
   protected $table = 'gallery_categories';
 
+  public static function tree()
+  {
+      return self::all()->toHierarchy();
+  }
 }

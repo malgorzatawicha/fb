@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class CategoriesController extends Controller
 {
+    private function tree()
+    {
+        return ;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('admin.gallery.categories.index', [ 'categories' => GalleryCategory::all()->toHierarchy()]);
+        return view('admin.gallery.categories.index', [ 'categories' => GalleryCategory::tree()]);
     }
 
     /**
@@ -24,9 +28,16 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.gallery.categories.create');
+        $parent = null;
+        if ($request->has('node')) {
+            $parent = GalleryCategory::findOrFail($request->node);
+        }
+        return view('admin.gallery.categories.create', [
+            'categories' => GalleryCategory::tree(),
+            'parent' => $parent
+        ]);
     }
 
     /**

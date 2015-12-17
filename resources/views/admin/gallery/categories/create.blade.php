@@ -9,6 +9,7 @@
             @include('common.errors')
             <form action="{{ route('admin.gallery.categories.store') }}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}
+                <div id="tree"></div>
                 <div class="form-group">
                     <label for="category-name" class="col-sm-3 control-label">{{ trans('gallery.category.name') }}</label>
                     <div class="col-sm-6">
@@ -26,4 +27,11 @@
             </form>
         </div>
     </div>
+@stop
+@section('scripts')
+    <script>
+        $("#tree").treeview({
+            data: {!! createTree($categories, $parent) !!}
+        });
+    </script>
 @stop
