@@ -48,9 +48,14 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        GalleryCategory::create([
-            'name' => $request->name
-        ]);
+        if ($request->has('parent')) {
+            $parent = GalleryCategory::findOrFail($request->parent);
+            $parent->children()->create(['name' => $request->name]);
+        } else {
+            GalleryCategory::create([
+                'name' => $request->name
+            ]);
+        }
         return Redirect::route('admin.gallery.categories.index');
     }
 
