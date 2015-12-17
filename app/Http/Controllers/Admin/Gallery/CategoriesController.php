@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryCategory;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoriesController extends Controller
 {
@@ -36,7 +37,10 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        GalleryCategory::create([
+            'name' => $request->name
+        ]);
+        return Redirect::route('admin.gallery.categories.index');
     }
 
     /**
