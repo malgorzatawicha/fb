@@ -151,6 +151,7 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
     ],
 
     /*
