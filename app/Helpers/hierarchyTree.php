@@ -16,9 +16,9 @@ function createTree(\Illuminate\Support\Collection $collection)
 
 function collectTree($node) {
     if( $node->isLeaf() ) {
-        return ['text' => $node->name];
+        return ['text' => $node->name, 'id' => $node->getKey()];
     } else {
-        $array = ['text' => $node->name];
+        $array = ['text' => $node->name, 'id' => $node->getKey()];
         foreach ($node->children as $child) {
             $array['nodes'][] = collectTree($child);
         }
