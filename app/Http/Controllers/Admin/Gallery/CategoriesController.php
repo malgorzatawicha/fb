@@ -1,4 +1,4 @@
-<?php namespace Fb\Http\Controllers\Gallery;
+<?php namespace Fb\Http\Controllers\Admin\Gallery;
 
 use Illuminate\Http\Request;
 
