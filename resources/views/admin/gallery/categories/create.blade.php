@@ -39,6 +39,11 @@
             $('#parent').val({{$parent->getKey()}});
         @endif
 
+        var selectedNodes = $('#tree').treeview('getSelected');
+        if (selectedNodes.length) {
+            var selected = selectedNodes[0];
+            $("#tree").treeview('revealNode', selected);
+        }
         $('#tree').on('nodeSelected', function(event, data) {
             $('#parent').val(data.id);
         });
