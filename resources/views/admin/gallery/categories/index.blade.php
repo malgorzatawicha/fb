@@ -3,8 +3,14 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="pull-right"><a id="destroy-category" data-href="{{route('admin.gallery.categories.destroy')}}" href="#" class="btn btn-danger btn-disabled disabled">{{ trans('admin.delete') }}</a></div>
-            <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
+            <div class="pull-right">
+                <form data-href="{{route('admin.gallery.categories.destroy')}}" action="#" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button id="destroy-category" class="btn btn-danger btn-disabled disabled" disabled>{{trans('admin.delete')}}</button>
+                </form>
+            </div>
+            <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
             <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="#" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
             <h4>{{trans('gallery.categories')}}</h4>
         </div>
@@ -40,21 +46,31 @@
         var $editCategory = $("#edit-category");
         var $destroyCategory = $("#destroy-category");
 
-        $tree.on('nodeUnselected', function(event, data) {
+        $tree.on('nodeUnselected', function() {
             $editCategory.attr('href', '#');
-            $destroyCategory.attr('href', '#');
-            $editCategory.addClass('btn-disabled').addClass('disabled');
-            $destroyCategory.addClass('btn-disabled').addClass('disabled');
+            $destroyCategory.parent().attr('action', '#');
+            disableButton($editCategory);
+            disableButton($destroyCategory);
         });
         $tree.on('nodeSelected', function(event, data) {
-            $editCategory.addClass('btn-disabled').addClass('disabled');
-            $destroyCategory.addClass('btn-disabled').addClass('disabled');
+            disableButton($editCategory);
+            disableButton($destroyCategory);
             if (data.id) {
                 $editCategory.attr('href', decodeURI($editCategory.data('href')).replace("\{categories\}", data.id));
-                $destroyCategory.attr('href', decodeURI($destroyCategory.data('href')).replace("\{categories\}", data.id));
-                $editCategory.removeClass('btn-disabled').removeClass('disabled');
-                $destroyCategory.removeClass('btn-disabled').removeClass('disabled');
+                $destroyCategory.parent().attr('action', decodeURI($destroyCategory.parent().data('href')).replace("\{categories\}", data.id));
+                enableButton($editCategory);
+                enableButton($destroyCategory);
             }
         });
+
+        function enableButton($button)
+        {
+            $button.removeClass('btn-disabled').removeClass('disabled').removeAttr('disabled');
+        }
+
+        function disableButton($button)
+        {
+            $button.addClass('btn-disabled').addClass('disabled').prop('disabled', true);
+        }
     </script>
 @stop
