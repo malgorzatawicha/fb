@@ -3,9 +3,9 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.edit')}}" class="btn btn-danger">{{ trans('admin.delete') }}</a></div>
-            <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.edit')}}" class="btn btn-default">{{ trans('admin.edit') }}</a></div>
-            <div class="pull-right"><a id="create-category" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
+            <div class="pull-right"><a id="destroy-category" data-href="{{route('admin.gallery.categories.destroy')}}" href="#" class="btn btn-danger btn-disabled disabled">{{ trans('admin.delete') }}</a></div>
+            <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
+            <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="#" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
             <h4>{{trans('gallery.categories')}}</h4>
         </div>
         <div class="panel-body">
@@ -21,7 +21,8 @@
 
 @section('scripts')
     <script>
-        $("#tree").treeview({
+        var $tree = $("#tree");
+        $tree.treeview({
             data: {!! createTree($categories) !!}
         });
 
@@ -34,6 +35,26 @@
             }
 
             location.href = $(this).attr('href');
+        });
+
+        var $editCategory = $("#edit-category");
+        var $destroyCategory = $("#destroy-category");
+
+        $tree.on('nodeUnselected', function(event, data) {
+            $editCategory.attr('href', '#');
+            $destroyCategory.attr('href', '#');
+            $editCategory.addClass('btn-disabled').addClass('disabled');
+            $destroyCategory.addClass('btn-disabled').addClass('disabled');
+        });
+        $tree.on('nodeSelected', function(event, data) {
+            $editCategory.addClass('btn-disabled').addClass('disabled');
+            $destroyCategory.addClass('btn-disabled').addClass('disabled');
+            if (data.id) {
+                $editCategory.attr('href', decodeURI($editCategory.data('href')).replace("\{categories\}", data.id));
+                $destroyCategory.attr('href', decodeURI($destroyCategory.data('href')).replace("\{categories\}", data.id));
+                $editCategory.removeClass('btn-disabled').removeClass('disabled');
+                $destroyCategory.removeClass('btn-disabled').removeClass('disabled');
+            }
         });
     </script>
 @stop
