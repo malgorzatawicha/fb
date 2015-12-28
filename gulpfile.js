@@ -12,6 +12,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix
+        .sass('app.scss')
         .copy('bower_components/bootstrap/dist/fonts', 'public/build/fonts/')
         .copy('resources/assets/js/admin.products.js', 'public/js/admin.products.js')
         .copy('resources/assets/js/admin.galleries.js', 'public/js/admin.galleries.js')
@@ -39,7 +40,7 @@ elixir(function(mix) {
             'vendor/bootstrap.min.css',
             'vendor/fileinput.min.css',
             'vendor/bootstrap-treeview.min.css',
-            'app.css'
+            '../../../public/css/app.css'
         ], 'public/css')
 
         .version(["css/all.css", "js/all.js"]);
