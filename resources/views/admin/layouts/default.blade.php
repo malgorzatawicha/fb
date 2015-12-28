@@ -29,8 +29,13 @@
                     <li><a href="/admin">Home</a></li>
                     <li><a href="{{ route('admin.cms.pages.index') }}">{{trans('cms.pages')}}</a></li>
                     <li><a href="{{ route('admin.shop.products.index') }}">{{trans('shop.products')}}</a></li>
-                    <li><a href="{{ route('admin.gallery.galleries.index') }}">{{trans('gallery.galleries')}}</a></li>
-
+                    <li class="dropdown">
+                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('gallery.galleries')}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu inverse-dropdown">
+                            <li><a href="{{ route('admin.gallery.galleries.index') }}">{{trans('gallery.galleries')}}</a></li>
+                            <li><a href="{{ route('admin.gallery.categories.index') }}">{{trans('gallery.categories')}}</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
