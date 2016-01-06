@@ -78,7 +78,19 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = GalleryCategory::findOrFail($id);
+        $parent = null;
+        if (!$category->isRoot()) {
+            $parent = $category->parent()->get();
+        }
+        return view(
+            'admin.gallery.categories.edit',
+            [
+                'category' => $category,
+                'parent' => $parent,
+                'categories' => GalleryCategory::tree()
+            ]
+        );
     }
 
     /**
