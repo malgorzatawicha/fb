@@ -10,6 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['namespace' => 'Front'], function() use($router){
+   $router->get('/', [
+       'uses' => 'MainController@index',
+       'as' => 'home'
+   ]);
+});
 
 Route::group(
     ['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']],
