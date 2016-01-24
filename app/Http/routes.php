@@ -25,6 +25,15 @@ Route::group(
             'as'   => 'admin.home'
         ]);
 
+        $router->get('/site', [
+            'uses' => 'SiteController@edit',
+            'as' => 'site.edit'
+        ]);
+        $router->put('/site', [
+            'uses' => 'SiteController@update',
+            'as' => 'site.update'
+        ]);
+
         $router->group(['prefix'=>'cms','namespace' => 'Cms'], function() use($router) {
             $router->bind('pages', function($slug){
                 return Fb\Models\Cms\Page::where('slug', $slug)->first();
