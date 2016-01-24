@@ -24,9 +24,9 @@ class EditSiteRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'alpha_num | required | max:255',
-            'favicon' => 'mimes:ico | max:1000',
-            'banner' => 'mimes:jpeg,jpg,bmp,png | max:1000',
+            'title' => 'required | max:255',
+            'favicon' => 'mimes:ico|max:1000',
+            'banner' => 'mimes:jpeg,jpg,bmp,png| max:1000',
         ];
     }
 }
