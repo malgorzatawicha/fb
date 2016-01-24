@@ -31,6 +31,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <input type="hidden" id="banner-path" value="{{$site->banner_path}}">
+                    <input type="hidden" id="banner-filename" value="{{$site->banner_filename}}">
+                    <label for="favicon" class="col-sm-3 control-label">Banner File name:</label>
+                    <div class="col-sm-6 favicon">
+                        <input type="file" name="banner" id="banner">
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
                         <a href="{{route('admin.home')}}" class="btn btn-primary">{{trans('admin.back')}}</a>
                         <button type="submit" class="btn btn-default">
@@ -38,6 +46,7 @@
                         </button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
