@@ -7,14 +7,16 @@
     <title>FB Shop</title>
 
     <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
+    @yield('styles')
 </head>
 
 <body>
-
 <div class="container" role="main">
     @yield('content')
 </div>
+<footer class="footer"></footer>
 <script src="{{ elixir('js/all.js') }}"></script>
+
 @yield('scripts')
 </body>
 </html>
