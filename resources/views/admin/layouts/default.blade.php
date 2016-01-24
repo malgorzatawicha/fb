@@ -7,6 +7,7 @@
     <title>FB Shop</title>
 
     <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 </head>
 
 <body>
