@@ -27,11 +27,11 @@ Route::group(
 
         $router->get('/site', [
             'uses' => 'SiteController@edit',
-            'as' => 'site.edit'
+            'as' => 'admin.site.edit'
         ]);
         $router->put('/site', [
             'uses' => 'SiteController@update',
-            'as' => 'site.update'
+            'as' => 'admin.site.update'
         ]);
 
         $router->group(['prefix'=>'cms','namespace' => 'Cms'], function() use($router) {
