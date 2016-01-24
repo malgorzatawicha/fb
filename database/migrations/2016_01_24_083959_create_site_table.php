@@ -17,10 +17,8 @@ class CreateSiteTable extends Migration
             $table->string('title');
             $table->text('description');
 
-            $table->string('banner_name');
             $table->string('banner_filename')->unique();
             $table->string('banner_path');
-            $table->string('banner_extension', 10);
 
             $table->timestamps();
         });
