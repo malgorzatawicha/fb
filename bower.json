@@ -20,7 +20,6 @@
   "dependencies": {
     "bootstrap-fileinput": "~4.2.8",
     "bootstrap-treeview": "~1.2.0",
-    "fontawesome": "https://github.com/FortAwesome/Font-Awesome.git#~4.2.0",
     "font-awesome": "fontawesome#~4.5.0"
   }
 }
