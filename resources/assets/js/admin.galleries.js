@@ -18,14 +18,9 @@ function prepareSubmitButton(event, modal)
 
 $('#createImageModal').on('show.bs.modal', function(event) {
     var modal = $(this);
-    $("#image", modal).fileinput({
-        showUpload: false,
-        language: 'pl'
-    });
-    $("#mobile", modal).fileinput({
-        showUpload: false,
-        language: 'pl'
-    });
+    initImage($("#image", modal));
+    initImage($("#mobile", modal));
+
     prepareSubmitButton(event, modal);
 });
 $('#editImageModal').on('show.bs.modal', function (event) {
@@ -44,15 +39,12 @@ $('#editImageModal').on('show.bs.modal', function (event) {
         $('.is_featured', modal).prop('checked', true);
     }
 
-    $("#image", modal).fileinput({
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.image_path + image.image_filename + '">',
-        showUpload: false,
-        language: 'pl'
+    initImage($("#image", modal), {
+        initialPreview: '<img style="width:auto;height:160px;" src="' + image.image_path + image.image_filename + '">'
     });
-    $("#mobile", modal).fileinput({
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_path + image.mobile_filename+ '">',
-        showUpload: false,
-        language: 'pl'
+
+    initImage($("#mobile", modal), {
+        initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_path + image.mobile_filename + '">'
     });
 
     prepareSubmitButton(event, modal);

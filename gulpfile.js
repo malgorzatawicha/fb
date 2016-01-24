@@ -14,6 +14,7 @@ elixir(function(mix) {
     mix
         .sass('app.scss')
         .copy('bower_components/bootstrap/dist/fonts', 'public/build/fonts/')
+        .copy('resources/assets/js/admin.tools.js', 'public/js/admin.tools.js')
         .copy('resources/assets/js/admin.products.js', 'public/js/admin.products.js')
         .copy('resources/assets/js/admin.galleries.js', 'public/js/admin.galleries.js')
         .copy('bower_components/jquery/dist/jquery.min.js', 'resources/assets/js/vendor/jquery.min.js')
