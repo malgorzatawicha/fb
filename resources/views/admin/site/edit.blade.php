@@ -9,7 +9,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal">
+            <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                 <div class="form-group">
