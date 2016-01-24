@@ -26,6 +26,8 @@ elixir(function(mix) {
         .copy('bower_components/bootstrap-fileinput/css/fileinput.min.css', 'resources/assets/css/vendor/fileinput.min.css')
         .copy('bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css', 'resources/assets/css/vendor/bootstrap-treeview.min.css')
 
+        .copy('bower_components/font-awesome/css/font-awesome.min.css', 'resources/assets/css/vendor/font-awesome.min.css')
+
         .scripts([
             "vendor/jquery.min.js",
             'vendor/canvas-to-blob.min.js',
@@ -39,6 +41,7 @@ elixir(function(mix) {
             'vendor/bootstrap.min.css',
             'vendor/fileinput.min.css',
             'vendor/bootstrap-treeview.min.css',
+            'vendor/font-awesome.min.css',
             '../../../public/css/app.css'
         ], 'public/css')
 
