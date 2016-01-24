@@ -21,7 +21,13 @@
                 <div class="form-group">
                     <label for="site-description" class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-6">
-                        <textarea name="description" id="site-description" class="form-controll" rows="10" cols="80">{{$site->description}}</textarea>
+                        <textarea name="description" id="site-description" class="form-control" rows="2" cols="80">{{$site->description}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="site-keywords" class="col-sm-3 control-label">Keywords</label>
+                    <div class="col-sm-6">
+                        <textarea name="keywords" id="site-keywords" class="form-control" rows="2" cols="80">{{$site->keywords}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">

@@ -11,6 +11,7 @@ class Site extends Model
     protected $fillable = [
         'title',
         'description',
+        'keywords',
         'banner_filename',
         'banner_path',
     ];

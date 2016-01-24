@@ -25,6 +25,8 @@ class EditSiteRequest extends Request
     {
         return [
             'title' => 'required | max:255',
+            'description' => 'max:255',
+            'keywords' => 'max:255',
             'favicon' => 'mimes:ico|max:1000',
             'banner' => 'mimes:jpeg,jpg,bmp,png| max:1000',
         ];

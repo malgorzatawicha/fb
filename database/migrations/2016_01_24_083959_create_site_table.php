@@ -15,7 +15,8 @@ class CreateSiteTable extends Migration
         Schema::create('site', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('description');
+            $table->string('description');
+            $table->string('keywords');
 
             $table->string('banner_filename')->unique();
             $table->string('banner_path');

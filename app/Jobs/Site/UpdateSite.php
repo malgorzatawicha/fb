@@ -35,6 +35,7 @@ class UpdateSite extends Job implements SelfHandling
     {
         $this->site->title = $this->data['title'];
         $this->site->description = $this->data['description'];
+        $this->site->keywords = $this->data['keywords'];
         $this->saveFavicon();
         $this->saveBanner();
         $this->site->save();
