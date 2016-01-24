@@ -16,4 +16,13 @@ class Page extends Model implements SluggableInterface
         'on_update'  => true
     ];
 
+    protected $fillable = [
+        'name',
+        'title',
+        'description',
+        'body',
+        'logo_filename',
+        'logo_path',
+        'position'
+    ];
 }
