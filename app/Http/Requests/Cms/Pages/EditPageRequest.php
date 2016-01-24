@@ -24,7 +24,9 @@ class EditPageRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'alpha_num | required | max:255',
+            'name' => 'alpha_num|required|max:255',
+            'title' => 'required|max:255',
+            'logo' => 'required|mimes:jpeg,jpg,bmp,png |max:1000',
         ];
     }
 }
