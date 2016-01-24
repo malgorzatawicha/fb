@@ -31,5 +31,5 @@
 
 @section('scripts')
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/js/admin.products.js"></script>
+    <script src="/js/admin/products.js"></script>
 @stop
