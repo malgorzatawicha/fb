@@ -6,7 +6,7 @@
                 <h4 class="modal-title" id="editImageModalLabel">Edit Image</h4>
             </div>
             <div class="modal-body">
-                <form class='form' action="" method="POST" class="form" enctype="multipart/form-data">
+                <form class='form' action="" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                     <div class="form-group">
                         <label for="image-name">Image Name:</label>
