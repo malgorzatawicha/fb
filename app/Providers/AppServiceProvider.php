@@ -3,6 +3,7 @@
 namespace Fb\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Fb\Models\Site;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->share('site', Site::firstOrNew([]));
     }
 
     /**
