@@ -44,9 +44,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="active" class="col-sm-3 control-label">Is Active:</label>
-                    <div class="col-sm-6">
-                        <input type="checkbox" id="active" name="active" value="0"/>
+                    <div class="checkbox col-sm-offset-3">
+                        <input type="hidden" id="is_active" value="0">
+                        <input type="hidden" name="active" value="0">
+                        <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
                     </div>
                 </div>
                 <div class="form-group">
