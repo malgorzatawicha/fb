@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label for="active" class="col-sm-3 control-label">Is Active:</label>
                     <div class="col-sm-6">
-                        <input type="checkbox" name="active" value="{{$page->active}}"/>
+                        <input type="checkbox" id="active" name="active" value="{{$page->active}}"/>
                     </div>
                 </div>
                 <div class="form-group">
