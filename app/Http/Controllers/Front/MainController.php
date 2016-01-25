@@ -26,6 +26,6 @@ class MainController extends Controller
             return App::abort(404);
         }
 
-        return view('front.main.page');
+        return view('front.main.page', ['page' => $pages]);
     }
 }
