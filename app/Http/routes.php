@@ -10,11 +10,19 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+$router->bind('pages', function($slug){
+    return Fb\Models\Cms\Page::where('slug', $slug)->first();
+});
+
 Route::group(['namespace' => 'Front'], function() use($router){
    $router->get('/', [
        'uses' => 'MainController@index',
        'as' => 'home'
    ]);
+    $router->get('/p/{pages}/{isPreview?}', [
+        'uses' => 'MainController@page',
+        'as' => 'page'
+    ]);
 });
 
 Route::group(
@@ -35,9 +43,7 @@ Route::group(
         ]);
 
         $router->group(['prefix'=>'cms','namespace' => 'Cms'], function() use($router) {
-            $router->bind('pages', function($slug){
-                return Fb\Models\Cms\Page::where('slug', $slug)->first();
-            });
+
             $router->resource('pages', 'PagesController');
             $router->patch('pages/{pages}/activate', [
                 'uses' => 'PagesController@activate',
