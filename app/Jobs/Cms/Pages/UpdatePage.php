@@ -48,11 +48,7 @@ class UpdatePage extends Job implements SelfHandling
 
     private function saveLogo()
     {
-        if (!empty($this->page->logo_filename)) {
-            @unlink($this->getAbsolutePath($this->page->logo_path) . $this->logo_filename);
-            $this->page->logo_filename = '';
-            $this->page->logo_path = '';
-        }
+        // @todo manage logo deleting
         if (!empty($this->data['logo'])) {
             $imageFile = Image::make($this->data['logo']->getRealPath());
             $imagePath = $this->saveImageFile($imageFile);
