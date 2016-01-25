@@ -1,6 +1,6 @@
 @extends('front.layouts.default')
 @section('content')
-    @if ($page->logo or $page->description)
+    @if ($page->logo_filename or $page->description)
         <div class="col-md-3 left-menu">
             @yield('page_description')
         </div>
