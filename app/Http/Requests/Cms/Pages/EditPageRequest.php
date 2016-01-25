@@ -26,7 +26,7 @@ class EditPageRequest extends Request
         return [
             'name' => 'alpha_num|required|max:255',
             'title' => 'required|max:255',
-            'logo' => 'mimes:jpeg,jpg,bmp,png |max:1000',
+            'logo' => 'mimes:jpeg,jpg,bmp,png|max:1000',
             'active' => 'boolean',
         ];
     }
