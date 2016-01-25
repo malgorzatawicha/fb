@@ -7,8 +7,14 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.cms.pages.store') }}" method="POST" class="form-horizontal">
+            <form action="{{ route('admin.cms.pages.store') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                <div class="form-group">
+                    <label for="page-name" class="col-sm-3 control-label">{{ trans('cms.page.name') }}</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="name" id="page-name" class="form-control"/>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="page-title" class="col-sm-3 control-label">{{ trans('cms.page.title') }}</label>
                     <div class="col-sm-6">
@@ -16,10 +22,31 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="page-description" class="col-sm-3 control-label">{{ trans('cms.page.description') }}</label>
+                    <div class="col-sm-6">
+
+                        <textarea name="description" id="page-description" class="form-controll ckeditor" rows="3" cols="80"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="page-body" class="col-sm-3 control-label">{{ trans('cms.page.body') }}</label>
                     <div class="col-sm-6">
 
                         <textarea name="body" id="page-body" class="form-controll ckeditor" rows="10" cols="80"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="logo-path" value="">
+                    <input type="hidden" id="logo-filename" value="">
+                    <label for="logo" class="col-sm-3 control-label">logo:</label>
+                    <div class="col-sm-6">
+                        <input type="file" name="logo" id="logo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="active" class="col-sm-3 control-label">Is Active:</label>
+                    <div class="col-sm-6">
+                        <input type="checkbox" name="active" value="0"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,4 +64,5 @@
 
 @section('scripts')
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/js/admin/pages.js"></script>
 @stop
