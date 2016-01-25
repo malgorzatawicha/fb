@@ -39,8 +39,8 @@
                 <div class="form-group">
                     <input type="hidden" id="banner-path" value="{{$site->banner_path}}">
                     <input type="hidden" id="banner-filename" value="{{$site->banner_filename}}">
-                    <label for="favicon" class="col-sm-3 control-label">Banner File name:</label>
-                    <div class="col-sm-6 favicon">
+                    <label for="banner" class="col-sm-3 control-label">Banner File name:</label>
+                    <div class="col-sm-6">
                         <input type="file" name="banner" id="banner">
                     </div>
                 </div>
