@@ -26,4 +26,9 @@ class Page extends Model implements SluggableInterface
         'logo_path',
         'position'
     ];
+
+    public function banners()
+    {
+        return $this->hasMany(Banner::class);
+    }
 }
