@@ -1,6 +1,4 @@
-<?php
-
-namespace Fb\Http\Controllers\Front;
+<?php namespace Fb\Http\Controllers\Front;
 
 use Fb\Models\Cms\Page;
 use Illuminate\Http\Request;
@@ -17,7 +15,16 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('front.main.index');
+        $mainPage = $this->getMainPage();
+        if (empty($mainPage)) {
+            return App::abort(404);
+        }
+        return Redirect::route('page', ['pages' => $mainPage->slug]);
+    }
+
+    private function getMainPage()
+    {
+        return Page::where('active', '=', 1)->orderBy('position', 'DESC')->first();
     }
 
     public function page(Page $pages, $isPreview = false)
