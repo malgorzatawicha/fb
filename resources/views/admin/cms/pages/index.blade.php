@@ -35,7 +35,7 @@
                                 <form action="{{route('admin.cms.pages.destroy', [$page->slug])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a class="btn btn-xs btn-success" href="{{route('admin.cms.pages.show', [$page->slug])}}">{{trans('admin.view')}}</a>
+                                    <a class="btn btn-xs btn-success" href="{{route('page', ['page'=>$page->slug, 'isPreview'=>true ])}}">{{trans('admin.view')}}</a>
                                     <a class="btn btn-xs btn-primary" href="{{route('admin.cms.pages.edit', [$page->slug])}}">{{trans('admin.edit')}}</a>
                                     <button class="btn btn-xs btn-danger">{{trans('admin.delete')}}</button>
                                 </form>
