@@ -53,6 +53,8 @@ Route::group(
                 'uses' => 'PagesController@deactivate',
                 'as'   => 'admin.cms.pages.deactivate'
             ]);
+
+            $router->resource('pages.banners', 'BannersController', ['only' => ['store', 'show', 'update', 'destroy']]);
         });
 
         $router->group(['prefix'=>'shop', 'namespace' => 'Shop'], function() use($router){
