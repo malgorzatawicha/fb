@@ -22,9 +22,13 @@ class MainController extends Controller
         return Redirect::route('page', ['pages' => $mainPage->slug]);
     }
 
+    private function getPages()
+    {
+        return Page::where('active', '=', 1)->orderBy('position', 'asc')->get();
+    }
     private function getMainPage()
     {
-        return Page::where('active', '=', 1)->orderBy('position', 'DESC')->first();
+        return Page::where('active', '=', 1)->orderBy('position', 'asc')->first();
     }
 
     public function page(Page $pages, $isPreview = false)
@@ -33,6 +37,6 @@ class MainController extends Controller
             return App::abort(404);
         }
 
-        return view('front.main.page', ['page' => $pages]);
+        return view('front.main.page', ['page' => $pages, 'pages' => $this->getPages()]);
     }
 }

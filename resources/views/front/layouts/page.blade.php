@@ -1,5 +1,14 @@
 @extends('front.layouts.default')
 @section('content')
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                @foreach($pages as $item)
+                    <li @if($item->id == $page->id)class="active"@endif><a href="{{route('page', ['page' => $item->slug])}}">{{$item->title}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+    </nav>
     @if ($page->logo_filename or $page->description)
         <div class="col-md-3 left-menu">
             @yield('page_description')
