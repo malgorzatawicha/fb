@@ -19,8 +19,8 @@ class CreatePagesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->text('body');
-            $table->string('logo_filename')->unique();
-            $table->string('logo_path');
+            $table->string('logo_filename')->nullable()->unique();
+            $table->string('logo_path')->nullable();
             $table->boolean('active');
             $table->integer('position');
             $table->timestamps();
