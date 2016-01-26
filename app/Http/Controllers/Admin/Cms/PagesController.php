@@ -51,17 +51,6 @@ class PagesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Page $page)
-    {
-        return view('admin.cms.pages.show', ['page' => $page]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  Page $page

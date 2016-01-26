@@ -44,7 +44,7 @@ Route::group(
 
         $router->group(['prefix'=>'cms','namespace' => 'Cms'], function() use($router) {
 
-            $router->resource('pages', 'PagesController');
+            $router->resource('pages', 'PagesController', ['except'=>'show']);
             $router->patch('pages/{pages}/activate', [
                 'uses' => 'PagesController@activate',
                 'as'   => 'admin.cms.pages.activate'
