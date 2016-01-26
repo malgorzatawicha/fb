@@ -6,59 +6,19 @@
             <h4>{{trans('cms.pages')}} - {{trans('admin.create')}}</h4>
         </div>
         <div class="panel-body">
-            @include('common.errors')
-            <form action="{{ route('admin.cms.pages.store') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
-                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-                <div class="form-group">
-                    <label for="page-name" class="col-sm-3 control-label">{{ trans('cms.page.name') }}</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="name" id="page-name" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="page-title" class="col-sm-3 control-label">{{ trans('cms.page.title') }}</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="title" id="page-title" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="page-description" class="col-sm-3 control-label">{{ trans('cms.page.description') }}</label>
-                    <div class="col-sm-6">
+            <div class="row">
+                <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="pageTabs">
+                    <li class="active" role="presentation">
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                    </li>
+                </ul>
 
-                        <textarea name="description" id="page-description" class="form-controll ckeditor" rows="3" cols="80"></textarea>
+                <div class="tab-content col-sm-9" id="pageTabsContent">
+                    <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
+                        @include('admin.cms.pages.partial.create_basics')
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="page-body" class="col-sm-3 control-label">{{ trans('cms.page.body') }}</label>
-                    <div class="col-sm-6">
-
-                        <textarea name="body" id="page-body" class="form-controll ckeditor" rows="10" cols="80"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="hidden" id="logo-path" value="">
-                    <input type="hidden" id="logo-filename" value="">
-                    <label for="logo" class="col-sm-3 control-label">logo:</label>
-                    <div class="col-sm-6">
-                        <input type="file" name="logo" id="logo">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox col-sm-offset-3">
-                        <input type="hidden" id="is_active" value="0">
-                        <input type="hidden" name="active" value="0">
-                        <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('admin.cms.pages.index')}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> {{ trans('cms.page.add') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 @stop
