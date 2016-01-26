@@ -14,6 +14,11 @@
 
 <body>
 <div class="container" role="main">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{$site->banner_path}}{{$site->banner_filename}}" style="width: 100%" />
+        </div>
+    </div>
     @yield('content')
 </div>
 <footer class="footer"></footer>
