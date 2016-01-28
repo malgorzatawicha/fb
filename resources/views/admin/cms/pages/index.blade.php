@@ -9,11 +9,11 @@
         <div class="panel-body">
             @if (count($pages) > 0)
                 <table class="table table-striped">
-                    <thead><tr><th>{{trans('cms.page.id')}}</th><th>{{trans('cms.page.title')}}</th><th>{{trans('cms.page.body')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
+                    <thead><tr><th>{{trans('cms.page.type')}}</th><th>{{trans('cms.page.title')}}</th><th>{{trans('cms.page.body')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
                     <tbody>
                     @foreach($pages as $page)
                         <tr>
-                            <td>{{$page->id}}</td>
+                            <td>{{$page->type}}</td>
                             <td>{{$page->title}}</td>
                             <td>{!! $page->body !!}</td>
                             <td>
