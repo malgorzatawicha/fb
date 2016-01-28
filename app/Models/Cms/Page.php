@@ -32,7 +32,7 @@ class Page extends Model implements SluggableInterface
         return $this->hasMany(Banner::class);
     }
 
-    public function contact()
+    public function contacts()
     {
         return $this->hasMany(Contact::class);
     }
