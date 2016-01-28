@@ -44,6 +44,10 @@
             @endif
             <h1>{{$page->title}}</h1>
             {!! $page->body !!}
+
+            @if(\View::exists('front.main.boxes.' . $page->type))
+                @include('front.main.boxes.' . $page->type)
+            @endif
         </div>
     </div>
 
