@@ -24,11 +24,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#" class="navbar-brand">Fb shop</a>
+                <a href="/" class="navbar-brand">{{$site->title}}</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/admin">Home</a></li>
+                    <li><a href="{{route('admin.site.edit')}}">Site management</a></li>
                     <li><a href="{{ route('admin.cms.pages.index') }}">{{trans('cms.pages')}}</a></li>
                     <li><a href="{{ route('admin.shop.products.index') }}">{{trans('shop.products')}}</a></li>
                     <li class="dropdown">
