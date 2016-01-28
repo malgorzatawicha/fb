@@ -20,6 +20,7 @@ class CreateSiteTable extends Migration
 
             $table->string('banner_filename')->unique();
             $table->string('banner_path');
+            $table->text('footer');
 
             $table->timestamps();
         });
