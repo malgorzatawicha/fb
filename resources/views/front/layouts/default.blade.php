@@ -21,7 +21,13 @@
     </div>
     @yield('content')
 </div>
-<footer class="footer"></footer>
+<footer class="footer">
+    <div class="container">
+        <div class="row centered">
+            {!! $site->footer !!}
+        </div>
+    </div>
+</footer>
 <script src="{{ elixir('js/all.js') }}"></script>
 
 @yield('scripts')
