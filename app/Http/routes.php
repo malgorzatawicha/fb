@@ -55,6 +55,17 @@ Route::group(
             ]);
 
             $router->resource('pages.banners', 'BannersController', ['only' => ['store', 'show', 'update', 'destroy']]);
+
+            $router->resource('pages.contacts', 'ContactsController', ['only' => ['store', 'update', 'destroy']]);
+
+            $router->patch('pages/{pages}/contacts/{contacts}/activate', [
+                'uses' => 'ContactsController@activate',
+                'as'   => 'admin.cms.pages.contacts.activate'
+            ]);
+            $router->patch('pages/{pages}/contacts/{contacts}/deactivate', [
+                'uses' => 'ContactsController@deactivate',
+                'as'   => 'admin.cms.pages.contacts.deactivate'
+            ]);
         });
 
         $router->group(['prefix'=>'shop', 'namespace' => 'Shop'], function() use($router){

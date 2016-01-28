@@ -58,3 +58,27 @@ $('#editBannerModal').on('show.bs.modal', function (event) {
 
     prepareSubmitButton(event, modal);
 });
+
+$('#createContactModal').on('show.bs.modal', function(event) {
+    var page = getDataForModal(event, 'page');
+    var modal = $(this);
+    prepareSubmitButton(event, modal);
+});
+
+$('#editContactModal').on('show.bs.modal', function (event) {
+    var contact = getDataForModal(event, 'contact');
+    var page = getDataForModal(event, 'page');
+
+    var modal = $(this);
+    modal.find('.modal-title').text('Edit contact ' + contact.name);
+
+    $('.contact-name').val(contact.name);
+    $('.contact-body').val(contact.body);
+
+    var active = $("#is_active", modal).val();
+    if (active == 1) {
+        $("#active", modal).prop('checked', true);
+    }
+
+    prepareSubmitButton(event, modal);
+});
