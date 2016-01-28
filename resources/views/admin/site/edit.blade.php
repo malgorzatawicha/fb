@@ -31,6 +31,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="site-footer" class="col-sm-3 control-label">Footer</label>
+                    <div class="col-sm-6">
+                        <textarea name="footer" id="site-footer" class="form-control" rows="2" cols="80">{{$site->footer}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="favicon" class="col-sm-3 control-label">Favicon:</label>
                     <div class="col-sm-6 favicon">
                         <input type="file" name="favicon" id="favicon">
