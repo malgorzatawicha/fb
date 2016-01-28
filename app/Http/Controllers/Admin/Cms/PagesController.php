@@ -9,6 +9,7 @@ use Fb\Jobs\Cms\Pages\DestroyPage;
 use Fb\Jobs\Cms\Pages\ActivatePage;
 use Fb\Jobs\Cms\Pages\DeactivatePage;
 use Fb\Models\Cms\Page;
+use Fb\Models\Cms\PageType;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests\Cms\Pages\CreatePageRequest;
@@ -34,7 +35,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('admin.cms.pages.create');
+        return view('admin.cms.pages.create', ['types' => PageType::getPossibleTypes()]);
     }
 
     /**
@@ -58,7 +59,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.cms.pages.edit', ['page' => $page]);
+        return view('admin.cms.pages.edit', ['page' => $page, 'types' => PageType::getPossibleTypes($page)]);
     }
 
     /**

@@ -40,6 +40,7 @@ class UpdatePage extends Job implements SelfHandling
         $this->page->description = !empty($this->data['description'])?$this->data['description']:'';
         $this->page->body = !empty($this->data['body'])?$this->data['body']:'';
         $this->page->active = $this->data['active'];
+        $this->page->type = $this->data['type'];
         $this->saveLogo();
         $this->page->save();
 

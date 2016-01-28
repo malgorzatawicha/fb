@@ -14,6 +14,16 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="page-type" class="col-sm-2 control-label">{{ trans('cms.page.type') }}</label>
+        <div class="col-sm-9">
+            <select name="type" id="page-type" class="form-control">
+                @foreach($types as $type)
+                    <option value="{{$type}}">{{$type}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="page-description" class="col-sm-2 control-label">{{ trans('cms.page.description') }}</label>
         <div class="col-sm-9">
 

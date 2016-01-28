@@ -35,6 +35,7 @@ class StorePage extends Job implements SelfHandling
         $page->description = !empty($this->data['description'])?$this->data['description']:'';
         $page->body = !empty($this->data['body'])?$this->data['body']:'';
         $page->active = $this->data['active'];
+        $page->type = $this->data['type'];
         $this->saveLogo($page);
         $page->save();
 
