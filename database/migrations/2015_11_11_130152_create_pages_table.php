@@ -22,6 +22,7 @@ class CreatePagesTable extends Migration
             $table->string('logo_filename')->nullable()->unique();
             $table->string('logo_path')->nullable();
             $table->boolean('active');
+            $table->string('type');
             $table->integer('position');
             $table->timestamps();
         });
