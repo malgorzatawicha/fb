@@ -14,5 +14,6 @@ class Site extends Model
         'keywords',
         'banner_filename',
         'banner_path',
+        'footer'
     ];
 }
