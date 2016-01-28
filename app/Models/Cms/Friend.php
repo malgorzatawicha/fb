@@ -9,7 +9,7 @@ class Friend extends Model
     protected $table = 'page_friends';
 
     protected $fillable = [
-        'active', 'name', 'description', 'filename', 'path', 'position'
+        'active', 'name', 'description', 'filename', 'path', 'url', 'position'
     ];
 
     public function page()

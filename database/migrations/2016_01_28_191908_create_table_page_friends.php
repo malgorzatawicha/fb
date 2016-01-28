@@ -23,6 +23,7 @@ class CreateTablePageFriends extends Migration
             $table->text('description');
             $table->string('filename')->unique();
             $table->string('path');
+            $table->string('url');
             $table->integer('position');
             $table->timestamps();
         });

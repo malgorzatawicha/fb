@@ -26,6 +26,7 @@ class EditFriendRequest extends Request
         return [
             'name' => 'required',
             'active' => 'boolean',
+            'url' => 'required',
             'image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000'
         ];
     }

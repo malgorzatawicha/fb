@@ -22,7 +22,7 @@ class UpdateFriend extends StoreFriend implements SelfHandling
         $this->friend->active = $this->data['active'];
         $this->friend->name = $this->data['name'];
         $this->friend->description = $this->data['description'];
-
+        $this->friend->url = $this->data['url'];
         $this->saveImage();
 
         $this->friend->save();

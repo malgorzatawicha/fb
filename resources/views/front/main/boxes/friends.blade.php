@@ -6,7 +6,7 @@
                     <div class="col-md-4 @if($key == 0) col-md-offset-2 @endif">
                         <div class="panel">
                             <div class="panel-body">
-                                <img src="{{$friend->path}}{{$friend->filename}}" title="{{$friend->name}}" style="width: 100%" />
+                                <a target="_blank" href="http://{{$friend->url}}"><img src="{{$friend->path}}{{$friend->filename}}" title="{{$friend->name}}" style="width: 100%" /></a>
                             </div>
                             <div class="panel-footer">
                                 {{$friend->description}}
@@ -20,7 +20,7 @@
                     <div class="col-md-4">
                         <div class="panel">
                             <div class="panel-body">
-                                <img src="{{$friend->path}}{{$friend->filename}}" title="{{$friend->name}}" style="width: 100%" />
+                                <a href="http://{{$friend->url}}"><img src="{{$friend->path}}{{$friend->filename}}" title="{{$friend->name}}" style="width: 100%" /></a>
                             </div>
                             <div class="panel-footer">
                                 {{$friend->description}}

@@ -22,6 +22,10 @@
                         <textarea name="description" id="friend-description" class="form-control" rows="2" cols="80"></textarea>
                     </div>
                     <div class="form-group">
+                        <label for="friend-url">Url:</label>
+                        <input type="url" name="url" id="friend-url" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label for="image">Photo:</label>
                         <input type="file" name="image" id="image">
                     </div>

@@ -99,6 +99,7 @@ $('#editFriendModal').on('show.bs.modal', function (event) {
 
     $('.friend-name').val(friend.name);
     $('.friend-description').val(friend.description);
+    $('.friend-url').val(friend.url);
 
     initImage($("#image", modal), {
         initialPreview: '<img style="width:auto;height:160px;" src="' + friend.path + friend.filename + '">',

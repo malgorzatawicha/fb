@@ -29,6 +29,7 @@ class FriendsController extends Controller
             'data' => [
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
+                'url' => $request->get('url'),
                 'image' => $request->file('image'),
                 'active' => $request->get('active')
             ]
@@ -45,6 +46,7 @@ class FriendsController extends Controller
             'data' => [
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
+                'url' => $request->get('url'),
                 'image' => $request->file('image'),
                 'active' => $request->get('active')
             ]

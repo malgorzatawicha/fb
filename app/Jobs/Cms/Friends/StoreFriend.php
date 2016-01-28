@@ -39,7 +39,8 @@ class StoreFriend extends Job implements SelfHandling
         $this->friend = new Friend([
             'active' => $this->data['active'],
             'name' => $this->data['name'],
-            'description' => $this->data['description']
+            'description' => $this->data['description'],
+            'url' => $this->data['url']
         ]);
         $this->saveImage();
 
