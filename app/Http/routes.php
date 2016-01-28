@@ -66,6 +66,9 @@ Route::group(
                 'uses' => 'ContactsController@deactivate',
                 'as'   => 'admin.cms.pages.contacts.deactivate'
             ]);
+
+            $router->resource('pages.friends', 'FriendsController', ['only' => ['store', 'show', 'update', 'destroy']]);
+
         });
 
         $router->group(['prefix'=>'shop', 'namespace' => 'Shop'], function() use($router){

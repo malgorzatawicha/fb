@@ -36,4 +36,9 @@ class Page extends Model implements SluggableInterface
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function friends()
+    {
+        return $this->hasMany(Friend::class);
+    }
 }
