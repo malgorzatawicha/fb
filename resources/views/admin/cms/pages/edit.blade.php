@@ -11,17 +11,28 @@
                         <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
                     </li>
                     <li role="presentation" class="">
-                        <a aria-controls="banners" data-toggle="tab" id="images-tab" role="tab" href="#banners" aria-expanded="false">Banners</a>
+                        <a aria-controls="banners" data-toggle="tab" id="banners-tab" role="tab" href="#banners" aria-expanded="false">Banners</a>
                     </li>
+                    @if(\View::exists('admin.cms.pages.partial.tabs.' . $page->type))
+                        <li role="presentation" class="">
+                            <a aria-controls="custom" data-toggle="tab" id="custom-tab" role="tab" href="#custom" aria-expanded="false">{{ucfirst($page->type)}} - customs</a>
+                        </li>
+                    @endif
                 </ul>
 
                 <div class="tab-content col-sm-9" id="pageTabsContent">
                     <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
                         @include('admin.cms.pages.partial.edit_basics', ['page' => $page])
                     </div>
-                    <div aria-labelledby="images-tab" id="banners" class="tab-pane fade" role="tabpanel">
+                    <div aria-labelledby="banners-tab" id="banners" class="tab-pane fade" role="tabpanel">
                         @include('admin.cms.pages.partial.banners', ['page'=>$page])
                     </div>
+
+                    @if(\View::exists('admin.cms.pages.partial.tabs.' . $page->type))
+                        <div aria-labelledby="custom-tab" id="custom" class="tab-pane fade {{$page->type}}" role="tabpanel">
+                            @include('admin.cms.pages.partial.tabs.' . $page->type)
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
