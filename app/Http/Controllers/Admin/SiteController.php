@@ -25,6 +25,7 @@ class SiteController extends Controller
                 'title' => $request->get('title'),
                 'description' => $request->get('description'),
                 'keywords' => $request->get('keywords'),
+                'footer' => $request->get('footer'),
                 'favicon' => $request->file('favicon'),
                 'banner' => $request->file('banner')
             ]
