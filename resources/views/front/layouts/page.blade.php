@@ -6,7 +6,6 @@
                 @foreach($pages as $item)
                     <li @if($item->id == $page->id)class="active"@endif><a href="{{route('page', ['page' => $item->slug])}}">{{$item->title}}</a></li>
                 @endforeach
-                <li ><a href="{{route('gallery_category')}}">Galeria</a></li>
             </ul>
         </div>
     </nav>
