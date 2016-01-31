@@ -13,21 +13,22 @@
 </head>
 
 <body>
-<div class="container" role="main">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="{{$site->banner_path}}{{$site->banner_filename}}" style="width: 100%" />
-        </div>
-    </div>
-    @yield('content')
-</div>
-<footer class="footer">
+<div class="wrapper">
     <div class="container">
-        <div class="row centered">
-            {!! $site->footer !!}
+        <img class="img-responsive" src="{{$site->banner_path}}{{$site->banner_filename}}"/>
+        <div class="page-body">
+            @yield('content')
         </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="row centered">
+                    {!! $site->footer !!}
+                </div>
+            </div>
+        </footer>
     </div>
-</footer>
+</div>
+
 <script src="{{ elixir('js/all.js') }}"></script>
 
 @yield('scripts')

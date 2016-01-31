@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Poiret One";
+  src: url(/fonts/PoiretOne-Regular.ttf) format("truetype");
+}
+
+body {
+  background-color: #444444;
+  background-image: url(/images/background.png), linear-gradient(to right, #444444,#444444);
+}
+
+body > .wrapper {
+  background-color: #444444;
+  background-image: url(/images/background.png),linear-gradient(to right, #444444,#00fcff,#00fcff,#00fcff,#00fcff,#00fcff,#00fcff,#00fcff,#444444);
+}
+
+.right-side{
+  background-color: rgba(255, 255, 255, 0.7);
+}
+footer.footer {
+  background-color: transparent;
+}
+footer >.container {
+  background: rgba(0, 0,0, 0.8);
+}
+
+.full-width {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.left-side {
+  background: rgba(0,0,0, 0.8);
+}
+
+.breadcrumb {
+  background-color: rgba(0, 0,0, 0.8);
+}
+
+body {
+  font-family: "Poiret One";
+}
+.navbar-inverse .navbar-nav > li a {
+  color: white;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: white;
+}
+.navbar-inverse .navbar-nav > li.active a {
+  color: white;
+}
+.navbar-inverse .navbar-nav > li.active a:hover {
+  color: white;
+}
+
+footer.footer {
+  color: white;
+}
+
+.left-side {
+  color: white;
+}
+.breadcrumb {
+  color: white;
+}

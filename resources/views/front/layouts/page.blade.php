@@ -6,19 +6,23 @@
                 @foreach($pages as $item)
                     <li @if($item->id == $page->id)class="active"@endif><a href="{{route('page', ['page' => $item->slug])}}">{{$item->title}}</a></li>
                 @endforeach
+                <li ><a href="{{route('gallery_category')}}">Galeria</a></li>
             </ul>
         </div>
     </nav>
-    @if ($page->logo_filename or $page->description)
-        <div class="col-md-3 left-menu">
-            @yield('page_description')
-        </div>
-        <div class="col-md-9">
-            @yield('page_content')
-        </div>
-    @else
-        <div class="col-md-12">
-            @yield('page_content')
-        </div>
-    @endif
+    <div class="page-content">
+        @if ($page->logo_filename or $page->description)
+                <div class="left-side">
+                    @yield('page_description')
+                </div>
+                <div class="right-side">
+                    @yield('page_content')
+                </div>
+            @else
+                <div class="full-width">
+                    @yield('page_content')
+
+                </div>
+            @endif
+    </div>
 @endsection

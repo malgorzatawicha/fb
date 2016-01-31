@@ -28,6 +28,7 @@ elixir(function(mix) {
 
         .copy('bower_components/font-awesome/css/font-awesome.min.css', 'resources/assets/css/vendor/font-awesome.min.css')
 
+        .copy('resources/assets/fonts', 'public/fonts')
         .scripts([
             "vendor/jquery.min.js",
             'vendor/canvas-to-blob.min.js',
