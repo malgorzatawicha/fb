@@ -13,6 +13,7 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix
         .sass('app.scss')
+        .sass('admin.scss')
         .copy('bower_components/bootstrap/dist/fonts', 'public/build/fonts/')
         .copy('resources/assets/js/admin/', 'public/js/admin/')
         .copy('bower_components/jquery/dist/jquery.min.js', 'resources/assets/js/vendor/jquery.min.js')
@@ -45,6 +46,12 @@ elixir(function(mix) {
             'vendor/font-awesome.min.css',
             '../../../public/css/app.css'
         ], 'public/css')
-
-        .version(["css/all.css", "js/all.js"]);
+        .styles([
+            'vendor/bootstrap.min.css',
+            'vendor/fileinput.min.css',
+            'vendor/bootstrap-treeview.min.css',
+            'vendor/font-awesome.min.css',
+            '../../../public/css/admin.css'
+        ], 'public/css/admin.css')
+        .version(["css/admin.css", "css/all.css", "js/all.js"]);
 });
