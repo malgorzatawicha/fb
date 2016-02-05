@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FB Shop</title>
 
-    <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}"/>
     @yield('styles')
 </head>
 

@@ -7,7 +7,7 @@
     <title>{{$site->title}} - Admin</title>
     <meta name="description" content="{{$site->description}}" />
     <meta name="keywords" content="{{$site->keywords}}" />
-    <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}"/>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 </head>
 
@@ -35,9 +35,8 @@
                     <li><a href="{{ route('admin.shop.products.index') }}">{{trans('shop.products')}}</a></li>
 --}}
                     <li class="dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('gallery.galleries')}} <span class="caret"></span></a>
+                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('gallery.categories')}} <span class="caret"></span></a>
                         <ul class="dropdown-menu inverse-dropdown">
-                            <li><a href="{{ route('admin.gallery.galleries.index') }}">{{trans('gallery.galleries')}}</a></li>
                             <li><a href="{{ route('admin.gallery.categories.index') }}">{{trans('gallery.categories')}}</a></li>
                         </ul>
                     </li>
