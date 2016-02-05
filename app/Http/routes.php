@@ -23,6 +23,10 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'uses' => 'MainController@page',
         'as' => 'page'
     ]);
+    $router->get('/gallery/{pages}', [
+        'uses' => 'MainController@gallery',
+        'as' => 'gallery'
+    ]);
 });
 
 Route::group(
@@ -71,38 +75,12 @@ Route::group(
 
         });
 
-        $router->group(['prefix'=>'shop', 'namespace' => 'Shop'], function() use($router){
-            $router->bind('products', function($slug){
-                return Fb\Models\Shop\Product::where('slug', $slug)->first();
-            });
-            $router->resource('products', 'ProductsController');
-            $router->patch('products/{products}/activate', [
-                'uses' => 'ProductsController@activate',
-                'as'   => 'admin.shop.products.activate'
-            ]);
-            $router->patch('products/{products}/deactivate', [
-                'uses' => 'ProductsController@deactivate',
-                'as'   => 'admin.shop.products.deactivate'
-            ]);
-
-            $router->resource('products.images', 'ProductImagesController', ['only' => ['store', 'show', 'update', 'destroy']]);
-
-        });
-
         $router->group(['prefix'=>'gallery', 'namespace' => 'Gallery'], function() use($router) {
-            $router->bind('galleries', function($slug){
-                return Fb\Models\Gallery\Gallery::where('slug', $slug)->first();
-            });
-            $router->resource('galleries', 'GalleriesController');
-            $router->patch('galleries/{galleries}/activate', [
-                'uses' => 'GalleriesController@activate',
-                'as'   => 'admin.gallery.galleries.activate'
+
+            $router->put('page/attach/{pages}', [
+                'uses' => 'PagesController@attach',
+                'as' => 'admin.gallery.pages.attach'
             ]);
-            $router->patch('galleries/{galleries}/deactivate', [
-                'uses' => 'GalleriesController@deactivate',
-                'as'   => 'admin.gallery.galleries.deactivate'
-            ]);
-            $router->resource('galleries.images', 'GalleryImagesController', ['only' => ['store', 'show', 'update', 'destroy']]);
             $router->resource('categories', 'CategoriesController');
         });
     }
