@@ -1,6 +1,7 @@
 <?php namespace Fb\Http\Controllers\Front;
 
 use Fb\Models\Cms\Page;
+use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Http\Request;
 
 use Fb\Http\Controllers\Controller;
@@ -37,6 +38,23 @@ class MainController extends Controller
             return App::abort(404);
         }
 
+        if ($pages->type == 'gallery') {
+            return Redirect::route('gallery', ['pages' => $pages->slug]);
+        }
         return view('front.main.page', ['page' => $pages, 'pages' => $this->getPages()]);
+    }
+
+    public function gallery(Page $pages)
+    {
+        $pageCategory = $pages->gallery;
+        if (empty($pageCategory)) {
+            return App::abort(404);
+        }
+        $category = $pageCategory->galleryCategory;
+        return view('front.gallery.page', [
+            'page' => $pages,
+            'pages' => $this->getPages(),
+            'categories' => $category->tree(),
+        ]);
     }
 }
