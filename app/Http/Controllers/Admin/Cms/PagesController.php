@@ -10,6 +10,7 @@ use Fb\Jobs\Cms\Pages\ActivatePage;
 use Fb\Jobs\Cms\Pages\DeactivatePage;
 use Fb\Models\Cms\Page;
 use Fb\Models\Cms\PageType;
+use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests\Cms\Pages\CreatePageRequest;
@@ -59,7 +60,11 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.cms.pages.edit', ['page' => $page, 'types' => PageType::getPossibleTypes($page)]);
+        return view('admin.cms.pages.edit', [
+            'page' => $page,
+            'types' => PageType::getPossibleTypes($page),
+            'categories' => GalleryCategory::getNestedList('name')
+        ]);
     }
 
     /**
