@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
 use \Rutorika\Sortable\SortableTrait;
+use Fb\Models\Gallery\PageGallery;
 
 class Page extends Model implements SluggableInterface
 {
@@ -24,7 +25,9 @@ class Page extends Model implements SluggableInterface
         'body',
         'logo_filename',
         'logo_path',
-        'position'
+        'position',
+        'active',
+        'type',
     ];
 
     public function banners()
@@ -40,5 +43,10 @@ class Page extends Model implements SluggableInterface
     public function friends()
     {
         return $this->hasMany(Friend::class);
+    }
+
+    public function gallery()
+    {
+        return $this->hasOne(PageGallery::class);
     }
 }
