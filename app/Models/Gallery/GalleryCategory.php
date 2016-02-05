@@ -3,6 +3,7 @@
 use Baum\Node;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
 * GalleryCategory
@@ -21,9 +22,9 @@ class GalleryCategory extends Node implements SluggableInterface {
         'name', 'title', 'active', 'description', 'logo_filename', 'logo_path'
     ];
 
-    public static function tree()
+    public function tree()
     {
-      return self::all()->toHierarchy();
+        return $this->getDescendantsAndSelf()->toHierarchy();
     }
 
     public function page()
