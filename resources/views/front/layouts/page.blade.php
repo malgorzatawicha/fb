@@ -10,7 +10,7 @@
         </div>
     </nav>
     <div class="page-content">
-        @if ($page->logo_filename or $page->description)
+        @if ($page->logo_filename or $page->description or $page->type == 'gallery')
                 <div class="left-side">
                     @yield('page_description')
                 </div>
