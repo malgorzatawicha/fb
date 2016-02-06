@@ -22,6 +22,12 @@ class GalleryCategory extends Node implements SluggableInterface {
         'name', 'title', 'active', 'description', 'logo_filename', 'logo_path'
     ];
 
+
+    public static function getTree()
+    {
+        return self::all()->toHierarchy();
+    }
+
     public function tree()
     {
         return $this->getDescendantsAndSelf()->toHierarchy();

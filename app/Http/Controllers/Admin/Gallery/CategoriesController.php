@@ -20,7 +20,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('admin.gallery.categories.index', [ 'categories' => GalleryCategory::tree()]);
+        return view('admin.gallery.categories.index', [ 'categories' => GalleryCategory::getTree()]);
     }
 
     /**
