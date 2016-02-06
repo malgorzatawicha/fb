@@ -14,7 +14,7 @@ class AddMainImageToGalleryProjectsTable extends Migration
     {
         Schema::table('gallery_projects', function($table)
         {
-            $table->integer('main_image_id')->unsigned();
+            $table->integer('main_image_id')->unsigned()->nullable();
             $table->foreign('main_image_id')->references('id')->on('gallery_project_images');
         });
     }
