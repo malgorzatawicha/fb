@@ -39,7 +39,7 @@ class MainController extends Controller
         }
         $gallery = $pages->gallery;
         if ($pages->type == 'gallery' && !empty($gallery)) {
-            return Redirect::route('gallery', ['pages' => $pages->slug, 'category' => $pages->gallery->galleryCategory->slug]);
+            return Redirect::route('gallery', ['pages' => $pages->slug, 'galleryCategory' => $pages->gallery->galleryCategory->slug]);
         }
         return view('front.main.page', ['page' => $pages, 'pages' => $this->getPages()]);
     }

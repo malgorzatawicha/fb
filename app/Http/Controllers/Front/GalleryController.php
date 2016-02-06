@@ -8,13 +8,13 @@ use Redirect;
 
 class GalleryController extends Controller
 {
-    public function category(Page $pages, GalleryCategory $category)
+    public function category(Page $pages, GalleryCategory $galleryCategory)
     {
         return view('front.gallery.page', [
             'page' => $pages,
             'pages' => $this->getPages(),
-            'categories' => $category->tree(),
-            'category' => $category
+            'categories' => $galleryCategory->tree(),
+            'category' => $galleryCategory
         ]);
     }
 

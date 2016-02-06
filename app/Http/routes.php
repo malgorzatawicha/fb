@@ -14,6 +14,10 @@ $router->bind('pages', function($slug){
     return Fb\Models\Cms\Page::where('slug', $slug)->first();
 });
 
+$router->bind('galleryCategory', function($slug){
+    return Fb\Models\Gallery\GalleryCategory::where('slug', $slug)->first();
+});
+
 Route::group(['namespace' => 'Front'], function() use($router){
    $router->get('/', [
        'uses' => 'MainController@index',
@@ -23,7 +27,7 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'uses' => 'MainController@page',
         'as' => 'page'
     ]);
-    $router->get('g/{pages}/{category}', [
+    $router->get('g/{pages}/{galleryCategory}', [
         'uses' => 'GalleryController@category',
         'as' => 'gallery'
     ]);
