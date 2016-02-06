@@ -11,7 +11,7 @@
                 </form>
             </div>
             <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
-            <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="#" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
+            <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
             <h4>{{trans('gallery.categories')}}</h4>
         </div>
         <div class="panel-body">

@@ -35,7 +35,7 @@ class CategoriesController extends Controller
             $parent = GalleryCategory::findOrFail($request->node);
         }
         return view('admin.gallery.categories.create', [
-            'categories' => GalleryCategory::tree(),
+            'categories' => GalleryCategory::getTree(),
             'parent' => $parent
         ]);
     }
