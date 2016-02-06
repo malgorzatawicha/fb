@@ -1,15 +1,13 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
-use Fb\Jobs\Cms\Banners\UpdateBanner;
 use Fb\Jobs\Gallery\Category\UpdateCategory;
-use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Support\Facades\Redirect;
-use Fb\Jobs\Gallery\Category\StoreCategory;
+use Fb\Jobs\Gallery\Project\StoreProject;
 
 class ProjectsController extends Controller
 {
@@ -28,15 +26,10 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, GalleryCategory $categories)
     {
-        $parent = null;
-        if ($request->has('node')) {
-            $parent = GalleryCategory::findOrFail($request->node);
-        }
-        return view('admin.gallery.categories.create', [
-            'categories' => GalleryCategory::getTree(),
-            'parent' => $parent
+        return view('admin.gallery.projects.create', [
+            'category' => $categories,
         ]);
     }
 
@@ -46,10 +39,10 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, GalleryCategory $categories)
     {
-        $this->dispatchFromArray(StoreCategory::class, ['data' => $request->all()]);
-        return Redirect::route('admin.gallery.categories.index');
+        $this->dispatchFromArray(StoreProject::class, ['category' => $categories, 'data' => $request->all()]);
+        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
     }
 
     /**
