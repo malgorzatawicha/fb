@@ -94,11 +94,11 @@ Route::group(
             $router->resource('categories.projects', 'ProjectsController');
             $router->patch('categories/{categories}/projects/{projects}/activate', [
                 'uses' => 'ProjectsController@activate',
-                'as'   => 'admin.gallery.projects.activate'
+                'as'   => 'admin.gallery.categories.projects.activate'
             ]);
             $router->patch('categories/{categories}/projects/{projects}/deactivate', [
                 'uses' => 'ProjectsController@deactivate',
-                'as'   => 'admin.gallery.projects.deactivate'
+                'as'   => 'admin.gallery.categories.projects.deactivate'
             ]);
         });
     }
