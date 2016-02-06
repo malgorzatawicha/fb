@@ -23,8 +23,8 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'uses' => 'MainController@page',
         'as' => 'page'
     ]);
-    $router->get('/gallery/{pages}', [
-        'uses' => 'MainController@gallery',
+    $router->get('g/{pages}/{category}', [
+        'uses' => 'GalleryController@category',
         'as' => 'gallery'
     ]);
 });
