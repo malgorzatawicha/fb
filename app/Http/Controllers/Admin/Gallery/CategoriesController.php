@@ -6,6 +6,7 @@ use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Support\Facades\Redirect;
+use Fb\Jobs\Gallery\Category\StoreCategory;
 
 class CategoriesController extends Controller
 {
@@ -48,14 +49,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->has('parent')) {
-            $parent = GalleryCategory::findOrFail($request->parent);
-            $parent->children()->create(['name' => $request->name]);
-        } else {
-            GalleryCategory::create([
-                'name' => $request->name
-            ]);
-        }
+        $this->dispatchFromArray(StoreCategory::class, ['data' => $request->all()]);
         return Redirect::route('admin.gallery.categories.index');
     }
 
