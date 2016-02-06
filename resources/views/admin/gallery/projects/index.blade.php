@@ -11,20 +11,19 @@
                 <table class="table table-striped">
                     <thead><tr><th>{{trans('gallery.project.title')}}</th><th>{{trans('gallery.project.description')}}</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead>
                     <tbody>
-                    @foreach($projects as $project)
+                    @foreach($category->projects as $project)
                         <tr>
-                            <td>{{$project->category}}</td>
                             <td>{{$project->title}}</td>
                             <td>{!! $project->description !!}</td>
                             <td>
                                 @if($project->active)
-                                    <form action="{{route('admin.gallery.categories.projects.deactivate', [$project->slug])}}" method="POST">
+                                    <form action="{{route('admin.gallery.categories.projects.deactivate', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.deactivate')}}</button>
                                     </form>
                                 @else
-                                    <form action="{{route('admin.gallery.categories.projects.activate', [$project->slug])}}" method="POST">
+                                    <form action="{{route('admin.gallery.categories.projects.activate', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
@@ -32,10 +31,10 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="{{route('admin.gallery.categories.projects.destroy', [$project->slug])}}" method="POST">
+                                <form action="{{route('admin.gallery.categories.projects.destroy', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a class="btn btn-xs btn-primary" href="{{route('admin.gallery.projects.edit', [$project->slug])}}">{{trans('admin.edit')}}</a>
+                                    <a class="btn btn-xs btn-primary" href="{{route('admin.gallery.categories.projects.edit', ['categories'=>$category, 'projects'=>$project->slug])}}">{{trans('admin.edit')}}</a>
                                     <button class="btn btn-xs btn-danger">{{trans('admin.delete')}}</button>
                                 </form>
                             </td>
