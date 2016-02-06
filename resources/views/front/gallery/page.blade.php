@@ -1,63 +1,54 @@
-@extends('front.layouts.page')
-@section('page_description')
-    @if($page->logo_filename)
-        <div class="row"><img title="{{$page->title}}" alt="logo" src="{{$page->logo_path}}/{{$page->logo_filename}}" width="100%"></div>
-    @endif
-
-    @if($page->description)
-        <div class="row">{!! $page->description !!}</div>
-    @endif
-    <div id="tree"></div>
+@extends('front.layouts.gallery')
+@section('breadcrumb')
+    {{implode(' > ', $category->pathIn($page))}}
 @endsection
-
-@section('page_content')
-    <div class="breadcrumb">Home > {{$page->title}}</div>
-    <div class="row row-content">
-        @if(count($page->banners) > 0)
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    @foreach ($page->banners as $index => $banner)
-                        <li data-target="#myCarousel" data-slide-to="{{$index}}" @if($index == 0) class="active" @endif></li>
-                    @endforeach
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    @foreach ($page->banners as $index => $banner)
-                        <div class="item @if($index == 0) active @endif">
-                            <img src="{{$banner->path}}{{$banner->filename}}" style="width: 100%" alt="{{$banner->name}}">
+@section('gallery_content')
+    @foreach($category->children as $child)
+        <div class="row">
+            <div class="col-md-12">
+                <h2><a href="{{route('gallery', ['pages' => $page->slug, 'category' => $child->slug])}}">{{$child->title}}</a></h2>
+                <div class="row gallery">
+                    <a href="{{route('gallery', ['pages' => $page->slug, 'category' => $child->slug])}}">
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie1" style="width: 100%" alt="Flower">
                         </div>
-                    @endforeach
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie2" style="width: 100%" alt="Flower">
+                        </div>
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie3" style="width: 100%" alt="Flower">
+                        </div>
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie4" style="width: 100%" alt="Flower">
+                        </div>
+                    </a>
                 </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
-        @endif
-        <h1>{{$page->title}}</h1>
-        {!! $page->body !!}
+        </div>
+    @endforeach
+    @foreach($category->projects as $project)
+        <div class="row">
+            <div class="col-md-12">
+                <h2><a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">{{$project->title}}</a></h2>
+                <div class="row gallery">
+                    <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie1" style="width: 100%" alt="Flower">
+                        </div>
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie2" style="width: 100%" alt="Flower">
+                        </div>
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie3" style="width: 100%" alt="Flower">
+                        </div>
+                        <div class="col-md-3">
+                            <img src="http://dummyimage.com/200x200/000/fff&text=zdjecie4" style="width: 100%" alt="Flower">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
-        @if(\View::exists('front.main.boxes.' . $page->type))
-            @include('front.main.boxes.' . $page->type)
-        @endif
-    </div>
 
-@endsection
-
-@section('scripts')
-    <script>
-        var $tree = $("#tree");
-        $tree.treeview({
-            data: {!! createTree($categories) !!}
-        });
-    </script>
-    @yield('gallery_scripts')
 @endsection

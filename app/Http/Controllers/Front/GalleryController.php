@@ -4,6 +4,7 @@ use Fb\Models\Cms\Page;
 use Fb\Models\Gallery\GalleryCategory;
 
 use Fb\Http\Controllers\Controller;
+use Fb\Models\Gallery\GalleryProject;
 use Redirect;
 
 class GalleryController extends Controller
@@ -15,6 +16,17 @@ class GalleryController extends Controller
             'pages' => $this->getPages(),
             'categories' => $galleryCategory->tree(),
             'category' => $galleryCategory
+        ]);
+    }
+
+    public function project(Page $pages, GalleryCategory $galleryCategory, GalleryProject $galleryProject)
+    {
+        return view('front.gallery.project', [
+            'page' => $pages,
+            'pages' => $this->getPages(),
+            'categories' => $galleryCategory->tree(),
+            'category' => $galleryCategory,
+            'project' => $galleryProject
         ]);
     }
 

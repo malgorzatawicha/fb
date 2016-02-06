@@ -3,6 +3,7 @@
 use Baum\Node;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Fb\Models\Cms\Page;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -47,4 +48,20 @@ class GalleryCategory extends Node implements SluggableInterface {
     {
         return $this->hasMany(GalleryProject::class);
     }
+
+    public function pathIn(Page $page)
+    {
+        $rootCategory = $page->gallery->galleryCategory;
+
+        $result = [];
+        $category = $this;
+        while (!$category->isRoot() && $category->getKey() != $rootCategory->getKey())
+        {
+            $result[] = $category->title;
+            $category = $category->parent;
+        }
+        $result[] = $rootCategory->title;
+        return array_reverse($result);
+    }
+
 }
