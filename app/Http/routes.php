@@ -14,6 +14,10 @@ $router->bind('pages', function($slug){
     return Fb\Models\Cms\Page::where('slug', $slug)->first();
 });
 
+$router->bind('categories', function($id){
+    return Fb\Models\Gallery\GalleryCategory::find($id);
+});
+
 $router->bind('galleryCategory', function($slug){
     return Fb\Models\Gallery\GalleryCategory::where('slug', $slug)->first();
 });
@@ -86,6 +90,16 @@ Route::group(
                 'as' => 'admin.gallery.pages.attach'
             ]);
             $router->resource('categories', 'CategoriesController');
+
+            $router->resource('categories.projects', 'ProjectsController');
+            $router->patch('categories/{categories}/projects/{projects}/activate', [
+                'uses' => 'ProjectsController@activate',
+                'as'   => 'admin.gallery.projects.activate'
+            ]);
+            $router->patch('categories/{categories}/projects/{projects}/deactivate', [
+                'uses' => 'ProjectsController@deactivate',
+                'as'   => 'admin.gallery.projects.deactivate'
+            ]);
         });
     }
 );

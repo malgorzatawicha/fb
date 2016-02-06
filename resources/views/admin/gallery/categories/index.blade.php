@@ -10,6 +10,7 @@
                     <button id="destroy-category" class="btn btn-danger btn-disabled disabled" disabled>{{trans('admin.delete')}}</button>
                 </form>
             </div>
+            <div class="pull-right"><a id="projects-category" data-href="{{route('admin.gallery.categories.projects.index')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.projects') }}</a></div>
             <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
             <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
             <h4>{{trans('gallery.categories')}}</h4>
@@ -44,21 +45,27 @@
         });
 
         var $editCategory = $("#edit-category");
+        var $projectsCategory = $("#projects-category");
         var $destroyCategory = $("#destroy-category");
 
         $tree.on('nodeUnselected', function() {
             $editCategory.attr('href', '#');
+            $projectsCategory.attr('href', '#');
             $destroyCategory.parent().attr('action', '#');
             disableButton($editCategory);
+            disableButton($projectsCategory);
             disableButton($destroyCategory);
         });
         $tree.on('nodeSelected', function(event, data) {
             disableButton($editCategory);
+            disableButton($projectsCategory);
             disableButton($destroyCategory);
             if (data.id) {
                 $editCategory.attr('href', decodeURI($editCategory.data('href')).replace("\{categories\}", data.id));
+                $projectsCategory.attr('href', decodeURI($projectsCategory.data('href')).replace("\{categories\}", data.id));
                 $destroyCategory.parent().attr('action', decodeURI($destroyCategory.parent().data('href')).replace("\{categories\}", data.id));
                 enableButton($editCategory);
+                enableButton($projectsCategory);
                 enableButton($destroyCategory);
             }
         });
