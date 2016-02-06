@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Collection;
-function createTree(Collection $collection, $selectedNode = null)
+function createTree(Collection $collection, $selectedNode = null, $field = 'id')
 {
     if ($collection->isEmpty()) {
         return json_encode([]);
@@ -8,16 +8,16 @@ function createTree(Collection $collection, $selectedNode = null)
 
     $array = [];
     foreach ($collection as $node) {
-        $array[] = collectTree($node, $selectedNode);
+        $array[] = collectTree($node, $selectedNode, $field);
     }
 
     return json_encode($array);
 }
 
-function collectTree($node, $selectedNode = null) {
+function collectTree($node, $selectedNode = null, $field = 'id') {
     $nodeData = [
         'text' => $node->name,
-        'id' => $node->getKey(),
+        'id' => $node->$field,
         'state' => [
             'selected' => !empty($selectedNode) &&($node->getKey() == $selectedNode->getKey())
         ]
@@ -26,7 +26,7 @@ function collectTree($node, $selectedNode = null) {
         return $nodeData;
     } else {
         foreach ($node->children as $child) {
-            $nodeData['nodes'][] = collectTree($child, $selectedNode);
+            $nodeData['nodes'][] = collectTree($child, $selectedNode, $field);
         }
         return $nodeData;
     }

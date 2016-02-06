@@ -23,8 +23,12 @@
 @section('scripts')
     <script>
         var $tree = $("#tree");
+        var categories = '{!! json_encode($categories) !!}';
         $tree.treeview({
-            data: {!! createTree($categories) !!}
+            data: {!! createTree($categories, $category, 'slug') !!}
+        });
+        $tree.on('nodeSelected', function(event, data) {
+            location.href = '/g/gallery/'+data.id;
         });
     </script>
     @yield('gallery_scripts')

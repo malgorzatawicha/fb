@@ -14,7 +14,7 @@ class GalleryController extends Controller
         return view('front.gallery.page', [
             'page' => $pages,
             'pages' => $this->getPages(),
-            'categories' => $galleryCategory->tree(),
+            'categories' => $pages->gallery->galleryCategory->tree(),
             'category' => $galleryCategory
         ]);
     }
@@ -24,7 +24,7 @@ class GalleryController extends Controller
         return view('front.gallery.project', [
             'page' => $pages,
             'pages' => $this->getPages(),
-            'categories' => $galleryCategory->tree(),
+            'categories' => $pages->gallery->galleryCategory->tree(),
             'category' => $galleryCategory,
             'project' => $galleryProject
         ]);

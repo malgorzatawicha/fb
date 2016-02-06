@@ -81,12 +81,6 @@
 @section('gallery_scripts')
     <script src="/vendor/lightbox/lightbox.js"></script>
     <script>
-        var $tree = $("#tree");
-        $tree.treeview({
-            data: {!! createTree($categories) !!}
-        });
-    </script>
-    <script>
         $('.carousel').carousel('pause')
 
         $(document).ready(function(){
