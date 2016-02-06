@@ -17,7 +17,9 @@ $router->bind('pages', function($slug){
 $router->bind('categories', function($id){
     return Fb\Models\Gallery\GalleryCategory::find($id);
 });
-
+$router->bind('projects', function($id){
+    return Fb\Models\Gallery\GalleryProject::find($id);
+});
 $router->bind('galleryCategory', function($slug){
     return Fb\Models\Gallery\GalleryCategory::where('slug', $slug)->first();
 });
@@ -109,6 +111,9 @@ Route::group(
                 'uses' => 'ProjectsController@deactivate',
                 'as'   => 'admin.gallery.categories.projects.deactivate'
             ]);
+
+            $router->resource('categories.projects.images', 'ProjectsImagesController');
+
         });
     }
 );

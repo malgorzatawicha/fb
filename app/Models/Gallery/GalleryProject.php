@@ -16,6 +16,8 @@ class GalleryProject extends Model implements SluggableInterface
         'on_update'  => true
     ];
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name', 'title', 'active', 'description', 'logo_filename', 'logo_path', 'position'
     ];
@@ -27,6 +29,6 @@ class GalleryProject extends Model implements SluggableInterface
 
     public function images()
     {
-        return $this->hasMany(GalleryProjectImage::class);
+        return $this->hasMany(GalleryProjectImage::class, 'gallery_project_id', 'id');
     }
 }

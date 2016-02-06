@@ -1,6 +1,6 @@
 <?php
 
-namespace Fb\Http\Requests\Gallery\GalleryImages;
+namespace Fb\Http\Requests\Galleries\ProjectImages;
 
 use Fb\Http\Requests\Request;
 
@@ -24,9 +24,11 @@ class EditImageRequest extends Request
     public function rules()
     {
         return [
-            'is_active' => 'boolean',
-            'image' => 'mimes:jpeg,jpg,bmp,png | max:1000',
-            'mobile_image' => 'mimes:jpeg,jpg,bmp,png | max:1000',
+            'name' => 'required',
+            'active' => 'boolean',
+            'base_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'big_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'thumb_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
         ];
     }
 }

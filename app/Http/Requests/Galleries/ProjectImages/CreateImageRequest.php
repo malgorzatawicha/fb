@@ -1,6 +1,6 @@
 <?php
 
-namespace Fb\Http\Requests\Gallery\GalleryImages;
+namespace Fb\Http\Requests\Galleries\ProjectImages;
 
 use Fb\Http\Requests\Request;
 
@@ -24,11 +24,11 @@ class CreateImageRequest extends Request
     public function rules()
     {
         return [
-            'image_name' => 'alpha_num | required | unique:product_images',
-            'mobile_name' => 'alpha_num | required | unique:product_images',
-            'is_active' => 'boolean',
-            'image' => 'required | mimes:jpeg,jpg,bmp,png | max:1000',
-            'mobile' => 'required | mimes:jpeg,jpg,bmp,png | max:1000',
+            'name' => 'required',
+            'active' => 'boolean',
+            'base_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'big_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'thumb_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
         ];
     }
 }

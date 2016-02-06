@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="pull-right"><a href="{{route('admin.gallery.categories.projects.create', ['categories' => $category])}}" class="btn btn-primary">{{trans('admin.create')}}</a></div>
+            <div class="pull-right"><a href="{{route('admin.gallery.categories.projects.create', ['categories' => $category->getKey()])}}" class="btn btn-primary">{{trans('admin.create')}}</a></div>
             <h4>{{trans('gallery.projects')}} of {{$category->title}}</h4>
         </div>
         <div class="panel-body">
@@ -17,13 +17,13 @@
                             <td>{!! $project->description !!}</td>
                             <td>
                                 @if($project->active)
-                                    <form action="{{route('admin.gallery.categories.projects.deactivate', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
+                                    <form action="{{route('admin.gallery.categories.projects.deactivate', ['categories'=>$category->getKey(), 'projects'=>$project->getKey()])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.deactivate')}}</button>
                                     </form>
                                 @else
-                                    <form action="{{route('admin.gallery.categories.projects.activate', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
+                                    <form action="{{route('admin.gallery.categories.projects.activate', ['categories'=>$category->getKey(), 'projects'=>$project->getKey()])}}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
                                         <button class="btn btn-xs btn-warning">{{trans('admin.activate')}}</button>
@@ -31,10 +31,10 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="{{route('admin.gallery.categories.projects.destroy', ['categories'=>$category, 'projects'=>$project->slug])}}" method="POST">
+                                <form action="{{route('admin.gallery.categories.projects.destroy', ['categories'=>$category->getKey(), 'projects'=>$project->getKey()])}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a class="btn btn-xs btn-primary" href="{{route('admin.gallery.categories.projects.edit', ['categories'=>$category, 'projects'=>$project->slug])}}">{{trans('admin.edit')}}</a>
+                                    <a class="btn btn-xs btn-primary" href="{{route('admin.gallery.categories.projects.edit', ['categories'=>$category->getKey(), 'projects'=>$project->getKey()])}}">{{trans('admin.edit')}}</a>
                                     <button class="btn btn-xs btn-danger">{{trans('admin.delete')}}</button>
                                 </form>
                             </td>

@@ -1,6 +1,7 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
 use Fb\Jobs\Gallery\Category\UpdateCategory;
+use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
@@ -62,21 +63,12 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(GalleryCategory $categories, GalleryProject $projects)
     {
-        $category = GalleryCategory::findOrFail($id);
-        $parent = null;
-        if (!$category->isRoot()) {
-            $parent = $category->parent()->get();
-        }
-        return view(
-            'admin.gallery.categories.edit',
-            [
-                'category' => $category,
-                'parent' => $parent,
-                'categories' => GalleryCategory::getTree()
-            ]
-        );
+        return view('admin.gallery.projects.edit', [
+            'project' => $projects,
+            'category' => $categories
+        ]);
     }
 
     /**

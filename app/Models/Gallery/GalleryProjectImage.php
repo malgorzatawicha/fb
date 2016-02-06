@@ -20,7 +20,7 @@ class GalleryProjectImage extends Model
 
     public function project()
     {
-        return $this->belongsTo(GalleryProject::class);
+        return $this->belongsTo(GalleryProject::class, 'gallery_project_id', 'id');
     }
 
 }
