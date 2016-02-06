@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 class GalleryCategory extends Node implements SluggableInterface {
 
     use SluggableTrait;
+    protected $sluggable = [
+        'build_from' => 'name',
+        'save_to'    => 'slug',
+        'on_update'  => true
+    ];
     /**
     * Table name.
     *
