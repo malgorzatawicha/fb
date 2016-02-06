@@ -13,13 +13,13 @@
                 <input type="hidden" name="parent" id='parent' value="">
                 <div class="form-group">
                     <label for="category-name" class="col-sm-3 control-label">{{ trans('gallery.category.name') }}</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-9">
                         <input type="text" name="name" id="category-name" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="category-title" class="col-sm-3 control-label">{{ trans('gallery.category.title') }}</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-9">
                         <input type="text" name="title" id="category-title" class="form-control"/>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
+                    <div class="col-sm-offset-3 col-sm-9">
                         <a href="{{route('admin.gallery.categories.index')}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus-sign"></span> {{ trans('gallery.category.add') }}
@@ -58,6 +58,8 @@
     </div>
 @stop
 @section('scripts')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/js/admin/galleryCategories.js"></script>
     <script>
         $("#tree").treeview({
             data: {!! createTree($categories, $parent) !!}

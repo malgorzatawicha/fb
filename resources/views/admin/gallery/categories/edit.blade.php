@@ -6,22 +6,50 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.gallery.categories.update', [$category->id]) }}" method="POST" class="form-horizontal">
+            <form action="{{ route('admin.gallery.categories.update', [$category->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 <div id="tree"></div>
                 <input type="hidden" name="parent" id='parent' value="">
                 <div class="form-group">
                     <label for="category-name" class="col-sm-3 control-label">{{trans('gallery.category.name')}}</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-9">
                         <input type="text" value="{{$category->name}}" name="name" id="category-name" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <a href="{{route('admin.gallery.categories.index')}}" class="btn btn-primary">{{trans('admin.back')}}</a>
+                    <label for="category-title" class="col-sm-3 control-label">{{ trans('gallery.category.title') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" value="{{$category->title}}" id="category-title" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category-description" class="col-sm-3 control-label">{{ trans('gallery.category.description') }}</label>
+                    <div class="col-sm-9">
+
+                        <textarea name="description" id="category-description" class="form-controll ckeditor" rows="10" cols="80">{{$category->description}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="logo-path" value="">
+                    <input type="hidden" id="logo-filename" value="">
+                    <label for="logo" class="col-sm-3 control-label">logo:</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="logo" id="logo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox col-sm-offset-3">
+                        <input type="hidden" id="is_active" value="{{$category->active}}">
+                        <input type="hidden" name="active" value="0">
+                        <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <a href="{{route('admin.gallery.categories.index')}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> {{trans('gallery.category.save')}}
+                            <span class="glyphicon glyphicon-plus-sign"></span> {{ trans('gallery.category.add') }}
                         </button>
                     </div>
                 </div>
@@ -31,6 +59,8 @@
 @stop
 
 @section('scripts')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/js/admin/galleryCategories.js"></script>
     <script>
         $("#tree").treeview({
             data: {!! createTree($categories, $parent) !!}
