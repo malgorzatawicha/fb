@@ -1,5 +1,7 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
+use Fb\Jobs\Cms\Banners\UpdateBanner;
+use Fb\Jobs\Gallery\Category\UpdateCategory;
 use Illuminate\Http\Request;
 
 use Fb\Http\Requests;
@@ -82,7 +84,7 @@ class CategoriesController extends Controller
             [
                 'category' => $category,
                 'parent' => $parent,
-                'categories' => GalleryCategory::tree()
+                'categories' => GalleryCategory::getTree()
             ]
         );
     }
@@ -96,7 +98,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = GalleryCategory::findOrFail($id);
+        $this->dispatchFromArray(UpdateCategory::class, ['data' => $request->all(), 'galleryCategory' => $category]);
+        return Redirect::route('admin.gallery.categories.index');
     }
 
     /**
