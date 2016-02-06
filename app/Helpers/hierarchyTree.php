@@ -16,7 +16,7 @@ function createTree(Collection $collection, $selectedNode = null, $field = 'id')
 
 function collectTree($node, $selectedNode = null, $field = 'id') {
     $nodeData = [
-        'text' => $node->name,
+        'text' => $node->title,
         'id' => $node->$field,
         'state' => [
             'selected' => !empty($selectedNode) &&($node->getKey() == $selectedNode->getKey())

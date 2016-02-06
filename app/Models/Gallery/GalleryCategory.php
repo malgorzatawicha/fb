@@ -5,6 +5,7 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Fb\Models\Cms\Page;
 use Illuminate\Database\Eloquent\Builder;
+use DB;
 
 /**
 * GalleryCategory
@@ -62,6 +63,17 @@ class GalleryCategory extends Node implements SluggableInterface {
         }
         $result[] = $rootCategory->title;
         return array_reverse($result);
+    }
+
+    public function randomImages($limit)
+    {
+        $categories = $this->getDescendantsAndSelf()->lists('id');
+        return DB::table('gallery_project_images')
+            ->select('gallery_project_images.name', 'gallery_project_images.thumb_path', 'gallery_project_images.thumb_filename')
+            ->join('gallery_projects', 'gallery_project_images.gallery_project_id', '=', 'gallery_projects.id')
+            ->whereIn('gallery_projects.gallery_category_id', $categories)
+            ->orderByRaw("RAND()")
+            ->limit($limit)->get();
     }
 
 }

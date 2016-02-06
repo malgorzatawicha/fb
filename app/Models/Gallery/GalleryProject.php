@@ -5,6 +5,7 @@ namespace Fb\Models\Gallery;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class GalleryProject extends Model implements SluggableInterface
 {
@@ -30,5 +31,15 @@ class GalleryProject extends Model implements SluggableInterface
     public function images()
     {
         return $this->hasMany(GalleryProjectImage::class, 'gallery_project_id', 'id');
+    }
+
+    public function randomImages($limit)
+    {
+        return DB::table('gallery_project_images')
+            ->select('gallery_project_images.name', 'gallery_project_images.thumb_path', 'gallery_project_images.thumb_filename')
+            ->join('gallery_projects', 'gallery_project_images.gallery_project_id', '=', 'gallery_projects.id')
+            ->where('gallery_projects.id', '=', $this->getKey())
+            ->orderByRaw("RAND()")
+            ->limit($limit)->get();
     }
 }
