@@ -7,10 +7,11 @@
     @if($page->description)
         <div class="row">{!! $page->description !!}</div>
     @endif
-    <div id="tree"></div>
+    <div class="tree" id="tree"></div>
 @endsection
 @section('page_content')
     <div class="breadcrumb">Home > @yield('breadcrumb')</div>
+    <div class="row mobile-tree" id="tree"></div>
     <div class="row row-content">
         @include('front.main.partial.banner')
         <h1>{{$page->title}}</h1>
@@ -22,13 +23,37 @@
 
 @section('scripts')
     <script>
-        var $tree = $("#tree");
-        var categories = '{!! json_encode($categories) !!}';
+        var $tree = $(".tree");
         $tree.treeview({
-            data: {!! createTree($categories, $category, 'slug') !!}
+            enableLinks: true,
+            data: {!! createFrontTree($categories, $page, $category) !!}
         });
-        $tree.on('nodeSelected', function(event, data) {
-            location.href = '/g/gallery/'+data.id;
+
+        var selectedNodes = [];
+        @if($category)
+             selectedNodes = JSON.parse('{!! json_encode($category->pathIn($page, 'slug')) !!}');
+        @endif
+
+        $tree = $(".mobile-tree");
+        $tree.treeview({
+            enableLinks: true,
+            levels: 0,
+            selectable: false,
+            data: {!! createMobileFrontTree($categories, $page, $category) !!}
+        });
+        $tree.on('nodeExpanded', function(event, data) {
+            for (var i in data.nodes) {
+                var node = data.nodes[i];
+                if ($.inArray(node.id, selectedNodes) != -1) {
+                    $tree.treeview('selectNode', [ node.nodeId, {silent: true} ]);
+                    $tree.treeview('unselectNode', [ data.nodeId, {silent: true} ]);
+                }
+            }
+        });
+        $tree.on('nodeCollapsed', function(event, data) {
+            if ($.inArray(data.id, selectedNodes) != -1) {
+                $tree.treeview('selectNode', [ data.nodeId, { silent: true } ]);
+            }
         });
     </script>
     @yield('gallery_scripts')

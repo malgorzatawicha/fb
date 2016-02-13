@@ -34,7 +34,14 @@
 
     </div>
     </div>
-
+    <div class="image-list">
+        @foreach ($project->images as $index => $image)
+            <div class="row">
+                 <img class="img-responsive" src="{{$image->mobile_path}}{{$image->mobile_filename}}" alt="{{$image->name}}">
+                {{$image->description}}
+            </div>
+        @endforeach
+    </div>
     <div class="row">
         <div class="col-md-12">
 
@@ -48,7 +55,7 @@
                             <div class="item @if($counter == 0) active @endif">
                                 <div class="row">
                                     @foreach($items as $image)
-                                        <div class="col-md-3">
+                                        <div class="col-sm-3">
                                             <a data-item="{{$counter}}" href="#" class="thumbnail">
                                                 <img class="img-responsive" src="{{$image->thumb_path}}{{$image->thumb_filename}}" alt="{{$image->name}}">
                                             </a>

@@ -1,8 +1,8 @@
 body {
   margin-bottom: 0;
 }
-.wrapper{padding-right:30px;padding-left:30px;margin-right:auto;margin-left:auto; }
-@media (min-width:768px){.wrapper{width:798px}}
+.wrapper{padding-right:0;padding-left:0;margin-right:auto;margin-left:auto; }
+@media (min-width:768px){.wrapper{width:768px; padding-right:30px;padding-left:30px;margin-right:auto;margin-left:auto;}}
 @media (min-width:992px){.wrapper{width:1022px}}
 @media (min-width:1200px){.wrapper{width:1230px}}
 .container{
@@ -58,4 +58,11 @@ footer.footer > .container {
 }
 .wrapper .img-responsive {
   width: 100%;
+}
+
+@media (max-width:768px){
+  .left-side{display: none;}
+}
+@media (min-width: 768px) {
+  .navbar-brand {display: none}
 }

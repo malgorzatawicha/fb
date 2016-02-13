@@ -44,3 +44,21 @@
   background:#3276b1;
   border-color:#3276b1;
 }
+
+.image-list {
+  display: none;
+}
+@media (max-width:768px){
+  .well{display: none;}
+ .carousel{display:none;}
+  .image-list {display:block;}
+}
+
+.mobile-tree .icon {
+  padding: 15px;
+}
+@media (min-width: 768px) {
+  .mobile-tree {
+    display: none;
+  }
+}

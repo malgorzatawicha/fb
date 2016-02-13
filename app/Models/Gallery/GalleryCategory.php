@@ -50,7 +50,7 @@ class GalleryCategory extends Node implements SluggableInterface {
         return $this->hasMany(GalleryProject::class);
     }
 
-    public function pathIn(Page $page)
+    public function pathIn(Page $page, $field = 'title')
     {
         $rootCategory = $page->gallery->galleryCategory;
 
@@ -58,10 +58,10 @@ class GalleryCategory extends Node implements SluggableInterface {
         $category = $this;
         while (!$category->isRoot() && $category->getKey() != $rootCategory->getKey())
         {
-            $result[] = $category->title;
+            $result[] = $category->$field;
             $category = $category->parent;
         }
-        $result[] = $rootCategory->title;
+        $result[] = $rootCategory->$field;
         return array_reverse($result);
     }
 
