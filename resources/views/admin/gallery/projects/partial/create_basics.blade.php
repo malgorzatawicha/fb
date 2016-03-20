@@ -17,15 +17,14 @@
         <label for="project-description" class="col-sm-3 control-label">{{ trans('gallery.project.description') }}</label>
         <div class="col-sm-9">
 
-            <textarea name="description" id="project-description" class="form-controll ckeditor" rows="10" cols="80"></textarea>
+            <textarea name="description" id="project-description" class="form-control ckeditor" rows="10" cols="80"></textarea>
         </div>
     </div>
     <div class="form-group">
-        <input type="hidden" id="logo-path" value="">
-        <input type="hidden" id="logo-filename" value="">
-        <label for="logo" class="col-sm-3 control-label">logo:</label>
+        <input type="hidden" id="logo-id" value="">
+        <label for="logo" class="col-sm-3 control-label">Logo:</label>
         <div class="col-sm-9">
-            <input type="file" name="logo" id="logo">
+            <input type="file" class="form-control" name="logo" id="logo">
         </div>
     </div>
     <div class="form-group">
