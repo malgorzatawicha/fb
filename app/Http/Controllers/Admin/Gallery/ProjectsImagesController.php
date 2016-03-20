@@ -16,23 +16,16 @@ class ProjectsImagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateImageRequest  $request
+     * @param GalleryCategory $categories
+     * @param GalleryProject $projects
      * @return \Illuminate\Http\Response
      */
     public function store(CreateImageRequest $request, GalleryCategory $categories, GalleryProject $projects)
     {
         $this->dispatchFromArray(StoreImage::class, [
             'project' => $projects,
-            'data' => [
-                'name' => $request->get('name'),
-                'description' => $request->get('description'),
-                'base_image' => $request->file('base_image'),
-                'big_image' => $request->file('big_image'),
-                'mobile_image' => $request->file('mobile_image'),
-                'mobile_thumb_image' => $request->file('mobile_thumb_image'),
-                'thumb_image' => $request->file('thumb_image'),
-                'active' => $request->get('active')
-            ]
+            'request' => $request
         ]);
         return Redirect::route('admin.gallery.categories.projects.edit', ['categories' => $categories, 'projects' => $projects]);
     }
