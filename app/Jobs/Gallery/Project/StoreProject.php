@@ -6,7 +6,9 @@ use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryCategory;
 use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Image;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Fb\Services\SaveFile;
 
 class StoreProject extends Job implements SelfHandling
 {
@@ -16,87 +18,55 @@ class StoreProject extends Job implements SelfHandling
      */
     private $data = [];
 
-    const DST_FOLDER = '/images/galleries/projects/';
-    const DST_IMAGE = '';
+    protected $config = [];
 
-    protected $absolutePath;
+    protected $project;
 
-    protected $imageFilename;
+    protected $filename;
 
-    public function __construct(GalleryCategory $category, array $data)
+    public function __construct(GalleryCategory $category, Request $request)
     {
         $this->category = $category;
-        $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->initialize($request);
     }
+    private function initialize(Request $request)
+    {
+        $this->data = [
+            'name' => $request->get('name'),
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'logo' => $request->file('logo'),
+        ];
 
+        $this->config = \config('fb.project.logo');
+    }
     public function handle()
     {
-        $project = $this->category->projects()->create([
+        $this->project = new GalleryProject([
             'name' => !empty($this->data['name'])?$this->data['name']:'',
             'title' => !empty($this->data['title'])?$this->data['title']:'',
             'description' => !empty($this->data['description'])?$this->data['description']:'',
             'active' => !empty($this->data['active'])?$this->data['active']:'',
         ]);
 
-        $this->saveLogo($project);
-        $project->save();
+        $this->saveLogo();
 
-        return $project;
+        $this->category->projects()->save($this->project);
     }
 
-    private function saveLogo(GalleryProject $project)
+    private function saveLogo()
     {
-        if (!empty($this->data['logo'])) {
-            $imageFile = Image::make($this->data['logo']->getRealPath());
-            $imagePath = $this->saveImageFile($imageFile);
-
-            $project->logo_filename = basename($imagePath);
-            $project->logo_path = $this->getImagePath();
+        $logo = $this->data['logo'];
+        $path = $this->config['path'];
+        $file = $this->saveImage($logo, $path);
+        if (!empty($file)) {
+            $this->project->logo_id = $file->getKey();
         }
     }
 
-    protected function saveImageFile(\Intervention\Image\Image $image)
+    protected function saveImage(UploadedFile $image, $basePath)
     {
-        $path = $this->getAbsolutePath($this->getImagePath()) . $this->getImageFileName();
-        $image->save($path);
-        return $path;
-    }
-
-    protected function getImagePath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function getImageFileName()
-    {
-        if (empty($this->imageFilename)) {
-            $extension = $this->data['logo']->getClientOriginalExtension();
-
-            $name = $this->generateFileNameInFolder(
-                $this->getImagePath(),
-                $this->data['logo']->getClientOriginalName(),
-                $extension
-            );
-
-            $this->imageFilename = $name;
-        }
-        return $this->imageFilename;
-    }
-
-    protected function generateFileNameInFolder($path, $basename, $ext)
-    {
-        $name = md5($basename . time()) . '.' . $ext;
-
-        while(\File::exists($path . '/' . $name)) {
-            $name = md5($name . time()) . '.' . $ext;
-        }
-        return $name;
-
+        $service = new SaveFile($image, $basePath);
+        return $service->execute();
     }
 }
