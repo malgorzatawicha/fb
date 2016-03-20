@@ -4,7 +4,7 @@
            data-category="{{json_encode($category)}}"
            data-project="{{json_encode($project)}}"
            data-submit-action="{{ route('admin.gallery.categories.projects.images.store', ['categories'=>$category->getKey(), 'projects' => $project->getKey()]) }}"
-           data-toggle="modal" data-target="#createImageModal" >
+           data-toggle="modal" data-target="#imageModal" >
             {{ trans('admin.create') }}
         </a>
     </div>
@@ -43,5 +43,4 @@
         <p>{{trans('cms.pages.banners.no_records')}}</p>
     @endif
 </div>
-@include('admin.gallery.projects.partial.images.create_modal')
-@include('admin.gallery.projects.partial.images.edit_modal')
+@include('admin.gallery.projects.partial.image_modal')

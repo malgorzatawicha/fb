@@ -31,52 +31,34 @@ function prepareSubmitButton(event, modal)
     })
 }
 
-$('#createImageModal').on('show.bs.modal', function(event) {
-    var project = getDataForModal(event, 'project');
-    var modal = $(this);
-    initImage($("#base_image", modal));
-    initImage($("#big_image", modal));
-    initImage($("#mobile_image", modal));
-    initImage($("#thumb_image", modal));
-    initImage($("#mobile_thumb_image", modal));
-    prepareSubmitButton(event, modal);
-});
-
-$('#editImageModal').on('show.bs.modal', function (event) {
+$('#imageModal').on('show.bs.modal', function (event) {
     var image = getDataForModal(event, 'image');
     var project = getDataForModal(event, 'project');
 
     var modal = $(this);
-    modal.find('.modal-title').text('Edit image ' + image.name);
 
-    $('.image-name').val(image.name);
-    $('.image-description').val(image.description);
+    $("#active", modal).prop('checked', true);
 
-    initImage($("#base_image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.base_path + image.base_filename + '">',
-    });
+    var baseImageParams = {};
+    var thumbImageParams = {};
+    if (image) {
+        modal.find('.modal-title').text('Edit image ' + image.name);
+        $('#image-name').val(image.name);
+        $('.image-description').val(image.description);
 
-    initImage($("#big_image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.big_path + image.big_filename + '">',
-    });
-
-    initImage($("#mobile_image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_path + image.mobile_filename + '">',
-    });
-
-    initImage($("#thumb_image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.thumb_path + image.thumb_filename + '">',
-    });
-
-    initImage($("#mobile_thumb_image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + image.mobile_thumb_path + image.mobile_thumb_filename + '">',
-    });
-
-
-    var active = $("#is_active", modal).val();
-    if (active == 1) {
-        $("#active", modal).prop('checked', true);
+        if ($("#is_active", modal).val() == 0) {
+            $("#active", modal).prop('checked', false);
+        }
+        baseImageParams = {
+            initialPreview: '<img style="width:auto;height:160px;" src="' + image.base_path + image.base_filename + '">',
+        };
+        thumbImageParams = {
+            initialPreview: '<img style="width:auto;height:160px;" src="' + image.thumb_path + image.thumb_filename + '">',
+        };
     }
+
+    initImage($("#base_image", modal), baseImageParams);
+    initImage($("#thumb_image", modal), thumbImageParams);
 
     prepareSubmitButton(event, modal);
 });
