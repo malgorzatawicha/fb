@@ -2,6 +2,11 @@
 
 return [
     'project' => [
+        'logo' => [
+            'path' => storage_path('fb/projects'),
+            'width' => 200,
+            'height' => 200
+        ],
         'image' => [
             'paths' => [
                 'base' => storage_path('fb/projects/images'),
