@@ -47,9 +47,9 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'as' => 'project'
     ]);
 
-    $router->get('thumb/{imageId}/{size}', [
-        'uses' => 'GalleryController@thumb',
-        'as' => 'thumb'
+    $router->get('image/{fileId}/{width}/{height}', [
+        'uses' => 'GalleryController@image',
+        'as' => 'image'
     ]);
 });
 
@@ -61,9 +61,9 @@ Route::group(
             'as'   => 'admin.home'
         ]);
 
-        $router->get('thumb/{imageId}/{size}', [
-            'uses' => 'DashboardController@thumb',
-            'as' => 'admin.thumb'
+        $router->get('image/{fileId}/{width}/{height}', [
+            'uses' => 'DashboardController@image',
+            'as' => 'admin.image'
         ]);
 
         $router->get('/site', [

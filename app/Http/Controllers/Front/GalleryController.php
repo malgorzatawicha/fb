@@ -5,7 +5,7 @@ use Fb\Models\Gallery\GalleryCategory;
 
 use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryProject;
-use Fb\Models\Gallery\GalleryProjectImage;
+use Fb\Models\File;
 use Intervention\Image\Facades\Image;
 use Redirect;
 
@@ -34,15 +34,9 @@ class GalleryController extends Controller
 
     public function image($imageId, $width, $height)
     {
-
-    }
-
-    public function thumb($imageId, $size)
-    {
-        $image = GalleryProjectImage::findOrFail($imageId);
-        $file = $image->thumbFile;
+        $file = File::findOrFail($imageId);
         $location = $file->path . '/' . $file->filename;
-        return Image::make($location)->resize($size, $size)->response($file->extension);
+        return Image::make($location)->resize($width, $height)->response($file->extension);
     }
 
     private function getPages()
