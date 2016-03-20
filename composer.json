@@ -8,9 +8,13 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "unisharp/laravel-ckeditor": "dev-master",
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "^2.1",
         "cviebrock/eloquent-sluggable": "^3.1",
-        "intervention/image": "~2.2",
-        "baum/baum": "~1.1"
+        "intervention/image": "^2.3",
+        "kartik-v/bootstrap-fileinput": "@dev",
+        "baum/baum": "~1.1",
+        "rutorika/sortable": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -23,7 +27,8 @@
             "database"
         ],
         "psr-4": {
-            "Fb\\": "app/"
+            "Fb\\": "app/",
+            "Illuminate\\": "src/Illuminate/"
         }
     },
     "autoload-dev": {
