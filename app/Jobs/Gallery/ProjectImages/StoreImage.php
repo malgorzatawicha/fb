@@ -100,6 +100,7 @@ class StoreImage extends Job implements SelfHandling
             $fileObject->filename = $this->generateFileNameInFolder($fileObject);
 
             $file->save($fileObject->path . '/' . $fileObject->filename);
+            chmod($fileObject->path . '/' . $fileObject->filename, 0777);
             $fileObject->save();
             return $fileObject;
         }
