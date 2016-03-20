@@ -4,11 +4,10 @@ namespace Fb\Jobs\Gallery\ProjectImages;
 
 use Fb\Http\Requests\Galleries\ProjectImages\CreateImageRequest;
 use Fb\Jobs\Job;
-use Fb\Models\File;
 use Fb\Models\Gallery\GalleryProject;
 use Fb\Models\Gallery\GalleryProjectImage;
+use Fb\Services\SaveFile;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class StoreImage extends Job implements SelfHandling
@@ -91,29 +90,8 @@ class StoreImage extends Job implements SelfHandling
 
     protected function saveImage(UploadedFile $image, $basePath)
     {
-        if (!empty($image)) {
-            $file = Image::make($image->getRealPath());
-            $fileObject = new File();
-            $fileObject->extension = $image->getClientOriginalExtension();
-            $fileObject->original_filename = $image->getClientOriginalName();
-            $fileObject->path = $basePath;
-            $fileObject->filename = $this->generateFileNameInFolder($fileObject);
-
-            $file->save($fileObject->path . '/' . $fileObject->filename);
-            chmod($fileObject->path . '/' . $fileObject->filename, 0777);
-            $fileObject->save();
-            return $fileObject;
-        }
-        return null;
+        $service = new SaveFile($image, $basePath);
+        return $service->execute();
     }
-    protected function generateFileNameInFolder(File $file)
-    {
-        $name = md5($file->original_name . time()) . '.' . $file->extension;
-
-        while(\File::exists($file->path . '/' . $name)) {
-            $name = md5($name . time()) . '.' . $file->extension;
-        }
-        return $name;
-
-    }
+  
 }
