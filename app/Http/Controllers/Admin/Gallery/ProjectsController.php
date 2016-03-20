@@ -42,7 +42,7 @@ class ProjectsController extends Controller
      */
     public function store(Request $request, GalleryCategory $categories)
     {
-        $this->dispatchFromArray(StoreProject::class, ['category' => $categories, 'data' => $request->all()]);
+        $this->dispatchFromArray(StoreProject::class, ['category' => $categories, 'request' => $request]);
         return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
     }
 
