@@ -46,6 +46,11 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'uses' => 'GalleryController@project',
         'as' => 'project'
     ]);
+
+    $router->get('thumb/{imageId}/{size}', [
+        'uses' => 'GalleryController@thumb',
+        'as' => 'thumb'
+    ]);
 });
 
 Route::group(
