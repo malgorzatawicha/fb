@@ -61,6 +61,11 @@ Route::group(
             'as'   => 'admin.home'
         ]);
 
+        $router->get('thumb/{imageId}/{size}', [
+            'uses' => 'DashboardController@thumb',
+            'as' => 'admin.thumb'
+        ]);
+
         $router->get('/site', [
             'uses' => 'SiteController@edit',
             'as' => 'admin.site.edit'
