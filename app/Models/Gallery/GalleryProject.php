@@ -4,6 +4,7 @@ namespace Fb\Models\Gallery;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Fb\Models\File;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -20,7 +21,7 @@ class GalleryProject extends Model implements SluggableInterface
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'title', 'active', 'description', 'logo_filename', 'logo_path', 'position'
+        'name', 'title', 'active', 'description', 'position'
     ];
 
     public function category()
@@ -31,6 +32,11 @@ class GalleryProject extends Model implements SluggableInterface
     public function images()
     {
         return $this->hasMany(GalleryProjectImage::class, 'gallery_project_id', 'id');
+    }
+    
+    public function logo()
+    {
+        return $this->belongsTo(File::class, 'logo_id', 'id');
     }
 
     public function randomImages($limit)
