@@ -1,10 +1,9 @@
 $(document).ready(function(){
-    var path = $("#logo-path").val();
-    var filename = $("#logo-filename").val();
+    var logoId = $("#logo-id").val();
     var params = {};
-    if (path && filename) {
+    if (logoId) {
         params = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + path + filename + '">'
+            initialPreview: '<img style="width:auto;height:160px;" src="/admin/image/' + logoId + '/160/160' + '">'
         }
     }
     initImage($("#logo"), params);
@@ -50,10 +49,10 @@ $('#imageModal').on('show.bs.modal', function (event) {
             $("#active", modal).prop('checked', false);
         }
         baseImageParams = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + image.base_path + image.base_filename + '">',
+            initialPreview: '<img style="width:auto;height:160px;" src="/admin/image/' + image.image_id + '/213/160' + '">',
         };
         thumbImageParams = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + image.thumb_path + image.thumb_filename + '">',
+            initialPreview: '<img style="width:auto;height:160px;" src="/admin/image/' + image.thumb_id + '/160/160' + '">',
         };
     }
 
