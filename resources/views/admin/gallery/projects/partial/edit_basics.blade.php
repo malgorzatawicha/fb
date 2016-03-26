@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="hidden" id="logo-id" value="{{$project->logo->getKey()}}">
+        <input type="hidden" id="logo-id" value="{{$project->logo_id}}">
         <label for="logo" class="col-sm-3 control-label">logo:</label>
         <div class="col-sm-9">
             <input type="file" name="logo" id="logo">

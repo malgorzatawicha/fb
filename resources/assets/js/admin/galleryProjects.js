@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var logoId = $("#logo-id").val();
     var params = {};
-    if (logoId) {
+    if (logoId && logoId > 0) {
         params = {
             initialPreview: '<img style="width:auto;height:160px;" src="/admin/image/' + logoId + '/160/160' + '">'
         }

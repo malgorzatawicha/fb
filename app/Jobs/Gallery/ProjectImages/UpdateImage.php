@@ -6,6 +6,7 @@ use Fb\Http\Requests\Galleries\ProjectImages\EditImageRequest;
 use Fb\Jobs\Job;
 use Fb\Models\File;
 use Fb\Models\Gallery\GalleryProjectImage;
+use Fb\Services\StorageProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -48,7 +49,8 @@ class UpdateImage extends Job implements SelfHandling
             'thumb_exists' => $request->get('thumb_existing')
         ];
 
-        $this->config = \config('fb.project.image');
+        $this->config = \config('fb.project');
+        $this->initializePaths();
     }
 
     public function handle()
@@ -66,7 +68,7 @@ class UpdateImage extends Job implements SelfHandling
     protected function saveBaseImage()
     {
         $fileInDb = $this->saveFile(
-            $this->initializeBasePath($this->config['paths']['base']),
+            $this->config['path'] . '/' . $this->image->project->getKey() . '/' . $this->config['image']['subPaths']['base'],
             $this->data['image_exists'],
             $this->data['image'],
             $this->image->imageFile
@@ -78,7 +80,7 @@ class UpdateImage extends Job implements SelfHandling
     protected function saveThumbImage()
     {
         $fileInDb = $this->saveFile(
-            $this->initializeBasePath($this->config['paths']['thumb']),
+            $this->config['path'] . '/' . $this->image->project->getKey() . '/' . $this->config['image']['subPaths']['thumb'],
             $this->data['thumb_exists'],
             $this->data['thumb'],
             $this->image->thumbFile
@@ -88,15 +90,6 @@ class UpdateImage extends Job implements SelfHandling
 
     }
 
-    protected function initializeBasePath($base)
-    {
-        $basePath = $base . '/' . $this->image->project->getKey();
-        if (!file_exists($basePath)) {
-            mkdir($basePath);
-            chmod($basePath, 0777);
-        }
-        return $basePath;
-    }
 
     protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb=null)
     {
@@ -111,5 +104,11 @@ class UpdateImage extends Job implements SelfHandling
             }
         }
         return $fileInDb;
+    }
+
+    protected function initializePaths()
+    {
+        $service = new StorageProjectPath($this->image->project->getKey());
+        $service->initializePaths();
     }
 }

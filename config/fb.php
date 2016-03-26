@@ -2,15 +2,17 @@
 
 return [
     'project' => [
+        'path' => storage_path('fb/projects'),
         'logo' => [
-            'path' => storage_path('fb/projects'),
+            'name' => 'logo',
+            'subPath' => '',
             'width' => 200,
             'height' => 200
         ],
         'image' => [
-            'paths' => [
-                'base' => storage_path('fb/projects/images'),
-                'thumb' => storage_path('fb/projects/images/thumbs')
+            'subPaths' => [
+                'base' => 'images',
+                'thumb' => 'images/thumbs'
             ],
             'sizes' => [
                 'base' => [

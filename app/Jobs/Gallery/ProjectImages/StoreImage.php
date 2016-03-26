@@ -6,6 +6,7 @@ use Fb\Http\Requests\Galleries\ProjectImages\CreateImageRequest;
 use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryProject;
 use Fb\Models\Gallery\GalleryProjectImage;
+use Fb\Services\StorageProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Fb\Jobs\File\Create as CreateFile;
@@ -48,7 +49,8 @@ class StoreImage extends Job implements SelfHandling
             'thumb' => $request->file('thumb')
         ];
 
-        $this->config = \config('fb.project.image');
+        $this->config = \config('fb.project');
+        $this->initializePaths();
     }
     public function handle()
     {
@@ -66,12 +68,12 @@ class StoreImage extends Job implements SelfHandling
     protected function saveBaseImage()
     {
         $image = $this->data['image'];
-        $basePath = $this->config['paths']['base'] . '/' . $this->project->getKey();
-        if (!file_exists($basePath)) {
-            mkdir($basePath);
-            chmod($basePath, 0777);
+        $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['image']['subPaths']['base'];
+
+        $file = null;
+        if (!empty($image)) {
+            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $path]);
         }
-        $file = $this->dispatchFromArray(CreateFile::class, ['image'=> $image, 'path' => $basePath]);
         if (!empty($file)) {
             $this->image->image_id = $file->getKey();
         }
@@ -79,13 +81,10 @@ class StoreImage extends Job implements SelfHandling
     protected function saveThumbImage()
     {
         $image = $this->data['thumb'];
-        $basePath = $this->config['paths']['thumb'] . '/' . $this->project->getKey();
-        if (!file_exists($basePath)) {
-            mkdir($basePath, 0777, true);
-        }
+        $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['image']['subPaths']['thumb'];
         $file = null;
         if (!empty($image)) {
-            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
+            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $path]);
         }
 
         if (!empty($file)) {
@@ -93,5 +92,10 @@ class StoreImage extends Job implements SelfHandling
         }
     }
 
+    protected function initializePaths()
+    {
+        $service = new StorageProjectPath($this->project->getKey());
+        $service->initializePaths();
+    }
   
 }

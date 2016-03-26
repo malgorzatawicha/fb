@@ -5,13 +5,17 @@ namespace Fb\Jobs\Gallery\Project;
 use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryCategory;
 use Fb\Models\Gallery\GalleryProject;
+use Fb\Services\StorageProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Fb\Services\SaveFile;
+use Fb\Jobs\File\Create as CreateFile;
 
 class StoreProject extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     private $category;
     /**
      * @var array
@@ -38,7 +42,7 @@ class StoreProject extends Job implements SelfHandling
             'logo' => $request->file('logo'),
         ];
 
-        $this->config = \config('fb.project.logo');
+        $this->config = \config('fb.project');
     }
     public function handle()
     {
@@ -48,25 +52,36 @@ class StoreProject extends Job implements SelfHandling
             'description' => !empty($this->data['description'])?$this->data['description']:'',
             'active' => !empty($this->data['active'])?$this->data['active']:'',
         ]);
+        $this->category->projects()->save($this->project);
 
         $this->saveLogo();
 
-        $this->category->projects()->save($this->project);
     }
 
     private function saveLogo()
     {
+        $this->initializePaths();
         $logo = $this->data['logo'];
-        $path = $this->config['path'];
-        $file = $this->saveImage($logo, $path);
+        $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['logo']['subPath'];
+
+        $file = null;
+        if (!empty($logo)) {
+            $file = $this->saveImage($logo, $path);
+        }
         if (!empty($file)) {
             $this->project->logo_id = $file->getKey();
+            $this->project->save();
         }
     }
 
     protected function saveImage(UploadedFile $image, $basePath)
     {
-        $service = new SaveFile($image, $basePath);
-        return $service->execute();
+        return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
+    }
+
+    protected function initializePaths()
+    {
+        $service = new StorageProjectPath($this->project->getKey());
+        $service->initializePaths();
     }
 }

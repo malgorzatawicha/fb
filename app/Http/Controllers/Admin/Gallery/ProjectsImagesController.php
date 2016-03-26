@@ -59,15 +59,4 @@ class ProjectsImagesController extends Controller
         return Redirect::route('admin.gallery.categories.projects.edit', ['categories' => $categories, 'projects' => $projects]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Page $page, $bannerId)
-    {
-        $banner = Banner::findOrFail($bannerId);
-        return view('admin.cms.pages.banners.show', ['page' => $page, 'banner' => $banner]);
-    }
 }
