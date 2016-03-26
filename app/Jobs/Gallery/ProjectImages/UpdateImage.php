@@ -53,6 +53,11 @@ class UpdateImage extends Job implements SelfHandling
 
     public function handle()
     {
+        $this->image->active = $this->data['active'];
+        $this->image->watermarked = $this->data['watermarked'];
+        $this->image->name = $this->data['name'];
+        $this->image->description = $this->data['description'];
+
         $this->saveBaseImage();
         $this->saveThumbImage();
         $this->image->save();
