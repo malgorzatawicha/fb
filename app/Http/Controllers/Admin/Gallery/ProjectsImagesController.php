@@ -12,6 +12,7 @@ use Fb\Http\Requests\Galleries\ProjectImages\CreateImageRequest;
 use Fb\Http\Requests\Galleries\ProjectImages\EditImageRequest;
 use Fb\Jobs\Gallery\ProjectImages\StoreImage;
 use Fb\Jobs\Gallery\ProjectImages\UpdateImage;
+use Fb\Jobs\Gallery\ProjectImages\DestroyImage;
 
 class ProjectsImagesController extends Controller
 {
@@ -48,17 +49,14 @@ class ProjectsImagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $imageId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page, $bannerId)
+    public function destroy(GalleryCategory $categories, GalleryProject $projects, $imageId)
     {
-        $banner = Banner::findOrFail($bannerId);
-        $this->dispatchFromArray(DestroyBanner::class, [
-            'page' => $page,
-            'banner' => $banner,
-        ]);
-        return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);
+        $image = GalleryProjectImage::findOrFail($imageId);
+        $this->dispatchFromArray(DestroyImage::class, ['image' => $image]);
+        return Redirect::route('admin.gallery.categories.projects.edit', ['categories' => $categories, 'projects' => $projects]);
     }
 
     /**
