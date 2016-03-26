@@ -17,21 +17,21 @@
                         <textarea name="description" id="image-description" class="form-control" rows="2" cols="80"></textarea>
                     </div>
                     <div class="checkbox">
-                        <input type="hidden" id="is_active" value="0">
-                        <input type="hidden" name="active" value="0">
-                        <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
+                        <input type="hidden" name="active" id="image-active-hidden" value="0">
+                        <label><input type="checkbox" name="active" id="image-active" value="1">Is Active</label>
                     </div>
                     <div class="form-group">
                         <label for="base_image">Image (4:3):</label>
-                        <input type="file" name="image" id="base_image">
+                        <input type="hidden" name="image_existing" id="image-image_existing">
+                        <input type="file" name="image" id="image-image">
                     </div>
                     <div class="checkbox">
-                        <input type="hidden" id="is_watermarked" value="0">
-                        <input type="hidden" name="watermarked" value="0">
-                        <label><input type="checkbox" name="watermarked" id="watermarked" value="1">Is Watermarked</label>
+                        <input type="hidden" name="watermarked" id="image-watermarked-hidden" value="0">
+                        <label><input type="checkbox" name="watermarked" id="image-watermarked" value="1">Is Watermarked</label>
                     </div>
                     <div class="form-group">
                         <label for="thumb_image">Image (square):</label>
+                        <input type="hidden" name="thumb_existing" id="image-thumb_existing">
                         <input type="file" name="thumb" id="thumb_image">
                     </div>
                 </form>
