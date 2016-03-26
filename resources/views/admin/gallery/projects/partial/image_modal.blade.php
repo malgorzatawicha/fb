@@ -7,7 +7,8 @@
             </div>
             <div class="modal-body">
                 <form method="POST" class="form" enctype="multipart/form-data">
-                    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                    {{ method_field('POST') }}
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="image-name">Image Name:</label>
                         <input type="text" name="name" id="image-name" class="form-control">
@@ -22,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label for="base_image">Image (4:3):</label>
-                        <input type="hidden" name="image_existing" id="image-image_existing">
+                        <input type="hidden" class="existing" name="image_existing" id="image-image_existing">
                         <input type="file" name="image" id="image-image">
                     </div>
                     <div class="checkbox">
@@ -31,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="thumb_image">Image (square):</label>
-                        <input type="hidden" name="thumb_existing" id="image-thumb_existing">
+                        <input type="hidden" class="existing" name="thumb_existing" id="image-thumb_existing">
                         <input type="file" name="thumb" id="thumb_image">
                     </div>
                 </form>

@@ -27,14 +27,15 @@ $('#imageModal').on('show.bs.modal', function (event) {
 
     if (data.row) {
         $modal.find('.modal-title').text('Edit image ' + data.row.name);
-    }
-
-    if (!data.row) {
+        data.method = 'put';
+    } else {
         data.row = {
             active: true,
             watermarked: true
         };
+        data.method = 'post';
     }
+
     Modal.initializeFields($modal, data);
 
 });

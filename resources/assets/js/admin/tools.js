@@ -17,6 +17,7 @@ var Modal = {
         this.initializeBooleans($modal, data);
         this.initializeFiles($modal, data);
         this.initializeSubmit($modal, data);
+        this.initializeMethod($modal, data);
     },
 
     initializeTexts: function($modal, data) {
@@ -48,6 +49,9 @@ var Modal = {
             $form.submit();
         })
     },
+    initializeMethod: function($modal, data) {
+        $("[name='_method']", $modal).val(data.method);
+    },
     clearText: function ($field) {
         $field.val('');
     },
@@ -77,13 +81,14 @@ var Modal = {
             showUpload: false,
             language: 'pl'
         };
+        var $hiddens = $('.existing', $field.closest('.form-group'));
         if (data.row && data.row[name + '_id']) {
             params.initialPreview = ['<img style="width:auto;height:160px;" src="' + data[name + 'Src'] + '">'];
         }
         console.log(params);
         $field.fileinput(params);
 
-        var $hiddens = $('[name="image_existing"]', $field.closest('.form-group'));
+
         $field.unbind('filecleared').on('filecleared', function (event) {
             $hiddens.each(function() {
                 $(this).val(0);

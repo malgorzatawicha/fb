@@ -28,7 +28,7 @@ class CreateImageRequest extends Request
             'active' => 'boolean',
             'watermarked' => 'boolean',
             'image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
-            'thumb' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'thumb' => 'mimes:jpeg,jpg,bmp,png|max:1000',
         ];
     }
 }

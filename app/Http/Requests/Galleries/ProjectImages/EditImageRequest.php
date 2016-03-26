@@ -26,9 +26,9 @@ class EditImageRequest extends Request
         return [
             'name' => 'required',
             'active' => 'boolean',
-            'base_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
-            'big_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
-            'thumb_image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+            'watermarked' => 'boolean',
+            'image' => 'mimes:jpeg,jpg,bmp,png|max:1000',
+            'thumb' => 'mimes:jpeg,jpg,bmp,png|max:1000',
         ];
     }
 }

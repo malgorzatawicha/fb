@@ -16,7 +16,8 @@
             @foreach($project->images as $image )
                 <div class="col-sm-3 thumb">
                     <a class="thumbnail" href="{{route('admin.gallery.categories.projects.images.show', ['categories' => $category->getKey(), 'projects' => $project->getKey(), 'images' =>$image->getKey()])}}">
-                        <img class="img-responsive" src="{{route('admin.image', ['fileId' => $image->thumbFile->getKey(), 'width' => 150, 'height' => 150])}}">
+                        <img class="img-responsive"
+                             src="{{route('admin.image', ['fileId' => !empty($image->thumb_id)?$image->thumb_id:$image->image_id, 'width' => 150, 'height' => 150])}}">
                     </a>
                     <form action="{{route('admin.gallery.categories.projects.images.destroy', ['categories' => $category->getKey(), 'projects' => $project->getKey(), 'images' =>$image->getKey()]) }}" method="POST">
                         {{ csrf_field() }}

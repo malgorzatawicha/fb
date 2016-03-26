@@ -6,12 +6,13 @@ use Fb\Http\Requests\Galleries\ProjectImages\CreateImageRequest;
 use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryProject;
 use Fb\Models\Gallery\GalleryProjectImage;
-use Fb\Services\SaveFile;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Fb\Jobs\File\Create as CreateFile;
 
 class StoreImage extends Job implements SelfHandling
 {
+    use DispatchesJobs;
     /**
      * @var array
      */
@@ -70,7 +71,7 @@ class StoreImage extends Job implements SelfHandling
             mkdir($basePath);
             chmod($basePath, 0777);
         }
-        $file = $this->saveImage($image, $basePath);
+        $file = $this->dispatchFromArray(CreateFile::class, ['image'=> $image, 'path' => $basePath]);
         if (!empty($file)) {
             $this->image->image_id = $file->getKey();
         }
@@ -82,16 +83,15 @@ class StoreImage extends Job implements SelfHandling
         if (!file_exists($basePath)) {
             mkdir($basePath, 0777, true);
         }
-        $file = $this->saveImage($image, $basePath);
+        $file = null;
+        if (!empty($image)) {
+            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
+        }
+
         if (!empty($file)) {
             $this->image->thumb_id = $file->getKey();
         }
     }
 
-    protected function saveImage(UploadedFile $image, $basePath)
-    {
-        $service = new SaveFile($image, $basePath);
-        return $service->execute();
-    }
   
 }

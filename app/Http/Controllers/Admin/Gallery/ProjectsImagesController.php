@@ -4,13 +4,15 @@ namespace Fb\Http\Controllers\Admin\Gallery;
 
 use Fb\Models\Gallery\GalleryCategory;
 use Fb\Models\Gallery\GalleryProject;
-use Illuminate\Http\Request;
+use Fb\Models\Gallery\GalleryProjectImage;
 use Redirect;
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Http\Requests\Galleries\ProjectImages\CreateImageRequest;
 use Fb\Http\Requests\Galleries\ProjectImages\EditImageRequest;
 use Fb\Jobs\Gallery\ProjectImages\StoreImage;
+use Fb\Jobs\Gallery\ProjectImages\UpdateImage;
+
 class ProjectsImagesController extends Controller
 {
     /**
@@ -30,20 +32,15 @@ class ProjectsImagesController extends Controller
         return Redirect::route('admin.gallery.categories.projects.edit', ['categories' => $categories, 'projects' => $projects]);
     }
 
-    public function update(EditBannerRequest $request, Page $page, $bannerId)
+    public function update(EditImageRequest $request, GalleryCategory $categories, GalleryProject $projects, $imageId)
     {
-        $banner = Banner::findOrFail($bannerId);
-        $this->dispatchFromArray(UpdateBanner::class, [
-            'page' => $page,
-            'banner' => $banner,
-            'data' => [
-                'name' => $request->get('name'),
-                'description' => $request->get('description'),
-                'image' => $request->file('image'),
-                'active' => $request->get('active')
-            ]
+        $image = GalleryProjectImage::findOrFail($imageId);
+        $this->dispatchFromArray(UpdateImage::class, [
+            'project' => $projects,
+            'image' => $image,
+            'request' => $request
         ]);
-        return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);
+        return Redirect::route('admin.gallery.categories.projects.edit', ['categories' => $categories, 'projects' => $projects]);
     }
 
 
