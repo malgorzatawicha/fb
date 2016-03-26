@@ -83,9 +83,12 @@ var Modal = {
         };
         var $hiddens = $('.existing', $field.closest('.form-group'));
         if (data.row && data.row[name + '_id']) {
-            params.initialPreview = ['<img style="width:auto;height:160px;" src="' + data[name + 'Src'] + '">'];
+            params.initialPreview = ['<a href="' + data[name].big + '" data-lightbox="' + name + '">' +
+            '<img style="width:auto;height:160px;" src="' + data[name].thumb + '"></a>'];
+            $hiddens.each(function() {
+                $(this).val(1);
+            });
         }
-        console.log(params);
         $field.fileinput(params);
 
 

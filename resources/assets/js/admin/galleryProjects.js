@@ -20,8 +20,8 @@ $('#imageModal').on('show.bs.modal', function (event) {
     var $button = Modal.clickedButton(event);
     var data = {
         'row': $button.data('image'),
-        'imageSrc': $button.data('image-src'),
-        'thumbSrc': $button.data('thumb-src'),
+        'image': $button.data('image-file'),
+        'thumb': $button.data('thumb-file'),
         'submit': $button.data('submit-action')
     };
 

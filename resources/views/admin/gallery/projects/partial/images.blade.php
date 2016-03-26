@@ -15,7 +15,9 @@
         <div class="row project-images">
             @foreach($project->images as $image )
                 <div class="col-sm-3 thumb">
-                    <a class="thumbnail" href="{{route('admin.gallery.categories.projects.images.show', ['categories' => $category->getKey(), 'projects' => $project->getKey(), 'images' =>$image->getKey()])}}">
+                    <a class="thumbnail"
+                       href="#"
+                       data-toggle="modal" data-target="#showModal">
                         <img class="img-responsive"
                              src="{{route('admin.image', ['fileId' => !empty($image->thumb_id)?$image->thumb_id:$image->image_id, 'width' => 150, 'height' => 150, 'crop' => true])}}">
                     </a>
@@ -25,12 +27,18 @@
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
                                data-image="{{json_encode($image)}}"
-                               data-image-src="{{route('admin.image', ['fileId' => $image->image_id, 'width' => 213, 'height'=> 160])}}"
-                               data-thumb-src="{{route('admin.image', ['fileId' => $image->thumb_id, 'width' => 160, 'height'=> 160])}}"
+                               data-image-file="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $image->image_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $image->image_id, 'width' => 213, 'height' => 160])
+                               ])}}"
+                               data-thumb-file="{{json_encode([
+                                    'big' =>route('admin.image', ['fileId' => $image->thumb_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $image->thumb_id, 'width' => 160, 'height' => 160])
+                               ])}}"
                                data-project="{{json_encode($project)}}"
                                data-category="{{json_encode($category)}}"
                                data-submit-action="{{ route('admin.gallery.categories.projects.images.update', ['categories'=>$category->getKey(), 'projects' => $project->getKey(), 'images' => $image->getKey()]) }}"
-                               data-toggle="modal" data-target="#imageModal" >
+                               data-toggle="modal" data-target="#imageModal">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
