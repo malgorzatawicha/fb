@@ -17,7 +17,7 @@
                 <div class="col-sm-3 thumb">
                     <a class="thumbnail" href="{{route('admin.gallery.categories.projects.images.show', ['categories' => $category->getKey(), 'projects' => $project->getKey(), 'images' =>$image->getKey()])}}">
                         <img class="img-responsive"
-                             src="{{route('admin.image', ['fileId' => !empty($image->thumb_id)?$image->thumb_id:$image->image_id, 'width' => 150, 'height' => 150])}}">
+                             src="{{route('admin.image', ['fileId' => !empty($image->thumb_id)?$image->thumb_id:$image->image_id, 'width' => 150, 'height' => 150, 'crop' => true])}}">
                     </a>
                     <form action="{{route('admin.gallery.categories.projects.images.destroy', ['categories' => $category->getKey(), 'projects' => $project->getKey(), 'images' =>$image->getKey()]) }}" method="POST">
                         {{ csrf_field() }}
@@ -37,7 +37,6 @@
                             <a class="btn btn-danger btn-sm" title="delete" data-imageid="{{$image->getKey()}}" onclick="$(this).parent().parent().submit()">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
-
                         </div>
                     </form>
                 </div>

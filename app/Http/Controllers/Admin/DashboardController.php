@@ -15,10 +15,16 @@ class DashboardController extends Controller
         return view('admin.dashboard.index');
     }
 
-    public function image($imageId, $width, $height)
+    public function image($imageId, $width, $height, $crop = false)
     {
         $file = File::findOrFail($imageId);
         $location = $file->path . '/' . $file->filename;
-        return Image::make($location)->resize($width, $height)->response($file->extension);
+        $image = Image::make($location);
+        if ($crop) {
+            $image = $image->fit($width, $height);
+        } else {
+            $image = $image->resize($width, $height);
+        }
+        return $image->response($file->extension);
     }
 }

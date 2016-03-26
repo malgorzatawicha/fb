@@ -61,7 +61,7 @@ Route::group(
             'as'   => 'admin.home'
         ]);
 
-        $router->get('image/{fileId}/{width}/{height}', [
+        $router->get('image/{fileId}/{width}/{height}/{crop?}', [
             'uses' => 'DashboardController@image',
             'as' => 'admin.image'
         ]);
