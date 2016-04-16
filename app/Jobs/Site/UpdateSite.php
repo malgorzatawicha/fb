@@ -5,7 +5,6 @@ namespace Fb\Jobs\Site;
 use Fb\Jobs\Job;
 use Fb\Models\File;
 use Fb\Models\Site;
-use Fb\Services\StoragePaths\SitePath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;

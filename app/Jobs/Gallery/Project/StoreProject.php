@@ -5,7 +5,7 @@ namespace Fb\Jobs\Gallery\Project;
 use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryCategory;
 use Fb\Models\Gallery\GalleryProject;
-use Fb\Services\StorageProjectPath;
+use Fb\Services\StoragePaths\ProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -81,7 +81,7 @@ class StoreProject extends Job implements SelfHandling
 
     protected function initializePaths()
     {
-        $service = new StorageProjectPath($this->project->getKey());
+        $service = new ProjectPath($this->project->getKey());
         $service->initializePaths();
     }
 }

@@ -7,7 +7,6 @@ use Fb\Jobs\Job;
 use Fb\Models\File;
 use Fb\Models\Gallery\GalleryProjectImage;
 use Fb\Services\StoragePaths\ProjectPath;
-use Fb\Services\StorageProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
