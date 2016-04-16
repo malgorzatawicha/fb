@@ -32,11 +32,15 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function image($imageId, $width, $height)
+    public function image($imageId, $width = 0, $height = 0)
     {
         $file = File::findOrFail($imageId);
         $location = $file->path . '/' . $file->filename;
-        return Image::make($location)->resize($width, $height)->response($file->extension);
+        $image = Image::make($location);
+        if (!empty($width) && !empty($height)) {
+            $image->resize($width, $height);
+        }
+        return $image->response($file->extension);
     }
 
     private function getPages()

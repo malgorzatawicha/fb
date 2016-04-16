@@ -12,10 +12,6 @@ use Fb\Jobs\Gallery\Category\StoreCategory;
 
 class CategoriesController extends Controller
 {
-    private function tree()
-    {
-        return ;
-    }
     /**
      * Display a listing of the resource.
      *

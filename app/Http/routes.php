@@ -47,7 +47,7 @@ Route::group(['namespace' => 'Front'], function() use($router){
         'as' => 'project'
     ]);
 
-    $router->get('image/{fileId}/{width}/{height}', [
+    $router->get('image/{fileId}/{width?}/{height?}', [
         'uses' => 'GalleryController@image',
         'as' => 'image'
     ]);

@@ -11,7 +11,11 @@
         <div class="carousel-inner" role="listbox">
             @foreach ($page->banners as $index => $banner)
                 <div class="item @if($index == 0) active @endif">
-                    <img src="{{$banner->path}}{{$banner->filename}}" style="width: 100%" alt="{{$banner->name}}">
+                    @if($page->logo_id)
+                        <img src="{{route('image', ['fileId' => $banner->file_id, 'width' => 600, 'height'=>400])}}" style="width: 100%" alt="{{$banner->name}}">
+                    @else
+                        <img src="{{route('image', ['fileId' => $banner->file_id, 'width' => 800, 'height'=>600])}}" style="width: 100%" alt="{{$banner->name}}">
+                    @endif
                 </div>
             @endforeach
         </div>
