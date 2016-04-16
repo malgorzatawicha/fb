@@ -15,9 +15,6 @@ class PagePath
         $paths = [
             $config['path'] . '/'. $this->pageId . '/' . $config['logo']['subPath'],
         ];
-        foreach ($config['image']['subPaths'] as $subPath) {
-            $paths[] = $config['path'] . '/'. $this->pageId . '/' . $subPath;
-        }
 
         foreach ($paths as $path) {
             @mkdir($path, 0777, true);
