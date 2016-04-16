@@ -1,6 +1,6 @@
 @include('common.errors')
-<form action="{{ route('admin.cms.pages.store') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
-    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+<form action="{{ route('admin.cms.pages.store') }}" method="POST" class="form-horizontal page-form"  enctype="multipart/form-data">
+    {{ csrf_field() }}
     <div class="form-group">
         <label for="page-name" class="col-sm-2 control-label">{{ trans('cms.page.name') }}</label>
         <div class="col-sm-9">
