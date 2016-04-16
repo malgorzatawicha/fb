@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="favicon" class="col-sm-3 control-label">Favicon:</label>
                     <div class="col-sm-6 favicon">
-                        <input type="hidden" class="existing" name="favicon_existing" id="site-banner_existing">
+                        <input type="hidden" class="existing" name="favicon_existing" id="site-favicon_existing">
                         <input type="file" name="favicon" id="favicon" data-image="{{json_encode(['big'=>'/favicon.ico', 'thumb'=>'/favicon.ico'])}}">
                     </div>
                 </div>
