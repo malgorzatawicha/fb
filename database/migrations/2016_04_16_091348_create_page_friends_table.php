@@ -22,7 +22,7 @@ class CreatePageFriendsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('file_id')->nullable()->unsigned();
-            $table->foreign('file_id')->references('id')->on('files');
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('set null');
             $table->string('url');
             $table->integer('position');
             $table->timestamps();

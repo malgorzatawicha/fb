@@ -20,7 +20,7 @@ class CreateGalleryCategoriesTable extends Migration
             $table->boolean('active');
             $table->text('description');
             $table->integer('logo_id')->nullable()->unsigned();
-            $table->foreign('logo_id')->references('id')->on('files');
+            $table->foreign('logo_id')->references('id')->on('files')->onDelete('set null');
             $table->integer('parent_id')->nullable()->index();
             $table->integer('lft')->nullable()->index();
             $table->integer('rgt')->nullable()->index();

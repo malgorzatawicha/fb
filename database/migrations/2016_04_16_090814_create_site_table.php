@@ -21,10 +21,10 @@ class CreateSiteTable extends Migration
             $table->text('footer');
 
             $table->integer('banner_id')->nullable()->unsigned();
-            $table->foreign('banner_id')->references('id')->on('files');
+            $table->foreign('banner_id')->references('id')->on('files')->onDelete('set null');
 
             $table->integer('favicon_id')->nullable()->unsigned();
-            $table->foreign('favicon_id')->references('id')->on('files');
+            $table->foreign('favicon_id')->references('id')->on('files')->onDelete('set null');
 
 
             $table->timestamps();

@@ -24,7 +24,7 @@ class CreateGalleryProjectsTable extends Migration
             $table->string('active');
             $table->text('description');
             $table->integer('logo_id')->nullable()->unsigned();
-            $table->foreign('logo_id')->references('id')->on('files');
+            $table->foreign('logo_id')->references('id')->on('files')->onDelete('set null');
             $table->integer('position');
             $table->timestamps();
         });

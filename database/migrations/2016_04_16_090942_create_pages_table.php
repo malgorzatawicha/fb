@@ -20,7 +20,7 @@ class CreatePagesTable extends Migration
             $table->text('description');
             $table->text('body');
             $table->integer('logo_id')->nullable()->unsigned();
-            $table->foreign('logo_id')->references('id')->on('files');
+            $table->foreign('logo_id')->references('id')->on('files')->onDelete('set null');
             $table->boolean('active');
             $table->string('type');
             $table->integer('position');

@@ -22,10 +22,10 @@ class CreateGalleryProjectsImagesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('image_id')->nullable()->unsigned();
-            $table->foreign('image_id')->references('id')->on('files');
+            $table->foreign('image_id')->references('id')->on('files')->onDelete('set null');
 
             $table->integer('thumb_id')->nullable()->unsigned();
-            $table->foreign('thumb_id')->references('id')->on('files');
+            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('set null');
             $table->boolean('watermarked')->default(true);
 
             $table->integer('position');

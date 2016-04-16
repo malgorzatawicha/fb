@@ -22,7 +22,7 @@ class CreateBannersTable extends Migration
             $table->text('description');
 
             $table->integer('file_id')->nullable()->unsigned();
-            $table->foreign('file_id')->references('id')->on('files');
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('set null');
 
             $table->boolean('active')->default(false);
             $table->integer('position');
