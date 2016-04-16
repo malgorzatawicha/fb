@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $(":file").each(function(){
+    $(".site-form :file").each(function(){
         var name = $(this).attr('name');
 
         var data = {};

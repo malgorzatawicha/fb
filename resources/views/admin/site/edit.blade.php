@@ -9,7 +9,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
+            <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal site-form" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 <span id="site" data-site="{{$site}}"></span>
