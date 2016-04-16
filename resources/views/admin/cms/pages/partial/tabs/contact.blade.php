@@ -3,7 +3,7 @@
         <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
            data-page="{{json_encode($page)}}"
            data-submit-action="{{ route('admin.cms.pages.contacts.store', [$page->slug]) }}"
-           data-toggle="modal" data-target="#createContactModal" >
+           data-toggle="modal" data-target="#contactModal" >
             {{ trans('admin.create') }}
         </a>
     </div>
@@ -41,7 +41,8 @@
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
                                data-contact="{{json_encode($contact)}}"
                                data-page="{{json_encode($contact->page)}}"
-                               data-toggle="modal" data-target="#editContactModal" >
+                               data-submit-action="{{ route('admin.cms.pages.contacts.update', [ 'pages' => $page->getKey(), 'contact' => $contact->getKey()]) }}"
+                               data-toggle="modal" data-target="#contactModal" >
                                 Edit
                             </a>
                             <button class="btn btn-xs btn-danger" title="delete" data-bannerid="{{$contact->getKey()}}" onclick="$(this).parent().parent().submit()">
@@ -55,5 +56,4 @@
         <p>{{trans('cms.pages.contacts.no_records')}}</p>
     @endif
 </div>
-@include('admin.cms.pages.partial.contacts.create_modal')
-@include('admin.cms.pages.partial.contacts.edit_modal')
+@include('admin.cms.pages.partial.contact_modal')

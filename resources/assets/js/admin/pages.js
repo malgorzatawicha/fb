@@ -5,7 +5,6 @@ $(document).ready(function(){
         var data = {};
         data.row = $("#page").data('page');
         data[name] = $(this).data('image');
-        console.log(data);
         Modal.setFile($(this), data);
     });
 });
@@ -38,7 +37,7 @@ $('#friendModal').on('show.bs.modal', function (event) {
     var $modal = $(this);
     var $button = Modal.clickedButton(event);
     var data = {
-        'row': $button.data('image'),
+        'row': $button.data('friend'),
         'file': $button.data('file'),
         'submit': $button.data('submit-action')
     };
@@ -57,27 +56,25 @@ $('#friendModal').on('show.bs.modal', function (event) {
 
 });
 
-$('#createContactModal').on('show.bs.modal', function(event) {
-    var page = getDataForModal(event, 'page');
-    var modal = $(this);
-    prepareSubmitButton(event, modal);
-});
+$('#contactModal').on('show.bs.modal', function (event) {
+    var $modal = $(this);
+    var $button = Modal.clickedButton(event);
+    var data = {
+        'row': $button.data('contact'),
+        'file': $button.data('file'),
+        'submit': $button.data('submit-action')
+    };
 
-$('#editContactModal').on('show.bs.modal', function (event) {
-    var contact = getDataForModal(event, 'contact');
-    var page = getDataForModal(event, 'page');
-
-    var modal = $(this);
-    modal.find('.modal-title').text('Edit contact ' + contact.name);
-
-    $('.contact-name').val(contact.name);
-    $('.contact-body').val(contact.body);
-
-    var active = $("#is_active", modal).val();
-    if (active == 1) {
-        $("#active", modal).prop('checked', true);
+    if (data.row) {
+        $modal.find('.modal-title').text('Edit friend ' + data.row.name);
+        data.method = 'put';
+    } else {
+        data.row = {
+            active: true
+        };
+        data.method = 'post';
     }
 
-    prepareSubmitButton(event, modal);
-});
+    Modal.initializeFields($modal, data);
 
+});

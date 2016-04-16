@@ -49,7 +49,7 @@ class ContactsController extends Controller
                 'active' => $request->get('active')
             ]
         ]);
-        return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);
+        return Redirect::route('admin.cms.pages.edit', ['pages' => $contact->page->slug]);
     }
 
 

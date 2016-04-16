@@ -22,7 +22,7 @@ var Modal = {
 
     initializeTexts: function($modal, data) {
         var self = this;
-        $(':text, textarea', $modal).each(function () {
+        $(':text, input[type=url], textarea', $modal).each(function () {
             self.clearText($(this));
             self.setText($(this), data);
         });
