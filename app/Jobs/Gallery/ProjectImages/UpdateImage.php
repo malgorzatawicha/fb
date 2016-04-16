@@ -6,6 +6,7 @@ use Fb\Http\Requests\Galleries\ProjectImages\EditImageRequest;
 use Fb\Jobs\Job;
 use Fb\Models\File;
 use Fb\Models\Gallery\GalleryProjectImage;
+use Fb\Services\StoragePaths\ProjectPath;
 use Fb\Services\StorageProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -108,7 +109,7 @@ class UpdateImage extends Job implements SelfHandling
 
     protected function initializePaths()
     {
-        $service = new StorageProjectPath($this->image->project->getKey());
+        $service = new ProjectPath($this->image->project->getKey());
         $service->initializePaths();
     }
 }

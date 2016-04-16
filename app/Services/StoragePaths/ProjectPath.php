@@ -1,6 +1,6 @@
-<?php namespace Fb\Services;
+<?php namespace Fb\Services\StoragePaths;
 
-class StorageProjectPath
+class ProjectPath
 {
     private $projectId;
 
