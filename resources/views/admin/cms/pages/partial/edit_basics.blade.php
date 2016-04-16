@@ -1,7 +1,8 @@
 @include('common.errors')
-<form action="{{ route('admin.cms.pages.update', [$page->slug]) }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
+<form action="{{ route('admin.cms.pages.update', [$page->slug]) }}" method="POST" class="form-horizontal page-form"  enctype="multipart/form-data">
     {{ method_field('PUT') }}
-    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+    {{ csrf_field() }}
+    <span id="page" data-page="{{$page}}"></span>
     <div class="form-group">
         <label for="page-name" class="col-sm-2 control-label">{{ trans('cms.page.name') }}</label>
         <div class="col-sm-9">
@@ -38,18 +39,19 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="hidden" id="logo-path" value="{{$page->logo_path}}">
-        <input type="hidden" id="logo-filename" value="{{$page->logo_filename}}">
         <label for="logo" class="col-sm-2 control-label">logo:</label>
         <div class="col-sm-9">
-            <input type="file" name="logo" id="logo">
+            <input type="hidden" class="existing" name="logo_existing" id="page-logo_existing">
+            <input type="file" name="logo" id="logo" data-image="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $page->logo_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $page->logo_id, 'width' => 213, 'height' => 160])
+                               ])}}">
         </div>
     </div>
     <div class="form-group">
         <div class="checkbox col-sm-offset-2">
-            <input type="hidden" id="is_active" value="{{$page->active}}">
             <input type="hidden" name="active" value="0">
-            <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
+            <label><input type="checkbox" @if (!empty($project->active)) checked="checked" @endif name="active" id="page-active" value="1">Is Active</label>
         </div>
     </div>
     <div class="form-group">

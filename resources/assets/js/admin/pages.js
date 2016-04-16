@@ -1,19 +1,13 @@
 $(document).ready(function(){
-    var path = $("#logo-path").val();
-    var filename = $("#logo-filename").val();
-    var params = {};
-    if (path && filename) {
-        params = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + path + filename + '">'
-        }
-    }
-    initImage($("#logo"), params);
+    $(".page-form :file").each(function(){
+        var name = $(this).attr('name');
 
-    var active = $("#is_active").val();
-    if (active == 1) {
-        $("#active").prop('checked', true);
-    }
-
+        var data = {};
+        data.row = $("#page").data('page');
+        data[name] = $(this).data('image');
+        console.log(data);
+        Modal.setFile($(this), data);
+    });
 });
 function getDataForModal(event, data) {
     var button = $(event.relatedTarget);
