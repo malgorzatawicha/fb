@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBannersTable extends Migration
+class CreatePageContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBannersTable extends Migration
      */
     public function up()
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('page_contacts', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('page_id')->unsigned();
@@ -20,9 +20,7 @@ class CreateBannersTable extends Migration
             $table->boolean('active')->default(false);
 
             $table->string('name');
-            $table->text('description');
-            $table->string('filename')->unique();
-            $table->string('path');
+            $table->text('body');
             $table->integer('position');
             $table->timestamps();
         });
@@ -35,6 +33,6 @@ class CreateBannersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('banners');
+        Schema::drop('page_contacts');
     }
 }

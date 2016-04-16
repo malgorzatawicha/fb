@@ -17,10 +17,15 @@ class CreateSiteTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('keywords');
-
-            $table->string('banner_filename')->unique();
-            $table->string('banner_path');
+            $table->string('breadcrumb');
             $table->text('footer');
+
+            $table->integer('banner_id')->nullable()->unsigned();
+            $table->foreign('banner_id')->references('id')->on('files');
+
+            $table->integer('favicon_id')->nullable()->unsigned();
+            $table->foreign('favicon_id')->references('id')->on('files');
+
 
             $table->timestamps();
         });

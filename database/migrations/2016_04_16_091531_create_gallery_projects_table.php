@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableGalleryProjects extends Migration
+class CreateGalleryProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,8 +23,8 @@ class CreateTableGalleryProjects extends Migration
             $table->string('slug')->unique();
             $table->string('active');
             $table->text('description');
-            $table->string('logo_filename')->nullable()->unique();
-            $table->string('logo_path')->nullable();
+            $table->integer('logo_id')->nullable()->unsigned();
+            $table->foreign('logo_id')->references('id')->on('files');
             $table->integer('position');
             $table->timestamps();
         });

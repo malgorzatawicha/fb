@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableGalleryProjectsImages extends Migration
+class CreateGalleryProjectsImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,16 +21,13 @@ class CreateTableGalleryProjectsImages extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->string('base_filename')->unique();
-            $table->string('base_path');
-            $table->string('big_filename')->unique();
-            $table->string('big_path');
-            $table->string('mobile_filename')->unique();
-            $table->string('mobile_path');
-            $table->string('thumb_filename')->unique();
-            $table->string('thumb_path');
-            $table->string('mobile_thumb_filename')->unique();
-            $table->string('mobile_thumb_path');
+            $table->integer('image_id')->nullable()->unsigned();
+            $table->foreign('image_id')->references('id')->on('files');
+
+            $table->integer('thumb_id')->nullable()->unsigned();
+            $table->foreign('thumb_id')->references('id')->on('files');
+            $table->boolean('watermarked')->default(true);
+
             $table->integer('position');
             $table->timestamps();
         });

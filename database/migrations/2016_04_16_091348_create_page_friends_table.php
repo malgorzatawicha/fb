@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePageContacts extends Migration
+class CreatePageFriendsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTablePageContacts extends Migration
      */
     public function up()
     {
-        Schema::create('page_contacts', function (Blueprint $table) {
+        Schema::create('page_friends', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('page_id')->unsigned();
@@ -20,7 +20,10 @@ class CreateTablePageContacts extends Migration
             $table->boolean('active')->default(false);
 
             $table->string('name');
-            $table->text('body');
+            $table->text('description');
+            $table->integer('file_id')->nullable()->unsigned();
+            $table->foreign('file_id')->references('id')->on('files');
+            $table->string('url');
             $table->integer('position');
             $table->timestamps();
         });
@@ -33,6 +36,6 @@ class CreateTablePageContacts extends Migration
      */
     public function down()
     {
-        Schema::drop('page_contacts');
+        Schema::drop('page_friends');
     }
 }

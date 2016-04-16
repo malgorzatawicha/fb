@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePageFriends extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,17 @@ class CreateTablePageFriends extends Migration
      */
     public function up()
     {
-        Schema::create('page_friends', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('page_id')->unsigned();
-            $table->foreign('page_id')->references('id')->on('pages');
-            $table->boolean('active')->default(false);
-
             $table->string('name');
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description');
-            $table->string('filename')->unique();
-            $table->string('path');
-            $table->string('url');
+            $table->text('body');
+            $table->integer('logo_id')->nullable()->unsigned();
+            $table->foreign('logo_id')->references('id')->on('files');
+            $table->boolean('active');
+            $table->string('type');
             $table->integer('position');
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ class CreateTablePageFriends extends Migration
      */
     public function down()
     {
-        Schema::drop('page_friends');
+        Schema::drop('pages');
     }
 }

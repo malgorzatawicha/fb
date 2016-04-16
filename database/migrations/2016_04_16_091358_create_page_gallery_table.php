@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePageGallery extends Migration
+class CreatePageGalleryTable extends Migration
 {
     /**
      * Run the migrations.

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,19 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('page_id')->unsigned();
+            $table->foreign('page_id')->references('id')->on('pages');
+
             $table->string('name');
-            $table->string('title');
-            $table->string('slug')->unique();
             $table->text('description');
-            $table->text('body');
-            $table->string('logo_filename')->nullable()->unique();
-            $table->string('logo_path')->nullable();
-            $table->boolean('active');
-            $table->string('type');
+
+            $table->integer('file_id')->nullable()->unsigned();
+            $table->foreign('file_id')->references('id')->on('files');
+
+            $table->boolean('active')->default(false);
             $table->integer('position');
             $table->timestamps();
         });
@@ -35,6 +37,7 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('pages');
+        Schema::drop('banners');
+
     }
 }
