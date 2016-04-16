@@ -1,6 +1,7 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
 use Fb\Jobs\Cms\Banners\UpdateBanner;
+use Fb\Jobs\Gallery\Category\DestroyCategory;
 use Fb\Jobs\Gallery\Category\UpdateCategory;
 use Illuminate\Http\Request;
 
@@ -105,8 +106,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(GalleryCategory $category)
     {
-        //
+        $this->dispatchFromArray(DestroyCategory::class, ['category' => $category]);
+        return Redirect::route('admin.gallery.categories.index');
     }
 }
