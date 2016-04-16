@@ -1,7 +1,7 @@
 @extends('front.layouts.page')
 @section('page_description')
-    @if($page->logo_filename)
-        <div class="row"><img title="{{$page->title}}" alt="logo" src="{{$page->logo_path}}/{{$page->logo_filename}}" width="100%"></div>
+    @if($page->logo_id)
+        <div class="row"><img title="{{$page->title}}" alt="logo" src="{{route('image',['fileId'=>$page->logo_id, 'width'=>300, 'height' => 300])}}" width="100%"></div>
     @endif
 
     @if($page->description)
