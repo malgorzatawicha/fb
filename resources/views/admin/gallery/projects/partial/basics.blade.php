@@ -1,8 +1,7 @@
 @include('common.errors')
-<form action="{{ route('admin.gallery.categories.projects.update', ['categories' => $category->getKey(), 'projects' => $project->getKey()]) }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
-    {{ method_field('PUT') }}
+<form method="POST" class="form-horizontal"  enctype="multipart/form-data">
+    {{ method_field('POST') }}
     {{ csrf_field() }}
-    <div id="project" data-project="{{json_encode($project)}}"></div>
     <div class="form-group">
         <label for="project-name" class="col-sm-3 control-label">{{ trans('gallery.project.name') }}</label>
         <div class="col-sm-9">
@@ -30,8 +29,8 @@
     </div>
     <div class="form-group">
         <div class="checkbox col-sm-offset-3">
-            <input type="hidden" name="active" value="0">
-            <label><input type="checkbox" @if (!empty($project->active)) checked="checked" @endif name="active" id="active" value="1">Is Active</label>
+            <input type="hidden" name="active" id="project-active-hidden" value="0">
+            <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
         </div>
     </div>
     <div class="form-group">

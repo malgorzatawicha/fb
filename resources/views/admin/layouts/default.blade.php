@@ -48,7 +48,7 @@
     @yield('content')
 </div>
 <script src="{{ elixir('js/all.js') }}"></script>
-<script src="/js/admin/tools.js"></script>
+<script src="{{ elixir('js/admin.js') }}"></script>
 
 @yield('scripts')
 </body>

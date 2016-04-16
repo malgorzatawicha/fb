@@ -1,18 +1,22 @@
 $(document).ready(function(){
-    var logoId = $("#logo-id").val();
-    var params = {};
-    if (logoId && logoId > 0) {
-        params = {
-            initialPreview: '<img style="width:auto;height:160px;" src="/admin/image/' + logoId + '/160/160' + '">'
+
+    var $projectInfo = $('#projectInfo');
+    if ($projectInfo) {
+        var data = {
+            'row': $projectInfo.data('project'),
+            'logo': $projectInfo.data('logo'),
+            'submit': $projectInfo.data('submit-action')
+        };
+        if (data.row) {
+            data.method = 'put';
+        }else {
+            data.row = {
+                active: true
+            };
+            data.method = 'post';
         }
+        Modal.initializeFields($('body'), data);
     }
-    initImage($("#logo"), params);
-
-    var active = $("#is_active").val();
-    if (active == 1) {
-        $("#active").prop('checked', true);
-    }
-
 });
 
 $('#imageModal').on('show.bs.modal', function (event) {

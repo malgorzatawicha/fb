@@ -14,17 +14,18 @@ body > .wrapper {
 }
 
 .right-side{
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 215, 249, 0.7);
 }
 footer.footer {
   background-color: transparent;
 }
-footer >.container {
+footer.footer > .container {
   background: rgba(0, 0,0, 0.8);
+  border-top-color: #444444;
 }
 
 .full-width {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 215, 249, 0.7);
 }
 
 .left-side {
@@ -45,17 +46,29 @@ footer >.container {
 body {
   font-family: "Poiret One";
 }
-.navbar-inverse .navbar-nav > li a {
-  color: white;
+
+.borderable {
+  box-shadow: 10px 10px 15px 5px #444444;
+  border: 1px solid white;
+  border-radius: 5px;
 }
-.navbar-inverse .navbar-nav > li > a:hover {
-  color: white;
+
+.friends-box {
+  box-shadow: 8px 5px 15px 5px #444444;
+}
+.navbar-inverse .navbar-nav > li a {
+  color: rgba(170,170,170, 1);
+  font-weight: bold;
+  outline: none;
+}
+.navbar-inverse .navbar-nav > li a:hover {
+  color: rgba(0, 252, 255, 0.8);
 }
 .navbar-inverse .navbar-nav > li.active a {
-  color: white;
+  color: rgba(0, 252, 255, 0.8);
 }
 .navbar-inverse .navbar-nav > li.active a:hover {
-  color: white;
+  color: rgba(0, 252, 255, 0.8);
 }
 
 footer.footer {
@@ -65,10 +78,63 @@ footer.footer {
 .left-side {
   color: white;
 }
+
 .breadcrumb {
+  color: rgba(170,170,170, 1);
+  font-weight: bold;
+  font-size: smaller;
+}
+.breadcrumb a {
+  color: rgba(170,170,170, 1);
+  font-weight:bold;
+  outline: none;
+}
+.breadcrumb a:hover {
+  color: rgba(0, 252, 255, 0.8);
+  text-decoration: none;
+}
+.treeview li{
   color: white;
 }
 
-.treeview li{
-  color: white;
+.instansive-widget {
+  background-color: white; margin-bottom: 20px;
+  box-shadow: 10px 10px 15px 5px #444444;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.fb_iframe_widget {
+  box-shadow: 10px 10px 15px 5px #444444;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.gallery {
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  border-radius: 0 !important;
+}
+
+.list-group-item .fa {
+  color: rgba(255, 255, 255, 0.5);
+}
+.list-group-item a {
+  outline: none;
+}
+.list-group-item a:hover {
+  text-decoration: none;
+}
+
+h1, .h1 {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.row-content {
+  font-size: large;
+  font-weight: bold;
 }

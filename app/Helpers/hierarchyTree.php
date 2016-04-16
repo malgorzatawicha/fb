@@ -83,6 +83,11 @@ class FrontTree extends Tree
         $data = parent::collectNodeData($node);
         $data['id'] = $node->slug;
         $data['href'] = route('gallery', ['pages' => $this->page->slug, 'category' => $node->slug]);
+
+        $data['state'] = [
+            'selected' => !empty($this->selectedNode) && ($node->getKey() == $this->selectedNode->getKey()),
+            'expanded' => ($node->getDepth() <= 1 || !empty($this->selectedNode) && ($node->isAncestorOf($this->selectedNode))),
+        ];
         return $data;
     }
 }

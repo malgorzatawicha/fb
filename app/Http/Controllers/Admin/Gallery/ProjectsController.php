@@ -1,6 +1,5 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
-use Fb\Jobs\Gallery\Category\UpdateCategory;
 use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Http\Request;
 
@@ -9,6 +8,8 @@ use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Support\Facades\Redirect;
 use Fb\Jobs\Gallery\Project\StoreProject;
+use Fb\Jobs\Gallery\Project\UpdateProject;
+
 
 class ProjectsController extends Controller
 {
@@ -78,11 +79,12 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, GalleryCategory $categories, $id)
     {
-        $category = GalleryCategory::findOrFail($id);
-        $this->dispatchFromArray(UpdateCategory::class, ['data' => $request->all(), 'galleryCategory' => $category]);
-        return Redirect::route('admin.gallery.categories.index');
+        $project = GalleryProject::findOrFail($id);
+        $this->dispatchFromArray(UpdateProject::class,
+            ['project' => $project, 'request' => $request]);
+        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
     }
 
     /**

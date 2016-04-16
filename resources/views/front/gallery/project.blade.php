@@ -1,20 +1,23 @@
 @extends('front.layouts.gallery')
 @section('breadcrumb')
-    {{implode(' > ', $category->pathIn($page))}} > {{$project->title}}
+    @foreach($category->pathIn($page) as $bread)
+        <li><a href="{{route('gallery', [$page->getSlug(), $bread->getSlug()])}}">{{$bread->title}}</a></li>
+    @endforeach
+    <li>{{$project->title}}</li>
 @endsection
 @section('gallery_content')
 <div class="row">
     <div class="col-md-12">
-
+        <h1>{{$project->title}}</h1>
         <!-- Carousel
            ================================================== -->
-        <div id="myCarousel" class="carousel slide">
+        <div id="myCarousel" class="carousel slide borderable">
 
             <div class="carousel-inner" role="listbox">
                 @foreach ($project->images as $index => $image)
                     <div class="item @if($index == 0) active @endif">
                         <a href="{{$image->big_path}}{{$image->big_filename}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
-                            <img class="img-responsive" src="{{$image->base_path}}{{$image->base_filename}}" alt="{{$image->name}}">
+                            <img class="img-responsive" src="{{$image->big_path}}{{$image->big_filename}}" alt="{{$image->name}}">
                         </a>
                         {{$image->description}}
                     </div>
@@ -23,11 +26,11 @@
 
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="fa fa-chevron-circle-left icon-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="fa fa-chevron-circle-right icon-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
      </div><!-- End Carousel -->
@@ -37,7 +40,7 @@
     <div class="image-list">
         @foreach ($project->images as $index => $image)
             <div class="row">
-                 <img class="img-responsive" src="{{$image->mobile_path}}{{$image->mobile_filename}}" alt="{{$image->name}}">
+                 <img class="img-responsive borderable" src="{{$image->mobile_path}}{{$image->mobile_filename}}" alt="{{$image->name}}">
                 {{$image->description}}
             </div>
         @endforeach
@@ -53,11 +56,11 @@
                     <div class="carousel-inner">
                         @foreach($project->images->chunk(4) as $items)
                             <div class="item @if($counter == 0) active @endif">
-                                <div class="row">
+                                <div class="row" style="height: 200px; width: 800px;">
                                     @foreach($items as $image)
                                         <div class="col-sm-3">
                                             <a data-item="{{$counter}}" href="#" class="thumbnail">
-                                                <img class="img-responsive" src="{{$image->thumb_path}}{{$image->thumb_filename}}" alt="{{$image->name}}">
+                                                <img class="img-responsive borderable" src="{{$image->thumb_path}}{{$image->thumb_filename}}" alt="{{$image->name}}">
                                             </a>
                                         </div>
                                         <?php $counter++ ?>
@@ -68,8 +71,8 @@
                         @endforeach
                     </div>
 
-                    <a class="left carousel-control" href="#thumbnailCarousel" data-slide="prev"><i class="fa fa-chevron-left fa-2x"></i></a>
-                    <a class="right carousel-control" href="#thumbnailCarousel" data-slide="next"><i class="fa fa-chevron-right fa-2x"></i></a>
+                    <a class="left carousel-control" href="#thumbnailCarousel" data-slide="prev"><i class="fa fa-chevron-circle-left icon-left"></i></a>
+                    <a class="right carousel-control" href="#thumbnailCarousel" data-slide="next"><i class="fa fa-chevron-circle-right  icon-right"></i></a>
 
                     <ol class="carousel-indicators">
                         @for($i = 0; $i < $chunkCount; $i++)
@@ -98,5 +101,11 @@
 
            });
         });
+
+        $('.lb-next').html('<span class="fa fa-chevron-circle-right"></span>');
+        $('.lb-next').addClass('right carousel-control').removeClass('lb-next');
+
+        $('.lb-prev').html('<span class="fa fa-chevron-circle-left"></span>');
+        $('.lb-prev').addClass('left carousel-control').removeClass('lb-prev');
     </script>
 @endsection

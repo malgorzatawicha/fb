@@ -6,7 +6,7 @@
 }
 #thumbnailCarousel .carousel-control {
   top:40%;
-  color:#428BCA;
+  color:rgba(0,0,0,0.8);
   bottom:auto;
   padding-top:4px;
   width:30px;
@@ -15,7 +15,7 @@
   opacity:1;
 }
 #thumbnailCarousel .carousel-control:hover {
-  color: #d9534f;
+  color: rgba(68,68,68,0.8);
 }
 #thumbnailCarousel  .carousel-control.left, #thumbnailCarousel  .carousel-control.right {
   background-image:none !important;
@@ -32,19 +32,90 @@
   bottom:-30px;
 }
 #thumbnailCarousel .carousel-indicators li {
-  border-radius:0;
   width:10px;
   height:10px;
-  background:#ccc;
-  border:1px solid #ccc;
+  background:rgba(255,255,255, 0.8);
+  border:1px solid rgba(255,255,255,1);
+}
+
+#thumbnailCarousel .carousel-indicators li:hover {
+  background:rgba(68,68,68, 0.8);
+  border:1px solid rgba(68,68,68,1);
 }
 #thumbnailCarousel .carousel-indicators .active {
   width:12px;
   height:12px;
-  background:#3276b1;
-  border-color:#3276b1;
+  background:rgba(0,0,0,0.8);
+  border-color:rgba(0,0,0,1);
+}
+#thumbnailCarousel .carousel-indicators li.active {
+  background:rgba(0,0,0,0.8);
+  border-color:rgba(0,0,0,1);
+  cursor: default;
+}
+#thumbnailCarousel .thumbnail {
+  background: unset;
+  border: unset;
 }
 
+.well {
+  background-color: transparent;
+  border: unset;
+}
+.carousel-control .fa {
+  font-size: 30px;
+  height: 30px;
+  margin-top: -10px;
+  width: 30px;
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+}
+.carousel-control .fa.icon-left {
+  margin-left: -50px;
+  left: 50%;
+}
+.carousel-control .fa.icon-right {
+  margin-right: -50px;
+  right: 50%;
+}
+
+#thumbnailCarousel .fa.icon-right {
+  margin-right: 0;
+  margin-left: -10px;
+}
+
+#thumbnailCarousel .fa.icon-left {
+  margin-left: -5px;
+}
+
+.lb-close:before{
+  content: "";
+}
+.lb-close {
+  font-size: 40px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: FontAwesome;
+  font-feature-settings: normal;
+  font-kerning: auto;
+  font-language-override: normal;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-synthesis: weight style;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+  background: unset!important;
+}
+.lb-closeContainer a:hover {
+  text-decoration: unset;
+}
+
+.lb-close:hover {
+  color: rgba(68, 68, 68, 0.8);
+}
 .image-list {
   display: none;
 }

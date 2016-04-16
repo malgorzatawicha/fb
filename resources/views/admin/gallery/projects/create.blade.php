@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="panel panel-default">
+        <div
+                id="projectInfo"
+                data-submit-action="{{ route('admin.gallery.categories.projects.store', ['categories'=>$category->getKey()]) }}"
+        ></div>
         <div class="panel-heading">
             <h4>{{trans('gallery.projects')}} of {{$category->title}} - {{trans('admin.create')}}</h4>
         </div>
@@ -15,14 +19,10 @@
 
                 <div class="tab-content col-sm-9" id="projectTabsContent">
                     <div aria-labelledby="basics-tab" id="basics" class="tab-pane fade active in" role="tabpanel">
-                        @include('admin.gallery.projects.partial.create_basics')
+                        @include('admin.gallery.projects.partial.basics')
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@stop
-@section('scripts')
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/js/admin/galleryProjects.js"></script>
 @stop
