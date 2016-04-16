@@ -6,7 +6,7 @@
                 data-project="{{json_encode($project)}}"
                 data-logo="{{json_encode([
                                 'big' =>route('admin.image', ['fileId' => $project->logo_id]),
-                                 'thumb' => route('admin.image', ['fileId' => $image->logo_id, 'width' => 160, 'height' => 160])
+                                 'thumb' => route('admin.image', ['fileId' => $project->logo_id, 'width' => 160, 'height' => 160])
                                ])}}"
                 data-submit-action="{{ route('admin.gallery.categories.projects.update', ['categories'=>$category->getKey(), 'projects' => $project->getKey()]) }}"
 
@@ -36,4 +36,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script src="{{ elixir('js/admin/project.js') }}"></script>
 @stop

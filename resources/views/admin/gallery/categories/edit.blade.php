@@ -59,8 +59,7 @@
 @stop
 
 @section('scripts')
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/js/admin/galleryCategories.js"></script>
+    <script src="{{ elixir('js/admin/gallery.js') }}"></script>
     <script>
         $("#tree").treeview({
             data: {!! createTree($categories, $parent) !!}

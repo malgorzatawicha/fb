@@ -25,8 +25,8 @@
     </div>
 
 @stop
-
 @section('scripts')
+    <script src="{{ elixir('js/admin/gallery.js') }}"></script>
     <script>
         var $tree = $("#tree");
         $tree.treeview({

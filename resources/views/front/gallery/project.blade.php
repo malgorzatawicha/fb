@@ -89,7 +89,6 @@
 @endsection
 
 @section('gallery_scripts')
-    <script src="/vendor/lightbox/lightbox.js"></script>
     <script>
         $('.carousel').carousel('pause')
 

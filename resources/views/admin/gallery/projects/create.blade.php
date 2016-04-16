@@ -26,3 +26,6 @@
         </div>
     </div>
 @stop
+@section('scripts')
+    <script src="{{ elixir('js/admin/project.js') }}"></script>
+@stop

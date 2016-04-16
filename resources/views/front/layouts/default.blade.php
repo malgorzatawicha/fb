@@ -7,7 +7,6 @@
     <title>{{$site->title}}</title>
     <meta name="description" content="{{$site->description}}" />
     <meta name="keywords" content="{{$site->keywords}}" />
-    <link type="text/css" rel="stylesheet" href="{{elixir('vendor/lightbox/lightbox.css')}}"/>
     <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     @yield('styles')

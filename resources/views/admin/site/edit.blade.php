@@ -65,5 +65,5 @@
 @stop
 
 @section('scripts')
-    <script src="/js/admin/site.js"></script>
+    <script src="{{elixir('js/admin/site.js')}}"></script>
 @stop

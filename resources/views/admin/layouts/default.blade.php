@@ -8,6 +8,7 @@
     <meta name="description" content="{{$site->description}}" />
     <meta name="keywords" content="{{$site->keywords}}" />
     <link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}"/>
+    @yield('styles')
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 </head>
 
@@ -47,8 +48,9 @@
 
     @yield('content')
 </div>
+<script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <script src="{{ elixir('js/all.js') }}"></script>
-<script src="{{ elixir('js/admin.js') }}"></script>
+<script src="{{ elixir('js/admin/admin.js') }}"></script>
 
 @yield('scripts')
 </body>

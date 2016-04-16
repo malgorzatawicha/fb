@@ -40,6 +40,5 @@
 @stop
 
 @section('scripts')
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/js/admin/pages.js"></script>
+    <script src="{{elixir('js/admin/page.js')}}"></script>
 @stop
