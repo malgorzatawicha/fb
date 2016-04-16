@@ -72,7 +72,7 @@ class UpdateImage extends Job implements SelfHandling
             $this->image->imageFile
         );
 
-        $this->image->image_id = !empty($fileInDb)?$fileInDb->getKey():0;
+        $this->image->image_id = !empty($fileInDb)?$fileInDb->getKey():null;
 
     }
     private function saveThumbImage()
@@ -84,7 +84,7 @@ class UpdateImage extends Job implements SelfHandling
             $this->image->thumbFile
         );
 
-        $this->image->thumb_id = !empty($fileInDb)?$fileInDb->getKey():0;
+        $this->image->thumb_id = !empty($fileInDb)?$fileInDb->getKey():null;
 
     }
 

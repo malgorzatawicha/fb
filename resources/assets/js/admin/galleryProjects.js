@@ -15,7 +15,7 @@ $(document).ready(function(){
             };
             data.method = 'post';
         }
-        Modal.initializeFields($('body'), data);
+        Modal.initializeFields($('.project-form'), data);
     }
 });
 
