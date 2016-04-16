@@ -2,6 +2,7 @@
 
 namespace Fb\Jobs\Cms\Pages;
 
+use Fb\Jobs\Cms\Banners\DestroyBanner;
 use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -26,6 +27,9 @@ class DestroyPage extends Job implements SelfHandling
         $file = $this->page->logoFile;
         if (!empty($file)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $file]);
+        }
+        foreach ($this->page->banners as $banner) {
+            $this->dispatchFromArray(DestroyBanner::class, ['banner' => $banner]);
         }
         return $this->page->delete();
     }

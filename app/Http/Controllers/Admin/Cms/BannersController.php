@@ -65,7 +65,6 @@ class BannersController extends Controller
     {
         $banner = Banner::findOrFail($bannerId);
         $this->dispatchFromArray(DestroyBanner::class, [
-            'page' => $page,
             'banner' => $banner,
         ]);
         return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);

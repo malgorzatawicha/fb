@@ -6,41 +6,27 @@ use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Fb\Models\Cms\Banner;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Image;
-use File;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Fb\Jobs\File\Delete as DeleteFile;
 
 class DestroyBanner extends Job implements SelfHandling
 {
-    protected $page;
+    use DispatchesJobs;
 
     protected $banner;
 
-    protected $absolutePath;
-
-    const DST_FOLDER = '/images/pages/';
-    const DST_IMAGE = '';
-
-    public function __construct(Page $page, Banner $banner)
+    public function __construct( Banner $banner)
     {
-        $this->page = $page;
         $this->banner = $banner;
-        $this->absolutePath = public_path();
     }
 
     public function handle()
     {
-        File::delete($this->getAbsolutePath($this->banner->path) . $this->banner->filename);
+        $file = $this->banner->logoFile;
+        if (!empty($file)) {
+            $this->dispatchFromArray(DeleteFile::class, ['file' => $file]);
+        }
 
         Banner::destroy($this->banner->id);
-    }
-
-    protected function getPath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
     }
 }
