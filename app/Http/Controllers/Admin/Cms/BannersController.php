@@ -46,11 +46,13 @@ class BannersController extends Controller
             'data' => [
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
-                'image' => $request->file('image'),
-                'active' => $request->get('active')
+                'file' => $request->file('file'),
+                'file_exists' => $request->get('file_existing'),
+                'active' => $request->get('active'),
+                'watermarked' => $request->get('watermarked')
             ]
         ]);
-        return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);
+        return Redirect::route('admin.cms.pages.edit', ['pages' => $banner->page->slug]);
     }
 
 

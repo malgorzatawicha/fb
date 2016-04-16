@@ -15,7 +15,7 @@ $('#bannerModal').on('show.bs.modal', function (event) {
     var $button = Modal.clickedButton(event);
     var data = {
         'row': $button.data('image'),
-        'image': $button.data('image-file'),
+        'file': $button.data('file'),
         'submit': $button.data('submit-action')
     };
 
