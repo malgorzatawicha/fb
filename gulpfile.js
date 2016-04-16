@@ -31,6 +31,7 @@ elixir(function(mix) {
         .styles([
             '../../../bower_components/bootstrap/dist/css/bootstrap.min.css',
             '../../../bower_components/lightbox2/dist/css/lightbox.min.css',
+            '../../../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css',
             '../../../bower_components/font-awesome/css/font-awesome.min.css',
             'app.css'
         ], 'public/css/all.css')
@@ -44,7 +45,8 @@ elixir(function(mix) {
         .scripts([
             '../../../bower_components/jquery/dist/jquery.min.js',
             '../../../bower_components/bootstrap/dist/js/bootstrap.min.js',
-            '../../../bower_components/lightbox2/dist/js/lightbox.min.js'
+            '../../../bower_components/lightbox2/dist/js/lightbox.min.js',
+            '../../../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js'
         ], 'public/js/all.js')
         .scripts([
             /** FILEINPUT */

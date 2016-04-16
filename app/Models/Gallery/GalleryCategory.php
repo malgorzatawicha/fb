@@ -63,7 +63,23 @@ class GalleryCategory extends Node implements SluggableInterface {
             $category = $category->parent;
         }
         $result[] = $rootCategory;
+
         return array_reverse($result);
+    }
+
+    public function clearForJson($data)
+    {
+        if (!is_object($data) && !is_array($data)) {
+            return preg_replace('#, "espots":.*?}\s]#', '', preg_replace('/\s+/', ' ',$data));
+        }
+        if (is_object($data)) {
+            $data = $data->toArray();
+        }
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$key] = $this->clearForJson($value);
+        }
+        return $result;
     }
 
     public function randomImages($limit)

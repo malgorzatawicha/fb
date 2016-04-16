@@ -3,7 +3,7 @@
     @if($page->logo_id)
         <div class="row"><img title="{{$page->title}}" alt="logo" src="{{route('image', ['fileId' => $page->logo_id])}}" width="100%"></div>
     @endif
-
+    @yield('custom_logo')
     @if($page->description)
         <div class="row page-description">{!! $page->description !!}</div>
     @endif
@@ -36,7 +36,7 @@
 
         var selectedNodes = [];
         @if($category)
-             selectedNodes = JSON.parse('{!! json_encode($category->pathIn($page, 'slug')) !!}');
+             selectedNodes = JSON.parse('{!! json_encode($category->clearForJson($category->pathIn($page, 'slug'))) !!}');
         @endif
 
         $tree = $(".mobile-tree");

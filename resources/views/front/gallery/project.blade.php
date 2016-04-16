@@ -5,6 +5,11 @@
     @endforeach
     <li>{{$project->title}}</li>
 @endsection
+@section('custom_logo')
+    @if ($project->logo_id)
+        <div class="row"><img title="{{$project->title}}" alt="logo" src="{{route('image',['fileId'=>$project->logo_id])}}" width="100%"></div>
+    @endif
+@endsection
 @section('gallery_content')
 <div class="row">
     <div class="col-md-12">
@@ -16,8 +21,8 @@
             <div class="carousel-inner" role="listbox">
                 @foreach ($project->images as $index => $image)
                     <div class="item @if($index == 0) active @endif">
-                        <a href="{{$image->big_path}}{{$image->big_filename}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
-                            <img class="img-responsive" src="{{$image->big_path}}{{$image->big_filename}}" alt="{{$image->name}}">
+                        <a href="{{route('image', ['fileId' => $image->image_id])}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
+                            <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id])}}" alt="{{$image->name}}">
                         </a>
                         {{$image->description}}
                     </div>
@@ -34,13 +39,14 @@
                 <span class="sr-only">Next</span>
             </a>
      </div><!-- End Carousel -->
+        {!! $project->description !!}
 
     </div>
     </div>
     <div class="image-list">
         @foreach ($project->images as $index => $image)
             <div class="row">
-                 <img class="img-responsive borderable" src="{{$image->mobile_path}}{{$image->mobile_filename}}" alt="{{$image->name}}">
+                 <img class="img-responsive borderable" src="{{route('image', ['fileId' => $image->image_id])}}" alt="{{$image->name}}">
                 {{$image->description}}
             </div>
         @endforeach
@@ -60,7 +66,7 @@
                                     @foreach($items as $image)
                                         <div class="col-sm-3">
                                             <a data-item="{{$counter}}" href="#" class="thumbnail">
-                                                <img class="img-responsive borderable" src="{{$image->thumb_path}}{{$image->thumb_filename}}" alt="{{$image->name}}">
+                                                <img class="img-responsive borderable" src="{{route('image', ['fileId' => $image->thumb_id])}}" alt="{{$image->name}}">
                                             </a>
                                         </div>
                                         <?php $counter++ ?>
