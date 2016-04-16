@@ -1,16 +1,11 @@
 $(document).ready(function(){
 
-    initImage($("#favicon"), {
-        initialPreview: '<img src="/favicon.ico">'
-    });
+    $(":file").each(function(){
+        var name = $(this).attr('name');
 
-    var banner_path = $("#banner-path").val();
-    var banner_filename = $("#banner-filename").val();
-    var params = {};
-    if (banner_path && banner_filename) {
-        params = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + banner_path + banner_filename + '">'
-        }
-    }
-    initImage($("#banner"), params);
+        var data = {};
+        data.row = $("#site").data('site');
+        data[name] = $(this).data('image');
+        Modal.setFile($(this), data);
+    });
 });

@@ -13,6 +13,7 @@ class SiteTableSeeder extends Seeder
     {
         $site = new \Fb\Models\Site();
         $site->title = 'FB Shop';
+        $site->breadcrumb = 'Home';
         $site->save();
     }
 }

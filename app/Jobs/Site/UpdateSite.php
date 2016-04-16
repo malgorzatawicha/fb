@@ -3,32 +3,35 @@
 namespace Fb\Jobs\Site;
 
 use Fb\Jobs\Job;
+use Fb\Models\File;
 use Fb\Models\Site;
+use Fb\Services\StoragePaths\SitePath;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Fb\Jobs\File\Fixed\Create as CreateFile;
+use Fb\Jobs\File\Delete as DeleteFile;
+use Fb\Jobs\File\Fixed\Change as ChangeFile;
 
 class UpdateSite extends Job implements SelfHandling
 {
-    protected $site;
-
+    use DispatchesJobs;
     /**
      * @var array
      */
     protected $data = [];
+    protected $config = [];
 
-    const DST_FOLDER = '/images/site/';
-    const DST_IMAGE = '';
-
-    protected $absolutePath;
-
-    protected $faviconName = 'favicon.ico';
-    protected $bannerName = 'banner';
+    protected $site;
+    protected $favicon;
+    protected $banner;
 
     public function __construct(Site $site, array $data)
     {
         $this->site = $site;
         $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->config = \config('fb.site');
     }
 
     public function handle()
@@ -37,50 +40,48 @@ class UpdateSite extends Job implements SelfHandling
         $this->site->description = $this->data['description'];
         $this->site->keywords = $this->data['keywords'];
         $this->site->footer = $this->data['footer'];
+        $this->site->breadcrumb = $this->data['breadcrumb'];
         $this->saveFavicon();
         $this->saveBanner();
         $this->site->save();
     }
 
-    private function saveFavicon()
+    protected function saveFavicon()
     {
-        if (!empty($this->data['favicon'])) {
-            $this->data['favicon']->move($this->absolutePath, $this->faviconName);
+        $fileInDb = $this->saveFile(
+            $this->config['favicon']['path'],
+            $this->data['favicon_exists'],
+            $this->data['favicon'],
+            $this->site->faviconFile
+        );
+
+        $this->site->favicon_id = !empty($fileInDb)?$fileInDb->getKey():null;
+
+    }
+    protected function saveBanner()
+    {
+        $fileInDb = $this->saveFile(
+            $this->config['banner']['path'],
+            $this->data['banner_exists'],
+            $this->data['banner'],
+            $this->site->bannerFile
+        );
+
+        $this->site->banner_id = !empty($fileInDb)?$fileInDb->getKey():null;
+
+    }
+    protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
+    {
+        if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
+            $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);
+            $fileInDb = false;
+        } else if(!empty($isUploaded) && !empty($image)) {
+            if (empty($fileInDb)) {
+                $fileInDb = $this->dispatchFromArray(CreateFile::class, ['image'=> $image, 'path' => $basePath]);
+            } else {
+                $fileInDb = $this->dispatchFromArray(ChangeFile::class, ['image'=> $image, 'file' => $fileInDb]);
+            }
         }
-    }
-
-    private function saveBanner()
-    {
-        if (!empty($this->data['banner'])) {
-
-            $imageFile = Image::make($this->data['banner']->getRealPath());
-            $imagePath = $this->saveImageFile($imageFile);
-
-            $this->site->banner_filename = basename($imagePath);
-            $this->site->banner_path = $this->getImagePath();
-        }
-    }
-
-    protected function saveImageFile(\Intervention\Image\Image $image)
-    {
-        $path = $this->getAbsolutePath($this->getImagePath()) . $this->getBannerFileName();
-        $image->save($path);
-        return $path;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function getImagePath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getBannerFileName()
-    {
-        $extension =  $this->data['banner']->getClientOriginalExtension();
-        return $this->bannerName . '.' . $extension;
+        return $fileInDb;
     }
 }

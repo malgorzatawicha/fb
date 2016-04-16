@@ -11,11 +11,18 @@
             @include('common.errors')
             <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal"  enctype="multipart/form-data">
                 {{ method_field('PUT') }}
-                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                {{ csrf_field() }}
+                <span id="site" data-site="{{$site}}"></span>
                 <div class="form-group">
                     <label for="site-title" class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-6">
                         <input type="text" value="{{$site->title}}" name="title" id="site-title" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="site-breadcrumb" class="col-sm-3 control-label">Breadcrumb</label>
+                    <div class="col-sm-6">
+                        <input type="text" value="{{$site->breadcrumb}}" name="breadcrumb" id="site-breadcrumb" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -39,15 +46,19 @@
                 <div class="form-group">
                     <label for="favicon" class="col-sm-3 control-label">Favicon:</label>
                     <div class="col-sm-6 favicon">
-                        <input type="file" name="favicon" id="favicon">
+                        <input type="hidden" class="existing" name="favicon_existing" id="site-banner_existing">
+                        <input type="file" name="favicon" id="favicon" data-image="{{json_encode(['big'=>'/favicon.ico', 'thumb'=>'/favicon.ico'])}}">
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <input type="hidden" id="banner-path" value="{{$site->banner_path}}">
-                    <input type="hidden" id="banner-filename" value="{{$site->banner_filename}}">
-                    <label for="banner" class="col-sm-3 control-label">Banner File name:</label>
+                    <label for="banner" class="col-sm-3 control-label">Banner:</label>
                     <div class="col-sm-6">
-                        <input type="file" name="banner" id="banner">
+                        <input type="hidden" class="existing" name="banner_existing" id="site-banner_existing">
+                        <input type="file" name="banner" id="banner" data-image="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $site->banner_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $site->banner_id, 'width' => 213, 'height' => 160])
+                               ])}}">
                     </div>
                 </div>
                 <div class="form-group">

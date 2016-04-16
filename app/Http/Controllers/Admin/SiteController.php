@@ -25,9 +25,12 @@ class SiteController extends Controller
                 'title' => $request->get('title'),
                 'description' => $request->get('description'),
                 'keywords' => $request->get('keywords'),
+                'breadcrumb' => $request->get('breadcrumb', 'Home'),
                 'footer' => $request->get('footer'),
                 'favicon' => $request->file('favicon'),
-                'banner' => $request->file('banner')
+                'favicon_exists' => $request->get('favicon_existing'),
+                'banner' => $request->file('banner'),
+                'banner_exists' => $request->get('banner_existing'),
             ]
         ]);
         return Redirect::route('admin.site.edit');

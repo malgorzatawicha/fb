@@ -29,6 +29,14 @@ return [
                 ]
             ]
         ]
+    ],
+    'site' => [
+        'favicon' => [
+            'path' => public_path('favicon')
+        ],
+        'banner' => [
+            'path' => public_path('images/banner')
+        ]
     ]
 
 ];

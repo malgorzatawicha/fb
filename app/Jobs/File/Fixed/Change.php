@@ -1,0 +1,46 @@
+<?php namespace Fb\Jobs\File\Fixed;
+
+use Illuminate\Contracts\Bus\SelfHandling;
+use Fb\Jobs\Job;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Image;
+use Fb\Models\File;
+
+class Change extends Job implements SelfHandling
+{
+    private $image;
+    private $file;
+
+    public function __construct(File $file, UploadedFile $image)
+    {
+        $this->image = $image;
+        $this->file = $file;
+    }
+
+    public function handle()
+    {
+        if (!empty($this->image)) {
+            @unlink($this->file->path . '/' . $this->file->filename);
+            $this->file->extension = $this->image->getClientOriginalExtension();
+            $this->file->original_filename = $this->image->getClientOriginalName();
+
+            $this->image->move($this->file->path,  $this->file->filename);
+
+            chmod($this->file->path . '/' . $this->file->filename, 0777);
+            $this->file->save();
+            return $this->file;
+        }
+        return null;
+    }
+
+
+    private function baseName($path)
+    {
+        return trim(substr($path, strrpos(trim($path), '/')), '/');
+    }
+
+    private function dirname($path)
+    {
+        return '/' .trim(substr($path, 0, strrpos(trim($path), '/')), '/');
+    }
+}
