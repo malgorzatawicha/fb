@@ -4,6 +4,7 @@ namespace Fb\Models\Cms;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Fb\Models\File;
 use Illuminate\Database\Eloquent\Model;
 use \Rutorika\Sortable\SortableTrait;
 use Fb\Models\Gallery\PageGallery;
@@ -23,8 +24,6 @@ class Page extends Model implements SluggableInterface
         'title',
         'description',
         'body',
-        'logo_filename',
-        'logo_path',
         'position',
         'active',
         'type',
@@ -48,5 +47,10 @@ class Page extends Model implements SluggableInterface
     public function gallery()
     {
         return $this->hasOne(PageGallery::class);
+    }
+
+    public function logoFile()
+    {
+        return $this->belongsTo(File::class, 'logo_id', 'id');
     }
 }

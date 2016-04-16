@@ -4,6 +4,7 @@ use Baum\Node;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Fb\Models\Cms\Page;
+use Fb\Models\File;
 use Illuminate\Database\Eloquent\Builder;
 use DB;
 
@@ -26,7 +27,7 @@ class GalleryCategory extends Node implements SluggableInterface {
     protected $table = 'gallery_categories';
 
     protected $fillable = [
-        'name', 'title', 'active', 'description', 'logo_filename', 'logo_path'
+        'name', 'title', 'active', 'description',
     ];
 
 
@@ -76,4 +77,8 @@ class GalleryCategory extends Node implements SluggableInterface {
             ->limit($limit)->get();
     }
 
+    public function logoFile()
+    {
+        return $this->belongsTo(File::class, 'logo_id', 'id');
+    }
 }

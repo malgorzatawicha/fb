@@ -11,9 +11,18 @@ class Site extends Model
     protected $fillable = [
         'title',
         'description',
+        'breadcrumb',
         'keywords',
-        'banner_filename',
-        'banner_path',
         'footer'
     ];
+
+    public function faviconFile()
+    {
+        return $this->belongsTo(File::class, 'favicon_id', 'id');
+    }
+
+    public function bannerFile()
+    {
+        return $this->belongsTo(File::class, 'banner_id', 'id');
+    }
 }
