@@ -37,6 +37,15 @@ return [
         'banner' => [
             'path' => public_path('images/banner')
         ]
-    ]
+    ],
+    'page' => [
+        'path' => storage_path('fb/pages'),
+        'logo' => [
+            'name' => 'logo',
+            'subPath' => '',
+            'width' => 200,
+            'height' => 200
+        ],
+    ],
 
 ];

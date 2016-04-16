@@ -5,95 +5,71 @@ namespace Fb\Jobs\Cms\Pages;
 use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Fb\Jobs\File\Create as CreateFile;
+use Fb\Services\StoragePaths\PagePath;
 
 class StorePage extends Job implements SelfHandling
 {
+    use DispatchesJobs;
     /**
      * @var array
      */
     private $data = [];
 
-    const DST_FOLDER = '/images/pages/';
-    const DST_IMAGE = '';
+    private $config;
 
-    protected $absolutePath;
-
-    protected $imageFilename;
+    private $page;
 
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->config = \config('fb.page');
     }
 
     public function handle()
     {
-        $page = new Page();
-        $page->name = !empty($this->data['name'])?$this->data['name']:'';
-        $page->title = !empty($this->data['title'])?$this->data['title']:'';
-        $page->description = !empty($this->data['description'])?$this->data['description']:'';
-        $page->body = !empty($this->data['body'])?$this->data['body']:'';
-        $page->active = $this->data['active'];
-        $page->type = $this->data['type'];
-        $this->saveLogo($page);
-        $page->save();
+        $this->page = new Page([
+            'name' => !empty($this->data['name'])?$this->data['name']:'',
+            'title' =>!empty($this->data['title'])?$this->data['title']:'',
+            'description' =>!empty($this->data['description'])?$this->data['description']:'',
+            'body' => !empty($this->data['body'])?$this->data['body']:'',
+            'active' =>$this->data['active'],
+            'type' => $this->data['type'],
+        ]);
 
-        return $page;
+        $this->page->save();
+        $this->saveLogo();
+
+        return $this->page;
     }
 
-    private function saveLogo(Page $page)
+    private function saveLogo()
     {
-        if (!empty($this->data['logo'])) {
-            $imageFile = Image::make($this->data['logo']->getRealPath());
-            $imagePath = $this->saveImageFile($imageFile);
+        $this->initializePaths();
+        $logo = $this->data['logo'];
+        $path = $this->config['path'] . '/' . $this->page->getKey() . '/' . $this->config['logo']['subPath'];
 
-            $page->logo_filename = basename($imagePath);
-            $page->logo_path = $this->getImagePath();
+        $file = null;
+        if (!empty($logo)) {
+            $file = $this->saveImage($logo, $path);
+        }
+        if (!empty($file)) {
+            $this->page->logo_id = $file->getKey();
+            $this->page->save();
         }
     }
 
-    protected function saveImageFile(\Intervention\Image\Image $image)
+    protected function saveImage(UploadedFile $image, $basePath)
     {
-        $path = $this->getAbsolutePath($this->getImagePath()) . $this->getImageFileName();
-        $image->save($path);
-        return $path;
+        return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
     }
 
-    protected function getImagePath()
+    protected function initializePaths()
     {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function getImageFileName()
-    {
-        if (empty($this->imageFilename)) {
-            $extension = $this->data['logo']->getClientOriginalExtension();
-
-            $name = $this->generateFileNameInFolder(
-                $this->getImagePath(),
-                $this->data['logo']->getClientOriginalName(),
-                $extension
-            );
-
-            $this->imageFilename = $name;
-        }
-        return $this->imageFilename;
-    }
-
-    protected function generateFileNameInFolder($path, $basename, $ext)
-    {
-        $name = md5($basename . time()) . '.' . $ext;
-
-        while(\File::exists($path . '/' . $name)) {
-            $name = md5($name . time()) . '.' . $ext;
-        }
-        return $name;
-
+        $service = new PagePath($this->page->getKey());
+        $service->initializePaths();
     }
 }

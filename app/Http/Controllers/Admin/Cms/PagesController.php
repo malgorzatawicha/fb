@@ -47,7 +47,15 @@ class PagesController extends Controller
      */
     public function store(CreatePageRequest $request)
     {
-        $this->dispatchFromArray(StorePage::class, ['data' => $request->all()]);
+        $this->dispatchFromArray(StorePage::class, ['data' =>[
+            'name' => $request->get('name'),
+            'title' => $request->get('title'),
+            'type' => $request->get('type'),
+            'description' => $request->get('description'),
+            'body' => $request->get('body'),
+            'logo' => $request->file('logo'),
+            'active' => $request->get('active')
+        ]]);
 
         return Redirect::route('admin.cms.pages.index');
     }
