@@ -5,16 +5,16 @@
     @endif
 
     @if($page->description)
-        <div class="row">{!! $page->description !!}</div>
+        <div class="row page-description">{!! $page->description !!}</div>
     @endif
     <div class="tree" id="tree"></div>
 @endsection
 @section('page_content')
-    <div class="breadcrumb">Home > @yield('breadcrumb')</div>
+    <div class="breadcrumb"><a href="/">{{$site->breadcrumb}}</a> / @yield('breadcrumb')</div>
     <div class="row mobile-tree" id="tree"></div>
     <div class="row row-content">
         @include('front.main.partial.banner')
-        <h1>{{$page->title}}</h1>
+{{--        <h1>{{$category->title}}</h1>--}}
         {!! $page->body !!}
         @yield('gallery_content')
     </div>
@@ -26,6 +26,11 @@
         var $tree = $(".tree");
         $tree.treeview({
             enableLinks: true,
+            expandIcon: 'fa fa-caret-down',
+            collapseIcon: 'fa fa-caret-right',
+            borderColor: '#444444',
+            onhoverColor: 'rgba(68,68,68, 0.5)',
+            selectedBackColor: 'rgba(0, 252, 255, 0.3)',
             data: {!! createFrontTree($categories, $page, $category) !!}
         });
 
@@ -39,6 +44,11 @@
             enableLinks: true,
             levels: 0,
             selectable: false,
+            expandIcon: 'fa fa-caret-down',
+            collapseIcon: 'fa fa-caret-right',
+            borderColor: '#444444',
+            onhoverColor: 'rgba(68,68,68, 0.5)',
+            selectedBackColor: 'rgba(0, 252, 255, 0.3)',
             data: {!! createMobileFrontTree($categories, $page, $category) !!}
         });
         $tree.on('nodeExpanded', function(event, data) {

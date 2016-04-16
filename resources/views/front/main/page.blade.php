@@ -5,12 +5,14 @@
     @endif
 
     @if($page->description)
-        <div class="row">{!! $page->description !!}</div>
+        <div class="row page-description">{!! $page->description !!}</div>
     @endif
 @endsection
 
 @section('page_content')
-    <div class="breadcrumb">Home > {{$page->title}}</div>
+    @if($page->type!= 'main')
+    <div class="breadcrumb"> <a href="/">{{$site->breadcrumb}}</a> / {{$page->title}}</div>
+    @endif
     <div class="row row-content">
         @include('front.main.partial.banner')
         <h1>{{$page->title}}</h1>
