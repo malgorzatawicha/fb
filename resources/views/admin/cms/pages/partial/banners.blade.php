@@ -3,7 +3,7 @@
         <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
            data-page="{{json_encode($page)}}"
            data-submit-action="{{ route('admin.cms.pages.banners.store', [$page->slug]) }}"
-           data-toggle="modal" data-target="#createBannerModal" >
+           data-toggle="modal" data-target="#bannerModal" >
             {{ trans('admin.create') }}
         </a>
     </div>
@@ -14,17 +14,23 @@
         <div class="row page-banners">
             @foreach($page->banners as $banner )
                 <div class="col-sm-3 thumb">
-                    <a class="thumbnail" href="{{route('admin.cms.pages.banners.show', ['page' => $page->slug, 'banner' =>$banner->id])}}">
-                        <img class="img-responsive" src="{{$banner->path }}{{ $banner->filename . '?'. 'time='. time() }}">
+                    <a class="thumbnail" href="#">
+                        <img class="img-responsive"
+                             src="{{route('admin.image', ['fileId' => $banner->file_id, 'width' => 150, 'height' => 150, 'crop' => true])}}">
                     </a>
                     <form action="{{route('admin.cms.pages.banners.destroy', ['page' => $page->slug, 'banner' => $banner->id]) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
-                               data-banner="{{json_encode($banner)}}"
-                               data-page="{{json_encode($banner->page)}}"
-                               data-toggle="modal" data-target="#editBannerModal" >
+                               data-image="{{json_encode($banner)}}"
+                               data-file="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $banner->file_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $banner->file_id, 'width' => 213, 'height' => 160])
+                               ])}}"
+                               data-page="{{json_encode($page)}}"
+                               data-submit-action="{{ route('admin.cms.pages.banners.update', [ 'pages' => $page->getKey(), 'banners' => $banner->getKey()]) }}"
+                               data-toggle="modal" data-target="#bannerModal">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
@@ -41,5 +47,4 @@
         <p>{{trans('cms.pages.banners.no_records')}}</p>
     @endif
 </div>
-@include('admin.cms.pages.partial.banners.create_modal')
-@include('admin.cms.pages.partial.banners.edit_modal')
+@include('admin.cms.pages.partial.banner_modal')

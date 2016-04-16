@@ -26,6 +26,7 @@ class CreateBannersTable extends Migration
 
             $table->boolean('active')->default(false);
             $table->integer('position');
+            $table->boolean('watermarked')->default(true);
             $table->timestamps();
         });
     }

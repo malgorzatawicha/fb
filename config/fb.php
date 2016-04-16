@@ -46,6 +46,9 @@ return [
             'width' => 200,
             'height' => 200
         ],
+        'banner' => [
+            'subPath' => 'banners'
+        ]
     ],
 
 ];

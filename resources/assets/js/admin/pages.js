@@ -9,49 +9,31 @@ $(document).ready(function(){
         Modal.setFile($(this), data);
     });
 });
-function getDataForModal(event, data) {
-    var button = $(event.relatedTarget);
-    return button.data(data);
-}
 
-function prepareSubmitButton(event, modal)
-{
-    var submitAction = getDataForModal(event, 'submit-action');
-    var $form = $('form', modal);
-    $form.attr('action', submitAction);
-    $(".submit-form", modal).click(function() {
-        $form.submit();
-    })
-}
+$('#bannerModal').on('show.bs.modal', function (event) {
+    var $modal = $(this);
+    var $button = Modal.clickedButton(event);
+    var data = {
+        'row': $button.data('image'),
+        'image': $button.data('image-file'),
+        'submit': $button.data('submit-action')
+    };
 
-$('#createBannerModal').on('show.bs.modal', function(event) {
-    var page = getDataForModal(event, 'page');
-    var modal = $(this);
-    initImage($("#image", modal));
-    prepareSubmitButton(event, modal);
-});
-
-$('#editBannerModal').on('show.bs.modal', function (event) {
-    var banner = getDataForModal(event, 'banner');
-    var page = getDataForModal(event, 'page');
-
-    var modal = $(this);
-    modal.find('.modal-title').text('Edit banner ' + banner.name);
-
-    $('.banner-name').val(banner.name);
-    $('.banner-description').val(banner.description);
-
-    initImage($("#image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + banner.path + banner.filename + '">',
-    });
-
-    var active = $("#is_active", modal).val();
-    if (active == 1) {
-        $("#active", modal).prop('checked', true);
+    if (data.row) {
+        $modal.find('.modal-title').text('Edit banner ' + data.row.name);
+        data.method = 'put';
+    } else {
+        data.row = {
+            active: true,
+            watermarked: true
+        };
+        data.method = 'post';
     }
 
-    prepareSubmitButton(event, modal);
+    Modal.initializeFields($modal, data);
+
 });
+
 
 $('#createContactModal').on('show.bs.modal', function(event) {
     var page = getDataForModal(event, 'page');

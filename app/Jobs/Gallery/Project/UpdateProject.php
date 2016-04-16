@@ -48,12 +48,6 @@ class UpdateProject extends Job implements SelfHandling
         $this->project->title = $this->data['title'];
         $this->project->description = $this->data['description'];
         $this->project->active = $this->data['active'];
-        $this->project = new GalleryProject([
-            'name' => !empty($this->data['name'])?$this->data['name']:'',
-            'title' => !empty($this->data['title'])?$this->data['title']:'',
-            'description' => !empty($this->data['description'])?$this->data['description']:'',
-            'active' => !empty($this->data['active'])?$this->data['active']:'',
-        ]);
         $this->category->projects()->save($this->project);
 
         $this->saveLogo();

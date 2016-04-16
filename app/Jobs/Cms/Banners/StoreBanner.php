@@ -5,39 +5,32 @@ namespace Fb\Jobs\Cms\Banners;
 use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Fb\Models\Cms\Banner;
+use Fb\Services\StoragePaths\PagePath;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;
+use Fb\Jobs\File\Create as CreateFile;
+
 
 class StoreBanner extends Job implements SelfHandling
 {
+    use DispatchesJobs;
     /**
      * @var array
      */
     protected $data = [];
 
+    private $config = [];
+
     protected $page;
 
     protected $banner;
-
-    const DST_FOLDER = '/images/pages/';
-    const DST_IMAGE = '';
-    const DST_IMAGE_THUMBNAILS = 'thumbnails/';
-
-    protected $absolutePath;
-
-    protected $thumbnailSize = [
-        'w' => 60,
-        'h' => 60
-    ];
-
-    protected $filename;
-
 
     public function __construct(Page $page, array $data)
     {
         $this->page = $page;
         $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->config = \config('fb.page');
     }
 
     public function handle()
@@ -45,7 +38,8 @@ class StoreBanner extends Job implements SelfHandling
         $this->banner = new Banner([
             'active' => $this->data['active'],
             'name' => $this->data['name'],
-            'description' => $this->data['description']
+            'description' => $this->data['description'],
+            'watermarked' => $this->data['watermarked'],
         ]);
         $this->saveImage();
 
@@ -54,57 +48,21 @@ class StoreBanner extends Job implements SelfHandling
 
     protected function saveImage()
     {
-        if (!empty($this->data['image'])) {
-            $file = Image::make($this->data['image']->getRealPath());
-            $path = $this->saveFile($file);
+        $image = $this->data['file'];
+        $path = $this->config['path'] . '/' . $this->page->getKey() . '/' . $this->config['banner']['subPath'];
 
-            $this->banner->filename = basename($path);
-            $this->banner->path = $this->getPath();
-
+        $file = null;
+        if (!empty($image)) {
+            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $path]);
+        }
+        if (!empty($file)) {
+            $this->banner->file_id = $file->getKey();
         }
     }
 
-    protected function saveFile(\Intervention\Image\Image $image)
+    protected function initializePaths()
     {
-        $path = $this->getAbsolutePath($this->getPath()) . $this->getFileName();
-        $image->save($path);
-        return $path;
-    }
-
-    protected function getPath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function generateFileNameInFolder($path, $basename, $ext)
-    {
-            $name = md5($basename . time()) . '.' . $ext;
-
-            while(\File::exists($path . '/' . $name)) {
-                $name = md5($name . time()) . '.' . $ext;
-            }
-            return $name;
-
-    }
-
-    protected function getFileName()
-    {
-        if (empty($this->filename)) {
-            $extension = $this->data['image']->getClientOriginalExtension();
-
-            $name = $this->generateFileNameInFolder(
-                $this->getPath(),
-                $this->data['image']->getClientOriginalName(),
-                $extension
-            );
-
-            $this->filename = $name;
-        }
-        return $this->filename;
+        $service = new PagePath($this->page->getKey());
+        $service->initializePaths();
     }
 }

@@ -26,7 +26,8 @@ class CreateBannerRequest extends Request
         return [
             'name' => 'required',
             'active' => 'boolean',
-            'image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000'
+            'watermarked' => 'boolean',
+            'file' => 'required|mimes:jpeg,jpg,bmp,png|max:1000'
         ];
     }
 }

@@ -1,6 +1,15 @@
 @extends('admin.layouts.default')
 @section('content')
     <div class="panel panel-default">
+        <div
+                id="pageInfo"
+                data-project="{{json_encode($page)}}"
+                data-logo="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $page->logo_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $page->logo_id, 'width' => 160, 'height' => 160])
+                               ])}}"
+
+        ></div>
         <div class="panel-heading">
             <h4>{{ trans('cms.pages') }} - {{trans('cms.page.update')}} {{$page->title}}</h4>
         </div>
