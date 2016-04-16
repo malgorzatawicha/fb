@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.gallery.categories.store') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+            <form action="{{ route('admin.gallery.categories.store') }}" method="POST" class="form-horizontal category-form" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div id="tree"></div>
                 <input type="hidden" name="parent" id='parent' value="">
@@ -31,8 +31,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" id="logo-path" value="">
-                    <input type="hidden" id="logo-filename" value="">
                     <label for="logo" class="col-sm-3 control-label">logo:</label>
                     <div class="col-sm-9">
                         <input type="file" name="logo" id="logo">
@@ -40,7 +38,6 @@
                 </div>
                 <div class="form-group">
                     <div class="checkbox col-sm-offset-3">
-                        <input type="hidden" id="is_active" value="0">
                         <input type="hidden" name="active" value="0">
                         <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
                     </div>

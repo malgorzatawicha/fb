@@ -53,5 +53,7 @@ return [
             'subPath' => 'friends'
         ]
     ],
-
+    'category' => [
+        'path' => storage_path('fb/categories'),
+    ],
 ];

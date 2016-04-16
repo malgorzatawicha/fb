@@ -5,102 +5,75 @@ namespace Fb\Jobs\Gallery\Category;
 use Fb\Jobs\Job;
 use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Fb\Jobs\File\Create as CreateFile;
+use Fb\Services\StoragePaths\CategoryPath;
 
 class StoreCategory extends Job implements SelfHandling
 {
+    use DispatchesJobs;
     /**
      * @var array
      */
     private $data = [];
 
-    const DST_FOLDER = '/images/galleries/categories/';
-    const DST_IMAGE = '';
+    private $config;
 
-    protected $absolutePath;
-
-    protected $imageFilename;
+    private $category;
 
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->config = \config('fb.category');
     }
 
     public function handle()
     {
         if (!empty($this->data['parent'])) {
             $parent = GalleryCategory::findOrFail($this->data['parent']);
-            $category = $parent->children()->create([
+            $this->category = $parent->children()->create([
                 'name' => !empty($this->data['name'])?$this->data['name']:'',
             ]);
         } else {
-            $category = GalleryCategory::create([
+            $this->category = GalleryCategory::create([
                 'name' => !empty($this->data['name'])?$this->data['name']:'',
             ]);
         }
 
-        $category->title = !empty($this->data['title'])?$this->data['title']:'';
-        $category->description = !empty($this->data['description'])?$this->data['description']:'';
-        $category->active = $this->data['active'];
-        $this->saveLogo($category);
-        $category->save();
-
-        return $category;
+        $this->category->title = !empty($this->data['title'])?$this->data['title']:'';
+        $this->category->description = !empty($this->data['description'])?$this->data['description']:'';
+        $this->category->active = $this->data['active'];
+        $this->category->save();
+        $this->saveLogo();
+        $this->category->save();
     }
 
-    private function saveLogo(GalleryCategory $category)
+    private function saveLogo()
     {
-        if (!empty($this->data['logo'])) {
-            $imageFile = Image::make($this->data['logo']->getRealPath());
-            $imagePath = $this->saveImageFile($imageFile);
+        $this->initializePaths();
+        $logo = $this->data['logo'];
+        $path = $this->config['path'] . '/' . $this->category->getKey() . '/';
 
-            $category->logo_filename = basename($imagePath);
-            $category->logo_path = $this->getImagePath();
+        $file = null;
+        if (!empty($logo)) {
+            $file = $this->saveImage($logo, $path);
+        }
+        if (!empty($file)) {
+            $this->category->logo_id = $file->getKey();
+            $this->category->save();
         }
     }
 
-    protected function saveImageFile(\Intervention\Image\Image $image)
+    private function saveImage(UploadedFile $image, $basePath)
     {
-        $path = $this->getAbsolutePath($this->getImagePath()) . $this->getImageFileName();
-        $image->save($path);
-        return $path;
+        return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
     }
 
-    protected function getImagePath()
+    private function initializePaths()
     {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function getImageFileName()
-    {
-        if (empty($this->imageFilename)) {
-            $extension = $this->data['logo']->getClientOriginalExtension();
-
-            $name = $this->generateFileNameInFolder(
-                $this->getImagePath(),
-                $this->data['logo']->getClientOriginalName(),
-                $extension
-            );
-
-            $this->imageFilename = $name;
-        }
-        return $this->imageFilename;
-    }
-
-    protected function generateFileNameInFolder($path, $basename, $ext)
-    {
-        $name = md5($basename . time()) . '.' . $ext;
-
-        while(\File::exists($path . '/' . $name)) {
-            $name = md5($name . time()) . '.' . $ext;
-        }
-        return $name;
-
+        $service = new CategoryPath($this->category->getKey());
+        $service->initializePaths();
     }
 }

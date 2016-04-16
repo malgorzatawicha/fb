@@ -48,7 +48,14 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->dispatchFromArray(StoreCategory::class, ['data' => $request->all()]);
+        $this->dispatchFromArray(StoreCategory::class, ['data' =>[
+            'parent'=> $request->get('parent'),
+            'name' => $request->get('name'),
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'logo' => $request->file('logo'),
+            'active' => $request->get('active')
+        ]]);
         return Redirect::route('admin.gallery.categories.index');
     }
 
@@ -69,9 +76,8 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(GalleryCategory $category)
     {
-        $category = GalleryCategory::findOrFail($id);
         $parent = null;
         if (!$category->isRoot()) {
             $parent = $category->parent()->get();
@@ -93,10 +99,17 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, GalleryCategory $category)
     {
-        $category = GalleryCategory::findOrFail($id);
-        $this->dispatchFromArray(UpdateCategory::class, ['data' => $request->all(), 'galleryCategory' => $category]);
+        $this->dispatchFromArray(UpdateCategory::class, [
+            'data' => [
+                'name' => $request->get('name'),
+                'title' => $request->get('title'),
+                'description' => $request->get('description'),
+                'logo' => $request->file('logo'),
+                'logo_exists' => $request->get('logo_existing'),
+                'active' => $request->get('active')
+            ], 'galleryCategory' => $category]);
         return Redirect::route('admin.gallery.categories.index');
     }
 

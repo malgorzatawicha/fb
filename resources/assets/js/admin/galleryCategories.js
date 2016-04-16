@@ -1,17 +1,10 @@
 $(document).ready(function(){
-    var path = $("#logo-path").val();
-    var filename = $("#logo-filename").val();
-    var params = {};
-    if (path && filename) {
-        params = {
-            initialPreview: '<img style="width:auto;height:160px;" src="' + path + filename + '">'
-        }
-    }
-    initImage($("#logo"), params);
+    $(".category-form :file").each(function(){
+        var name = $(this).attr('name');
 
-    var active = $("#is_active").val();
-    if (active == 1) {
-        $("#active").prop('checked', true);
-    }
-
+        var data = {};
+        data.row = $("#category").data('category');
+        data[name] = $(this).data('image');
+        Modal.setFile($(this), data);
+    });
 });

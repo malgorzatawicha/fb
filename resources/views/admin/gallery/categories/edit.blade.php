@@ -6,9 +6,10 @@
         </div>
         <div class="panel-body">
             @include('common.errors')
-            <form action="{{ route('admin.gallery.categories.update', [$category->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+            <form action="{{ route('admin.gallery.categories.update', [$category->id]) }}" method="POST" class="form-horizontal category-form" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
+                <span id="category" data-category="{{$category}}"></span>
                 <div id="tree"></div>
                 <input type="hidden" name="parent" id='parent' value="">
                 <div class="form-group">
@@ -31,18 +32,19 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" id="logo-path" value="">
-                    <input type="hidden" id="logo-filename" value="">
                     <label for="logo" class="col-sm-3 control-label">logo:</label>
                     <div class="col-sm-9">
-                        <input type="file" name="logo" id="logo">
+                        <input type="hidden" class="existing" name="logo_existing" id="category-logo_existing">
+                        <input type="file" name="logo" id="logo" data-image="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $category->logo_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $category->logo_id, 'width' => 213, 'height' => 160])
+                               ])}}">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox col-sm-offset-3">
-                        <input type="hidden" id="is_active" value="{{$category->active}}">
                         <input type="hidden" name="active" value="0">
-                        <label><input type="checkbox" name="active" id="active" value="1">Is Active</label>
+                        <label><input type="checkbox" @if (!empty($category->active)) checked="checked" @endif name="active" id="category-active" value="1">Is Active</label>
                     </div>
                 </div>
                 <div class="form-group">
