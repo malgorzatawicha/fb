@@ -32,6 +32,10 @@ class DestroyCategory extends Job implements SelfHandling
             $this->dispatchFromArray(DestroyProject::class, ['project' => $project]);
         }
 
+        foreach ($this->category->children as $child) {
+            $this->dispatchFromArray(DestroyCategory::class, ['category' => $child]);
+        }
+
         $page = $this->category->page;
         if (!empty($page)) {
             $page->delete();

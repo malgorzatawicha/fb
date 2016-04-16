@@ -1,5 +1,5 @@
 @include('common.errors')
-<form method="POST" class="form-horizontal"  enctype="multipart/form-data">
+<form method="POST" class="form-horizontal project-form"  enctype="multipart/form-data">
     {{ method_field('POST') }}
     {{ csrf_field() }}
     <div class="form-group">
@@ -24,6 +24,7 @@
     <div class="form-group">
         <label for="logo" class="col-sm-3 control-label">logo:</label>
         <div class="col-sm-9">
+            <input type="hidden" class="existing" name="logo_existing" id="project-logo_existing">
             <input type="file" name="logo" id="logo">
         </div>
     </div>

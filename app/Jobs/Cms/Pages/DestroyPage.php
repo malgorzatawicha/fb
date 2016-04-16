@@ -40,6 +40,11 @@ class DestroyPage extends Job implements SelfHandling
             $this->dispatchFromArray(DestroyFriend::class, ['friend' => $friend]);
         }
 
+        $gallery = $this->page->gallery;
+        if (!empty($gallery)) {
+            $gallery->delete();
+        }
+
         return $this->page->delete();
     }
 }

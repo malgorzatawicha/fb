@@ -10,6 +10,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Fb\Jobs\File\Create as CreateFile;
+use Fb\Jobs\File\Delete as DeleteFile;
+use Fb\Jobs\File\Change as ChangeFile;
+use Fb\Models\File;
 
 class UpdateProject extends Job implements SelfHandling
 {
@@ -36,6 +39,7 @@ class UpdateProject extends Job implements SelfHandling
             'description' => $request->get('description'),
             'logo' => $request->file('logo'),
             'active' => $request->get('active'),
+            'logo_exists' => $request->get('logo_existing')
         ];
 
         $this->config = \config('fb.project');
@@ -49,28 +53,35 @@ class UpdateProject extends Job implements SelfHandling
         $this->project->save();
 
         $this->saveLogo();
-
+        $this->project->save();
     }
 
     private function saveLogo()
     {
-        $this->initializePaths();
-        $logo = $this->data['logo'];
-        $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['logo']['subPath'];
+        $fileInDb = $this->saveFile(
+            $this->config['path'],
+            $this->data['logo_exists'],
+            $this->data['logo'],
+            $this->project->logoFile
+        );
 
-        $file = null;
-        if (!empty($logo)) {
-            $file = $this->saveImage($logo, $path);
-        }
-        if (!empty($file)) {
-            $this->project->logo_id = $file->getKey();
-            $this->project->save();
-        }
+        $this->project->logo_id = !empty($fileInDb)?$fileInDb->getKey():null;
     }
 
-    private function saveImage(UploadedFile $image, $basePath)
+    private function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
     {
-        return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
+        $this->initializePaths();
+        if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
+            $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);
+            $fileInDb = false;
+        } else if(!empty($isUploaded) && !empty($image)) {
+            if (empty($fileInDb)) {
+                $fileInDb = $this->dispatchFromArray(CreateFile::class, ['image'=> $image, 'path' => $basePath]);
+            } else {
+                $fileInDb = $this->dispatchFromArray(ChangeFile::class, ['image'=> $image, 'file' => $fileInDb]);
+            }
+        }
+        return $fileInDb;
     }
 
     private function initializePaths()

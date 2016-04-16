@@ -80,7 +80,7 @@ class CategoriesController extends Controller
     {
         $parent = null;
         if (!$category->isRoot()) {
-            $parent = $category->parent()->get();
+            $parent = $category->parent()->first();
         }
         return view(
             'admin.gallery.categories.edit',

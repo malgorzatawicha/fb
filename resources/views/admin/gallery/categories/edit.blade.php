@@ -67,7 +67,7 @@
             data: {!! createTree($categories, $parent) !!}
         });
 
-        @if($parent)
+        @if(!empty($parent))
             $('#parent').val({{$parent->getKey()}});
                 @endif
 

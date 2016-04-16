@@ -79,9 +79,8 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GalleryCategory $categories, $id)
+    public function update(Request $request, GalleryCategory $categories, GalleryProject $project)
     {
-        $project = GalleryProject::findOrFail($id);
         $this->dispatchFromArray(UpdateProject::class,
             ['project' => $project, 'request' => $request]);
         return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);

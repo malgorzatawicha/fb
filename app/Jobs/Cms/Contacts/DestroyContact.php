@@ -9,13 +9,10 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class DestroyContact extends Job implements SelfHandling
 {
-    protected $page;
-
     protected $contact;
 
-    public function __construct(Page $page, Contact $contact)
+    public function __construct(Contact $contact)
     {
-        $this->page = $page;
         $this->contact = $contact;
     }
 

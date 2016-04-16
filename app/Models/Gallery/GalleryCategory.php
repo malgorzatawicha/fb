@@ -70,7 +70,7 @@ class GalleryCategory extends Node implements SluggableInterface {
     {
         $categories = $this->getDescendantsAndSelf()->lists('id');
         return DB::table('gallery_project_images')
-            ->select('gallery_project_images.name', 'gallery_project_images.thumb_path', 'gallery_project_images.thumb_filename')
+            ->select('gallery_project_images.name', 'gallery_project_images.thumb_id')
             ->join('gallery_projects', 'gallery_project_images.gallery_project_id', '=', 'gallery_projects.id')
             ->whereIn('gallery_projects.gallery_category_id', $categories)
             ->orderByRaw("RAND()")
