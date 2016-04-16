@@ -3,7 +3,6 @@
 namespace Fb\Jobs\Cms\Banners;
 
 use Fb\Jobs\Job;
-use Fb\Models\Cms\Page;
 use Fb\Models\Cms\Banner;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -27,6 +26,6 @@ class DestroyBanner extends Job implements SelfHandling
             $this->dispatchFromArray(DeleteFile::class, ['file' => $file]);
         }
 
-        Banner::destroy($this->banner->id);
+        Banner::destroy($this->banner->getKey());
     }
 }

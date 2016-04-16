@@ -34,7 +34,7 @@
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
-                            <a class="btn btn-danger btn-sm" title="delete" data-bannerid="{{$banner->id}}" onclick="$(this).parent().parent().submit()">
+                            <a class="btn btn-danger btn-sm" title="delete" data-bannerid="{{$banner->getKey()}}" onclick="$(this).parent().parent().submit()">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
 

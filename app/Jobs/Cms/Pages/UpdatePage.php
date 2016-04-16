@@ -62,8 +62,9 @@ class UpdatePage extends Job implements SelfHandling
         $this->page->logo_id = !empty($fileInDb)?$fileInDb->getKey():null;
     }
 
-    protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
+    private function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
     {
+        $this->initializePaths();
         if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);
             $fileInDb = false;
@@ -77,7 +78,7 @@ class UpdatePage extends Job implements SelfHandling
         return $fileInDb;
     }
 
-    protected function initializePaths()
+    private function initializePaths()
     {
         $service = new PagePath($this->page->getKey());
         $service->initializePaths();

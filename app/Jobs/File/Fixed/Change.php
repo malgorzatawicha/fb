@@ -32,15 +32,4 @@ class Change extends Job implements SelfHandling
         }
         return null;
     }
-
-
-    private function baseName($path)
-    {
-        return trim(substr($path, strrpos(trim($path), '/')), '/');
-    }
-
-    private function dirname($path)
-    {
-        return '/' .trim(substr($path, 0, strrpos(trim($path), '/')), '/');
-    }
 }

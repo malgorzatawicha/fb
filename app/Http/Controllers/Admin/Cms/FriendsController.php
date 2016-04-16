@@ -30,7 +30,7 @@ class FriendsController extends Controller
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
                 'url' => $request->get('url'),
-                'image' => $request->file('image'),
+                'file' => $request->file('file'),
                 'active' => $request->get('active')
             ]
         ]);
@@ -47,11 +47,12 @@ class FriendsController extends Controller
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
                 'url' => $request->get('url'),
-                'image' => $request->file('image'),
+                'file' => $request->file('file'),
+                'file_exists' => $request->get('file_existing'),
                 'active' => $request->get('active')
             ]
         ]);
-        return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);
+        return Redirect::route('admin.cms.pages.edit', ['pages' => $friend->page->slug]);
     }
 
 
@@ -66,7 +67,6 @@ class FriendsController extends Controller
     {
         $friend = Friend::findOrFail($friendId);
         $this->dispatchFromArray(DestroyFriend::class, [
-            'page' => $page,
             'friend' => $friend,
         ]);
         return Redirect::route('admin.cms.pages.edit', ['pages' => $page->slug]);

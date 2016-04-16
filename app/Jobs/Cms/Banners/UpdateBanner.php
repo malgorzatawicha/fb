@@ -18,16 +18,15 @@ class UpdateBanner extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    protected $data = [];
-    protected $config = [];
-    protected $banner;
-    protected $filename;
+    private $data = [];
+    private $config = [];
+    private $banner;
+
     public function __construct(Banner $banner, array $data)
     {
         $this->data = $data;
         $this->banner = $banner;
         $this->config = \config('fb.page');
-        $this->initializePaths();
     }
 
     public function handle()
@@ -42,7 +41,7 @@ class UpdateBanner extends Job implements SelfHandling
         $this->banner->save();
     }
 
-    protected function saveImage()
+    private function saveImage()
     {
         $fileInDb = $this->saveFile(
             $this->config['path'] . '/' . $this->banner->page->getKey() . '/' . $this->config['banner']['subPath'],
@@ -55,8 +54,9 @@ class UpdateBanner extends Job implements SelfHandling
 
     }
 
-    protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb=null)
+    private function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb=null)
     {
+        $this->initializePaths();
         if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);
             $fileInDb = false;
@@ -69,7 +69,8 @@ class UpdateBanner extends Job implements SelfHandling
         }
         return $fileInDb;
     }
-    protected function initializePaths()
+
+    private function initializePaths()
     {
         $service = new PagePath($this->banner->page->getKey());
         $service->initializePaths();

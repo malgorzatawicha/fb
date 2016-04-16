@@ -19,12 +19,10 @@ class UpdateSite extends Job implements SelfHandling
     /**
      * @var array
      */
-    protected $data = [];
-    protected $config = [];
+    private $data = [];
+    private $config = [];
 
-    protected $site;
-    protected $favicon;
-    protected $banner;
+    private $site;
 
     public function __construct(Site $site, array $data)
     {
@@ -45,7 +43,7 @@ class UpdateSite extends Job implements SelfHandling
         $this->site->save();
     }
 
-    protected function saveFavicon()
+    private function saveFavicon()
     {
         $fileInDb = $this->saveFile(
             $this->config['favicon']['path'],
@@ -57,7 +55,8 @@ class UpdateSite extends Job implements SelfHandling
         $this->site->favicon_id = !empty($fileInDb)?$fileInDb->getKey():null;
 
     }
-    protected function saveBanner()
+
+    private function saveBanner()
     {
         $fileInDb = $this->saveFile(
             $this->config['banner']['path'],
@@ -69,7 +68,8 @@ class UpdateSite extends Job implements SelfHandling
         $this->site->banner_id = !empty($fileInDb)?$fileInDb->getKey():null;
 
     }
-    protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
+
+    private function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb = null)
     {
         if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);

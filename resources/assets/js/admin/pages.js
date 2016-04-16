@@ -14,7 +14,7 @@ $('#bannerModal').on('show.bs.modal', function (event) {
     var $modal = $(this);
     var $button = Modal.clickedButton(event);
     var data = {
-        'row': $button.data('image'),
+        'row': $button.data('friend'),
         'file': $button.data('file'),
         'submit': $button.data('submit-action')
     };
@@ -34,6 +34,28 @@ $('#bannerModal').on('show.bs.modal', function (event) {
 
 });
 
+$('#friendModal').on('show.bs.modal', function (event) {
+    var $modal = $(this);
+    var $button = Modal.clickedButton(event);
+    var data = {
+        'row': $button.data('image'),
+        'file': $button.data('file'),
+        'submit': $button.data('submit-action')
+    };
+
+    if (data.row) {
+        $modal.find('.modal-title').text('Edit friend ' + data.row.name);
+        data.method = 'put';
+    } else {
+        data.row = {
+            active: true
+        };
+        data.method = 'post';
+    }
+
+    Modal.initializeFields($modal, data);
+
+});
 
 $('#createContactModal').on('show.bs.modal', function(event) {
     var page = getDataForModal(event, 'page');
@@ -59,32 +81,3 @@ $('#editContactModal').on('show.bs.modal', function (event) {
     prepareSubmitButton(event, modal);
 });
 
-$('#createFriendModal').on('show.bs.modal', function(event) {
-    var page = getDataForModal(event, 'page');
-    var modal = $(this);
-    initImage($("#image", modal));
-    prepareSubmitButton(event, modal);
-});
-
-$('#editFriendModal').on('show.bs.modal', function (event) {
-    var friend = getDataForModal(event, 'friend');
-    var page = getDataForModal(event, 'page');
-
-    var modal = $(this);
-    modal.find('.modal-title').text('Edit friend ' + friend.name);
-
-    $('.friend-name').val(friend.name);
-    $('.friend-description').val(friend.description);
-    $('.friend-url').val(friend.url);
-
-    initImage($("#image", modal), {
-        initialPreview: '<img style="width:auto;height:160px;" src="' + friend.path + friend.filename + '">',
-    });
-
-    var active = $("#is_active", modal).val();
-    if (active == 1) {
-        $("#active", modal).prop('checked', true);
-    }
-
-    prepareSubmitButton(event, modal);
-});

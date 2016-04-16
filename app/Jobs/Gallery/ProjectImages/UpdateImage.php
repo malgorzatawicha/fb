@@ -20,15 +20,13 @@ class UpdateImage extends Job implements SelfHandling
     /**
      * @var array
      */
-    protected $data = [];
-    protected $config = [];
+    private $data = [];
+    private $config = [];
 
     /**
      * @var GalleryProjectImage
      */
-    protected $image;
-
-    protected $filename;
+    private $image;
 
     public function __construct(GalleryProjectImage $image, EditImageRequest $request)
     {
@@ -65,7 +63,7 @@ class UpdateImage extends Job implements SelfHandling
         $this->image->save();
     }
 
-    protected function saveBaseImage()
+    private function saveBaseImage()
     {
         $fileInDb = $this->saveFile(
             $this->config['path'] . '/' . $this->image->project->getKey() . '/' . $this->config['image']['subPaths']['base'],
@@ -77,7 +75,7 @@ class UpdateImage extends Job implements SelfHandling
         $this->image->image_id = !empty($fileInDb)?$fileInDb->getKey():0;
 
     }
-    protected function saveThumbImage()
+    private function saveThumbImage()
     {
         $fileInDb = $this->saveFile(
             $this->config['path'] . '/' . $this->image->project->getKey() . '/' . $this->config['image']['subPaths']['thumb'],
@@ -91,7 +89,7 @@ class UpdateImage extends Job implements SelfHandling
     }
 
 
-    protected function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb=null)
+    private function saveFile($basePath, $isUploaded = false, UploadedFile $image = null, File $fileInDb=null)
     {
         if (empty($isUploaded) && empty($image) && !empty($fileInDb)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $fileInDb]);
@@ -106,7 +104,7 @@ class UpdateImage extends Job implements SelfHandling
         return $fileInDb;
     }
 
-    protected function initializePaths()
+    private function initializePaths()
     {
         $service = new ProjectPath($this->image->project->getKey());
         $service->initializePaths();

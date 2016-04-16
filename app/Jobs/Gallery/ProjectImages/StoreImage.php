@@ -17,20 +17,18 @@ class StoreImage extends Job implements SelfHandling
     /**
      * @var array
      */
-    protected $data = [];
-    protected $config = [];
+    private $data = [];
+    private $config = [];
 
     /**
      * @var GalleryProject
      */
-    protected $project;
+    private $project;
 
     /**
      * @var GalleryProjectImage
      */
-    protected $image;
-
-    protected $filename;
+    private $image;
 
     public function __construct(GalleryProject $project, CreateImageRequest $request)
     {
@@ -52,6 +50,7 @@ class StoreImage extends Job implements SelfHandling
         $this->config = \config('fb.project');
         $this->initializePaths();
     }
+
     public function handle()
     {
         $this->image = new GalleryProjectImage([
@@ -65,7 +64,7 @@ class StoreImage extends Job implements SelfHandling
         $this->project->images()->save($this->image);
     }
 
-    protected function saveBaseImage()
+    private function saveBaseImage()
     {
         $image = $this->data['image'];
         $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['image']['subPaths']['base'];
@@ -78,7 +77,7 @@ class StoreImage extends Job implements SelfHandling
             $this->image->image_id = $file->getKey();
         }
     }
-    protected function saveThumbImage()
+    private function saveThumbImage()
     {
         $image = $this->data['thumb'];
         $path = $this->config['path'] . '/' . $this->project->getKey() . '/' . $this->config['image']['subPaths']['thumb'];
@@ -92,7 +91,7 @@ class StoreImage extends Job implements SelfHandling
         }
     }
 
-    protected function initializePaths()
+    private function initializePaths()
     {
         $service = new ProjectPath($this->project->getKey());
         $service->initializePaths();

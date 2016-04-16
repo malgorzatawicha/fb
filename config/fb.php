@@ -48,6 +48,9 @@ return [
         ],
         'banner' => [
             'subPath' => 'banners'
+        ],
+        'friend' => [
+            'subPath' => 'friends'
         ]
     ],
 

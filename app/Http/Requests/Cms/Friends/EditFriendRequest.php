@@ -27,7 +27,7 @@ class EditFriendRequest extends Request
             'name' => 'required',
             'active' => 'boolean',
             'url' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000'
+            'file' => 'required|mimes:jpeg,jpg,bmp,png|max:1000'
         ];
     }
 }

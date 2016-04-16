@@ -6,32 +6,30 @@ use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Fb\Models\Cms\Friend;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Image;
+use Fb\Jobs\File\Create as CreateFile;
+use Fb\Services\StoragePaths\PagePath;
 
 class StoreFriend extends Job implements SelfHandling
 {
+    use DispatchesJobs;
     /**
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
-    protected $page;
+    private $config = [];
 
-    protected $friend;
+    private $page;
 
-    const DST_FOLDER = '/images/pages/';
-    const DST_IMAGE = '';
-
-    protected $absolutePath;
-
-    protected $filename;
-
+    private $friend;
 
     public function __construct(Page $page, array $data)
     {
         $this->page = $page;
         $this->data = $data;
-        $this->absolutePath = public_path();
+        $this->config = \config('fb.page');
     }
 
     public function handle()
@@ -47,59 +45,24 @@ class StoreFriend extends Job implements SelfHandling
         $this->page->friends()->save($this->friend);
     }
 
-    protected function saveImage()
+    private function saveImage()
     {
-        if (!empty($this->data['image'])) {
-            $file = Image::make($this->data['image']->getRealPath());
-            $path = $this->saveFile($file);
+        $image = $this->data['file'];
+        $path = $this->config['path'] . '/' . $this->page->getKey() . '/' . $this->config['friend']['subPath'];
 
-            $this->friend->filename = basename($path);
-            $this->friend->path = $this->getPath();
-
+        $file = null;
+        if (!empty($image)) {
+            $this->initializePaths();
+            $file = $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $path]);
+        }
+        if (!empty($file)) {
+            $this->friend->file_id = $file->getKey();
         }
     }
 
-    protected function saveFile(\Intervention\Image\Image $image)
+    private function initializePaths()
     {
-        $path = $this->getAbsolutePath($this->getPath()) . $this->getFileName();
-        $image->save($path);
-        return $path;
-    }
-
-    protected function getPath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
-    }
-
-    protected function generateFileNameInFolder($path, $basename, $ext)
-    {
-            $name = md5($basename . time()) . '.' . $ext;
-
-            while(\File::exists($path . '/' . $name)) {
-                $name = md5($name . time()) . '.' . $ext;
-            }
-            return $name;
-
-    }
-
-    protected function getFileName()
-    {
-        if (empty($this->filename)) {
-            $extension = $this->data['image']->getClientOriginalExtension();
-
-            $name = $this->generateFileNameInFolder(
-                $this->getPath(),
-                $this->data['image']->getClientOriginalName(),
-                $extension
-            );
-
-            $this->filename = $name;
-        }
-        return $this->filename;
+        $service = new PagePath($this->page->getKey());
+        $service->initializePaths();
     }
 }

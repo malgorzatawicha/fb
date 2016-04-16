@@ -22,17 +22,16 @@ class StoreProject extends Job implements SelfHandling
      */
     private $data = [];
 
-    protected $config = [];
+    private $config = [];
 
-    protected $project;
-
-    protected $filename;
+    private $project;
 
     public function __construct(GalleryCategory $category, Request $request)
     {
         $this->category = $category;
         $this->initialize($request);
     }
+
     private function initialize(Request $request)
     {
         $this->data = [
@@ -44,6 +43,7 @@ class StoreProject extends Job implements SelfHandling
 
         $this->config = \config('fb.project');
     }
+
     public function handle()
     {
         $this->project = new GalleryProject([
@@ -74,12 +74,12 @@ class StoreProject extends Job implements SelfHandling
         }
     }
 
-    protected function saveImage(UploadedFile $image, $basePath)
+    private function saveImage(UploadedFile $image, $basePath)
     {
         return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
     }
 
-    protected function initializePaths()
+    private function initializePaths()
     {
         $service = new ProjectPath($this->project->getKey());
         $service->initializePaths();

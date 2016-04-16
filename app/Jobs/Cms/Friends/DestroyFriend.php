@@ -3,44 +3,29 @@
 namespace Fb\Jobs\Cms\Friends;
 
 use Fb\Jobs\Job;
-use Fb\Models\Cms\Page;
+use Fb\Jobs\File\Delete as DeleteFile;
 use Fb\Models\Cms\Friend;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Image;
-use File;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class DestroyFriend extends Job implements SelfHandling
 {
-    protected $page;
+    use DispatchesJobs;
 
     protected $friend;
 
-    protected $absolutePath;
-
-    const DST_FOLDER = '/images/pages/';
-    const DST_IMAGE = '';
-
-    public function __construct(Page $page, Friend $friend)
+    public function __construct(Friend $friend)
     {
-        $this->page = $page;
         $this->friend = $friend;
-        $this->absolutePath = public_path();
     }
 
     public function handle()
     {
-        File::delete($this->getAbsolutePath($this->friend->path) . $this->friend->filename);
+        $file = $this->friend->logoFile;
+        if (!empty($file)) {
+            $this->dispatchFromArray(DeleteFile::class, ['file' => $file]);
+        }
 
         Friend::destroy($this->friend->getKey());
-    }
-
-    protected function getPath()
-    {
-        return self::DST_FOLDER . self::DST_IMAGE;
-    }
-
-    protected function getAbsolutePath($relativePath)
-    {
-        return $this->absolutePath . $relativePath;
     }
 }

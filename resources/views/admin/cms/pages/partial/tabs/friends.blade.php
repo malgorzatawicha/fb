@@ -3,19 +3,20 @@
         <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
            data-page="{{json_encode($page)}}"
            data-submit-action="{{ route('admin.cms.pages.friends.store', [$page->slug]) }}"
-           data-toggle="modal" data-target="#createFriendModal" >
+           data-toggle="modal" data-target="#friendModal" >
             {{ trans('admin.create') }}
         </a>
     </div>
-    <h5>Banners</h5>
+    <h5>Friends</h5>
 </div>
 <div class="panel-body">
     @if (count($page->friends)>0)
-        <div class="row page-banners">
+        <div class="row page-friends">
             @foreach($page->friends as $friend )
                 <div class="col-sm-3 thumb">
-                    <a class="thumbnail" href="{{route('admin.cms.pages.friends.show', ['page' => $page->slug, 'friend' =>$friend->getKey()])}}">
-                        <img class="img-responsive" src="{{$friend->path }}{{ $friend->filename . '?'. 'time='. time() }}">
+                    <a class="thumbnail" href="#">
+                        <img class="img-responsive"
+                             src="{{route('admin.image', ['fileId' => $friend->file_id, 'width' => 150, 'height' => 150, 'crop' => true])}}">
                     </a>
                     <form action="{{route('admin.cms.pages.friends.destroy', ['page' => $page->slug, 'friend' => $friend->getKey()]) }}" method="POST">
                         {{ csrf_field() }}
@@ -23,8 +24,13 @@
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
                                data-friend="{{json_encode($friend)}}"
+                               data-file="{{json_encode([
+                                'big' =>route('admin.image', ['fileId' => $friend->file_id]),
+                                 'thumb' => route('admin.image', ['fileId' => $friend->file_id, 'width' => 213, 'height' => 160])
+                               ])}}"
                                data-page="{{json_encode($friend->page)}}"
-                               data-toggle="modal" data-target="#editFriendModal" >
+                               data-submit-action="{{ route('admin.cms.pages.friends.update', [ 'pages' => $page->getKey(), 'friends' => $friend->getKey()]) }}"
+                               data-toggle="modal" data-target="#friendModal" >
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
@@ -41,5 +47,4 @@
         <p>{{trans('cms.pages.banners.no_records')}}</p>
     @endif
 </div>
-@include('admin.cms.pages.partial.friends.create_modal')
-@include('admin.cms.pages.partial.friends.edit_modal')
+@include('admin.cms.pages.partial.friend_modal')

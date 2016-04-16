@@ -62,12 +62,12 @@ class StorePage extends Job implements SelfHandling
         }
     }
 
-    protected function saveImage(UploadedFile $image, $basePath)
+    private function saveImage(UploadedFile $image, $basePath)
     {
         return $this->dispatchFromArray(CreateFile::class, ['image' => $image, 'path' => $basePath]);
     }
 
-    protected function initializePaths()
+    private function initializePaths()
     {
         $service = new PagePath($this->page->getKey());
         $service->initializePaths();

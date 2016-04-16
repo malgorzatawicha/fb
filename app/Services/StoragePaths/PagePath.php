@@ -14,7 +14,8 @@ class PagePath
         $config = \config('fb.page');
         $paths = [
             $config['path'] . '/'. $this->pageId . '/' . $config['logo']['subPath'],
-            $config['path'] . '/' . $this->pageId . '/' . $config['banner']['subPath']
+            $config['path'] . '/' . $this->pageId . '/' . $config['banner']['subPath'],
+            $config['path'] . '/' . $this->pageId . '/' . $config['friend']['subPath'],
         ];
 
         foreach ($paths as $path) {

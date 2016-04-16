@@ -15,7 +15,7 @@ class DestroyImage extends Job implements SelfHandling
     /**
      * @var GalleryProjectImage
      */
-    protected $image;
+    private $image;
 
     public function __construct(GalleryProjectImage $image)
     {
@@ -29,7 +29,7 @@ class DestroyImage extends Job implements SelfHandling
         $this->image->delete();
     }
 
-    protected function deleteImage(File $file = null)
+    private function deleteImage(File $file = null)
     {
         if (!empty($file)) {
             $this->dispatchFromArray(DeleteFile::class, ['file' => $file]);

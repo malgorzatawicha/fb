@@ -3,6 +3,8 @@
 namespace Fb\Jobs\Cms\Pages;
 
 use Fb\Jobs\Cms\Banners\DestroyBanner;
+use Fb\Jobs\Cms\Contacts\DestroyContact;
+use Fb\Jobs\Cms\Friends\DestroyFriend;
 use Fb\Jobs\Job;
 use Fb\Models\Cms\Page;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -31,6 +33,13 @@ class DestroyPage extends Job implements SelfHandling
         foreach ($this->page->banners as $banner) {
             $this->dispatchFromArray(DestroyBanner::class, ['banner' => $banner]);
         }
+        foreach ($this->page->contacts as $contact) {
+            $this->dispatchFromArray(DestroyContact::class, ['contact' => $contact]);
+        }
+        foreach ($this->page->friends as $friend) {
+            $this->dispatchFromArray(DestroyFriend::class, ['friend' => $friend]);
+        }
+
         return $this->page->delete();
     }
 }
