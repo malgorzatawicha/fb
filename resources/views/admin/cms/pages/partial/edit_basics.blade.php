@@ -51,7 +51,7 @@
     <div class="form-group">
         <div class="checkbox col-sm-offset-2">
             <input type="hidden" name="active" value="0">
-            <label><input type="checkbox" @if (!empty($project->active)) checked="checked" @endif name="active" id="page-active" value="1">Is Active</label>
+            <label><input type="checkbox" @if (!empty($page->active)) checked="checked" @endif name="active" id="page-active" value="1">Is Active</label>
         </div>
     </div>
     <div class="form-group">

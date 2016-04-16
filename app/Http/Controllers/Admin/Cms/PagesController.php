@@ -88,7 +88,16 @@ class PagesController extends Controller
             UpdatePage::class,
             [
                 'page' => $page,
-                'data' => $request->all()
+                'data' => [
+                    'name' => $request->get('name'),
+                    'title' => $request->get('title'),
+                    'type' => $request->get('type'),
+                    'description' => $request->get('description'),
+                    'body' => $request->get('body'),
+                    'logo' => $request->file('logo'),
+                    'logo_exists' => $request->get('logo_existing'),
+                    'active' => $request->get('active')
+                ]
             ]
         );
 
