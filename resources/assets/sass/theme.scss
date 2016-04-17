@@ -1,7 +1,13 @@
 @font-face {
-  font-family: "Poiret One";
-  src: url(/fonts/PoiretOne-Regular.ttf) format("truetype");
+  font-family: "Poppins";
+  src: url(/fonts/Poppins-Regular.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "Kurale";
+  src: url(/fonts/Kurale-Regular.ttf) format("truetype");
+}
+
 
 body {
   background-color: #444444;
@@ -44,7 +50,7 @@ footer.footer > .container {
 }
 
 body {
-  font-family: "Poiret One";
+  font-family: "Kurale";
 }
 
 .borderable {
@@ -55,6 +61,13 @@ body {
 
 .friends-box {
   box-shadow: 8px 5px 15px 5px #444444;
+}
+
+.navbar {
+  font-family: Poppins;
+  font-size: 19px;
+  font-variant: small-caps;
+  text-transform: capitalize;
 }
 .navbar-inverse .navbar-nav > li a {
   color: rgba(170,170,170, 1);
