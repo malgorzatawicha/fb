@@ -106,6 +106,7 @@ return [
             'in_category' => 'w kategorii',
             'images' => [
                 'create' => 'Nowe zdjęcie projektu',
+                'edit' => 'Edytuj zdjęcie projektu',
                 'name' => 'Nazwa',
                 'description' => 'Opis',
                 'active' => 'Aktywne',

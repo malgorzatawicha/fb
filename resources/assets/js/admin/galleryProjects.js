@@ -30,7 +30,7 @@ $('#imageModal').on('show.bs.modal', function (event) {
     };
 
     if (data.row) {
-        $modal.find('.modal-title').text('Edit image ' + data.row.name);
+        $modal.find('.modal-title').text($button.data('edit-title') + ': ' + data.row.name);
         data.method = 'put';
     } else {
         data.row = {

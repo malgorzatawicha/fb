@@ -37,6 +37,7 @@
                                ])}}"
                                data-project="{{json_encode($project)}}"
                                data-category="{{json_encode($category)}}"
+                               data-edit-title="{{trans('admin.gallery.projects.images.edit')}}"
                                data-submit-action="{{ route('admin.gallery.categories.projects.images.update', ['categories'=>$category->getKey(), 'projects' => $project->getKey(), 'images' => $image->getKey()]) }}"
                                data-toggle="modal" data-target="#imageModal">
                                 <i class="glyphicon glyphicon-edit"></i>

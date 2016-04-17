@@ -106,6 +106,7 @@ return [
             'in_category' => 'in category',
             'images' => [
                 'create' => 'Create Project Image',
+                'edit' => 'Edit Project Image',
                 'name' => 'Name',
                 'description' => 'Description',
                 'active' => 'Active',
