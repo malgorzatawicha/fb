@@ -4,6 +4,7 @@ namespace Fb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Fb\Models\Site;
+use App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->share('site', Site::firstOrNew([]));
+        App::setLocale('pl');
     }
 
     /**

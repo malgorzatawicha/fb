@@ -7,13 +7,13 @@
                 data-submit-action="{{ route('admin.gallery.categories.projects.store', ['categories'=>$category->getKey()]) }}"
         ></div>
         <div class="panel-heading">
-            <h4>{{trans('gallery.projects')}} of {{$category->title}} - {{trans('admin.create')}}</h4>
+            <h4>{{trans('admin.gallery.projects.create')}} {{trans('admin.gallery.projects.in_category')}}: {{$category->title}}</h4>
         </div>
         <div class="panel-body">
             <div class="row">
                 <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="projectTabs">
                     <li class="active" role="presentation">
-                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">{{trans('admin.basic_data')}}</a>
                     </li>
                 </ul>
 

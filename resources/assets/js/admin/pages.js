@@ -13,13 +13,12 @@ $('#bannerModal').on('show.bs.modal', function (event) {
     var $modal = $(this);
     var $button = Modal.clickedButton(event);
     var data = {
-        'row': $button.data('friend'),
+        'row': $button.data('image'),
         'file': $button.data('file'),
         'submit': $button.data('submit-action')
     };
-
     if (data.row) {
-        $modal.find('.modal-title').text('Edit banner ' + data.row.name);
+        $modal.find('.modal-title').text($button.data('edit-title') + ": " + data.row.name);
         data.method = 'put';
     } else {
         data.row = {
@@ -43,7 +42,7 @@ $('#friendModal').on('show.bs.modal', function (event) {
     };
 
     if (data.row) {
-        $modal.find('.modal-title').text('Edit friend ' + data.row.name);
+        $modal.find('.modal-title').text($button.data('edit-title')  + ': ' + data.row.name);
         data.method = 'put';
     } else {
         data.row = {
@@ -66,7 +65,7 @@ $('#contactModal').on('show.bs.modal', function (event) {
     };
 
     if (data.row) {
-        $modal.find('.modal-title').text('Edit friend ' + data.row.name);
+        $modal.find('.modal-title').text($button.data('edit-title') + ': ' + data.row.name);
         data.method = 'put';
     } else {
         data.row = {

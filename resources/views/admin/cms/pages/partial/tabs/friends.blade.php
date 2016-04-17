@@ -1,13 +1,13 @@
 <div class="panel-heading">
     <div class="pull-right">
-        <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
+        <a class="btn btn-primary" title="{{ trans('admin.pages.friends.create') }}" href="#"
            data-page="{{json_encode($page)}}"
            data-submit-action="{{ route('admin.cms.pages.friends.store', [$page->slug]) }}"
            data-toggle="modal" data-target="#friendModal" >
-            {{ trans('admin.create') }}
+            {{ trans('admin.pages.friends.create') }}
         </a>
     </div>
-    <h5>Friends</h5>
+    <h4>{{trans('admin.pages.types.friends')}}</h4>
 </div>
 <div class="panel-body">
     @if (count($page->friends)>0)
@@ -29,12 +29,13 @@
                                  'thumb' => route('admin.image', ['fileId' => $friend->file_id, 'width' => 213, 'height' => 160])
                                ])}}"
                                data-page="{{json_encode($friend->page)}}"
+                               data-edit-title="{{trans('admin.pages.friends.edit')}}"
                                data-submit-action="{{ route('admin.cms.pages.friends.update', [ 'pages' => $page->getKey(), 'friends' => $friend->getKey()]) }}"
                                data-toggle="modal" data-target="#friendModal" >
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
 
-                            <a class="btn btn-danger btn-sm" title="delete" data-friendid="{{$friend->getKey()}}" onclick="$(this).parent().parent().submit()">
+                            <a class="btn btn-danger btn-sm" title="{{trans('admin.delete')}}" data-friendid="{{$friend->getKey()}}" onclick="$(this).parent().parent().submit()">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
 
@@ -44,7 +45,7 @@
             @endforeach
         </div>
     @else
-        <p>{{trans('cms.pages.banners.no_records')}}</p>
+        <p>{{trans('admin.pages.friends.no_records')}}</p>
     @endif
 </div>
 @include('admin.cms.pages.partial.friend_modal')

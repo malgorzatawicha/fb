@@ -11,20 +11,20 @@
 
         ></div>
         <div class="panel-heading">
-            <h4>{{ trans('cms.pages') }} - {{trans('cms.page.update')}} {{$page->title}}</h4>
+            <h4>{{ trans('admin.pages.edit')}}: {{$page->title}}</h4>
         </div>
         <div class="panel-body">
             <div class="row">
                 <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="pageTabs">
                     <li class="active" role="presentation">
-                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">{{trans('admin.basic_data')}}</a>
                     </li>
                     <li role="presentation" class="">
-                        <a aria-controls="banners" data-toggle="tab" id="banners-tab" role="tab" href="#banners" aria-expanded="false">Banners</a>
+                        <a aria-controls="banners" data-toggle="tab" id="banners-tab" role="tab" href="#banners" aria-expanded="false">{{trans('admin.pages.banners.page_title')}}</a>
                     </li>
                     @if(\View::exists('admin.cms.pages.partial.tabs.' . $page->type))
                         <li role="presentation" class="">
-                            <a aria-controls="custom" data-toggle="tab" id="custom-tab" role="tab" href="#custom" aria-expanded="false">{{ucfirst($page->type)}} - customs</a>
+                            <a aria-controls="custom" data-toggle="tab" id="custom-tab" role="tab" href="#custom" aria-expanded="false">{{trans('admin.pages.specific_data_for')}}: {{trans('admin.pages.types.' . $page->type)}}</a>
                         </li>
                     @endif
                 </ul>

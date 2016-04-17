@@ -10,16 +10,16 @@
                     <button id="destroy-category" class="btn btn-danger btn-disabled disabled" disabled>{{trans('admin.delete')}}</button>
                 </form>
             </div>
-            <div class="pull-right"><a id="projects-category" data-href="{{route('admin.gallery.categories.projects.index')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.projects') }}</a></div>
-            <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.edit') }}</a></div>
-            <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.create') }}</a></div>
-            <h4>{{trans('gallery.categories')}}</h4>
+            <div class="pull-right"><a id="projects-category" data-href="{{route('admin.gallery.categories.projects.index')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.gallery.categories.projects') }}</a></div>
+            <div class="pull-right"><a id="edit-category" data-href="{{route('admin.gallery.categories.edit')}}" disabled href="#" class="btn btn-default btn-disabled disabled">{{ trans('admin.gallery.categories.edit') }}</a></div>
+            <div class="pull-right"><a id="create-category" data-href="{{route('admin.gallery.categories.create')}}" href="{{route('admin.gallery.categories.create')}}" class="btn btn-primary">{{ trans('admin.gallery.categories.create') }}</a></div>
+            <h4>{{trans('admin.menu.categories')}}</h4>
         </div>
         <div class="panel-body">
             @if (count($categories) > 0)
                 <div id="tree"></div>
             @else
-                <p>{{trans('gallery.gallery.no_records')}}</p>
+                <p>{{trans('admin.gallery.categories.no_records')}}</p>
             @endif
         </div>
     </div>

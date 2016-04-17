@@ -1,6 +1,7 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
-use Fb\Jobs\Cms\Banners\UpdateBanner;
+use Fb\Http\Requests\Galleries\Categories\CreateCategoryRequest;
+use Fb\Http\Requests\Galleries\Categories\EditCategoryRequest;
 use Fb\Jobs\Gallery\Category\DestroyCategory;
 use Fb\Jobs\Gallery\Category\UpdateCategory;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         $this->dispatchFromArray(StoreCategory::class, ['data' =>[
             'parent'=> $request->get('parent'),
@@ -99,7 +100,7 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GalleryCategory $category)
+    public function update(EditCategoryRequest $request, GalleryCategory $category)
     {
         $this->dispatchFromArray(UpdateCategory::class, [
             'data' => [

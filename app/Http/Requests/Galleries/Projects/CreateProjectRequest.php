@@ -1,10 +1,10 @@
 <?php
 
-namespace Fb\Http\Requests\Cms\Banners;
+namespace Fb\Http\Requests\Galleries\Projects;
 
 use Fb\Http\Requests\Request;
 
-class EditBannerRequest extends Request
+class CreateProjectRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class EditBannerRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'alpha_num|required|max:255',
+            'title' => 'required|max:255',
+            'logo' => 'mimes:jpeg,jpg,bmp,png|max:1000',
             'active' => 'boolean',
-            'watermarked' => 'boolean',
-            'file' => 'mimes:jpeg,jpg,bmp,png|max:1000'
         ];
     }
 }

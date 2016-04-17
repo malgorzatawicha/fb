@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{$site->title}} - Admin</title>
+    <title>{{$site->title}} - {{trans('admin.admin_pane')}}</title>
     <meta name="description" content="{{$site->description}}" />
     <meta name="keywords" content="{{$site->keywords}}" />
     <link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}"/>
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{{trans('admin.toggle_navigation')}}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -29,16 +29,13 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="/admin">Home</a></li>
-                    <li><a href="{{route('admin.site.edit')}}">Site management</a></li>
-                    <li><a href="{{ route('admin.cms.pages.index') }}">{{trans('cms.pages')}}</a></li>
-{{--
-                    <li><a href="{{ route('admin.shop.products.index') }}">{{trans('shop.products')}}</a></li>
---}}
+                    <li><a href="/admin">{{trans('admin.menu.home')}}</a></li>
+                    <li><a href="{{route('admin.site.edit')}}">{{trans('admin.menu.site_management')}}</a></li>
+                    <li><a href="{{ route('admin.cms.pages.index') }}">{{trans('admin.menu.pages')}}</a></li>
                     <li class="dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('gallery.categories')}} <span class="caret"></span></a>
+                        <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('admin.menu.gallery')}} <span class="caret"></span></a>
                         <ul class="dropdown-menu inverse-dropdown">
-                            <li><a href="{{ route('admin.gallery.categories.index') }}">{{trans('gallery.categories')}}</a></li>
+                            <li><a href="{{ route('admin.gallery.categories.index') }}">{{trans('admin.menu.categories')}}</a></li>
                         </ul>
                     </li>
                 </ul>

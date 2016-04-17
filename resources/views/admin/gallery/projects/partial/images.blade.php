@@ -1,14 +1,14 @@
 <div class="panel-heading">
     <div class="pull-right">
-        <a class="btn btn-primary" title="{{ trans('admin.create') }}" href="#"
+        <a class="btn btn-primary" title="{{ trans('admin.gallery.projects.images.create') }}" href="#"
            data-category="{{json_encode($category)}}"
            data-project="{{json_encode($project)}}"
            data-submit-action="{{ route('admin.gallery.categories.projects.images.store', ['categories'=>$category->getKey(), 'projects' => $project->getKey()]) }}"
            data-toggle="modal" data-target="#imageModal" >
-            {{ trans('admin.create') }}
+            {{ trans('admin.gallery.projects.images.create') }}
         </a>
     </div>
-    <h5>Images</h5>
+    <h4>{{trans('admin.gallery.projects.images.page_title')}}</h4>
 </div>
 <div class="panel-body">
     @if (count($project->images)>0)
@@ -51,7 +51,7 @@
             @endforeach
         </div>
     @else
-        <p>{{trans('cms.pages.banners.no_records')}}</p>
+        <p>{{trans('admin.gallery.projects.images.no_records')}}</p>
     @endif
 </div>
 @include('admin.gallery.projects.partial.image_modal')

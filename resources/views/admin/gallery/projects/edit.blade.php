@@ -12,16 +12,16 @@
 
         ></div>
         <div class="panel-heading">
-            <h4>{{ trans('cms.projects') }} - {{trans('cms.page.update')}} {{$category->title}}: {{$project->title}}</h4>
+            <h3>{{ trans('admin.gallery.projects.edit') }}: {{$category->title}} {{trans('admin.gallery.projects.in_category')}}: {{$project->title}}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
                 <ul role="tablist" class="nav nav-pills nav-stacked col-sm-3" id="projectTabs">
                     <li class="active" role="presentation">
-                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">Basics</a>
+                        <a aria-expanded="true" aria-controls="basics" data-toggle="tab" role="tab" id="basics-tab" href="#basics">{{trans('admin.basic_data')}}</a>
                     </li>
                     <li role="presentation" class="">
-                        <a aria-controls="images" data-toggle="tab" id="images-tab" role="tab" href="#images" aria-expanded="false">Images</a>
+                        <a aria-controls="images" data-toggle="tab" id="images-tab" role="tab" href="#images" aria-expanded="false">{{trans('admin.gallery.projects.images.page_title')}}</a>
                     </li>
                 </ul>
 

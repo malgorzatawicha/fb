@@ -2,18 +2,18 @@
 @section('content')
     <form class="form-signin" method="POST" action="{{ route('admin.auth.login') }}" accept-charset="UTF-8">
         @include('common.errors')
-        <h2 class="form-signin-heading">{{trans('Login')}}</h2>
+        <h2 class="form-signin-heading">{{trans('auth.login')}}</h2>
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
-        <label class="sr-only" for="email">Email</label>
-        <input type="email" name="email" id="email" class="form-control"/>
-        <label class="sr-only" for="password">Password</label>
-        <input class="form-control" type="password" name="password" id="password"/>
+        <label class="sr-only" for="email">{{trans('auth.email')}}</label>
+        <input type="email" name="email" id="email" placeholder="{{trans('auth.email')}}" class="form-control"/>
+        <label class="sr-only" for="password">{{trans('auth.password')}}</label>
+        <input class="form-control" type="password" name="password" placeholder="{{trans('auth.password')}}" id="password"/>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="remember-me" value="0"/> Remember me
+                <input type="checkbox" name="remember-me" value="0"/>{{trans('auth.remember_me')}}
             </label>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-primary btn-block">{{trans('auth.login')}}</button>
     </form>
 @stop
 

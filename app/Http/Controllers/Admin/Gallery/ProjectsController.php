@@ -9,7 +9,8 @@ use Fb\Models\Gallery\GalleryCategory;
 use Illuminate\Support\Facades\Redirect;
 use Fb\Jobs\Gallery\Project\StoreProject;
 use Fb\Jobs\Gallery\Project\UpdateProject;
-
+use Fb\Http\Requests\Galleries\Projects\CreateProjectRequest;
+use Fb\Http\Requests\Galleries\Projects\EditProjectRequest;
 
 class ProjectsController extends Controller
 {
@@ -41,7 +42,7 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, GalleryCategory $categories)
+    public function store(CreateProjectRequest $request, GalleryCategory $categories)
     {
         $this->dispatchFromArray(StoreProject::class, ['category' => $categories, 'request' => $request]);
         return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
@@ -79,7 +80,7 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GalleryCategory $categories, GalleryProject $project)
+    public function update(EditProjectRequest $request, GalleryCategory $categories, GalleryProject $project)
     {
         $this->dispatchFromArray(UpdateProject::class,
             ['project' => $project, 'request' => $request]);
