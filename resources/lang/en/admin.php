@@ -99,6 +99,7 @@ return [
             'edit' => 'Edit Project',
             'name' => 'Name',
             'title' => 'Title',
+            'short_title' => 'Short Title',
             'description' => 'Description',
             'logo' => 'Logo',
             'active'=> 'Active',

@@ -21,7 +21,7 @@ class GalleryProject extends Model implements SluggableInterface
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'title', 'active', 'description', 'position'
+        'name', 'title', 'short_title', 'active', 'description', 'position'
     ];
 
     public function category()
@@ -39,13 +39,12 @@ class GalleryProject extends Model implements SluggableInterface
         return $this->belongsTo(File::class, 'logo_id', 'id');
     }
 
-    public function randomImages($limit)
+    public function hasMainImage()
     {
-        return DB::table('gallery_project_images')
-            ->select('gallery_project_images.name', 'gallery_project_images.thumb_id')
-            ->join('gallery_projects', 'gallery_project_images.gallery_project_id', '=', 'gallery_projects.id')
-            ->where('gallery_projects.id', '=', $this->getKey())
-            ->orderByRaw("RAND()")
-            ->limit($limit)->get();
+        return !empty($this->mainImage());
+    }
+    public function mainImage()
+    {
+        return GalleryProjectImage::where('gallery_project_id', $this->getKey())->first();
     }
 }

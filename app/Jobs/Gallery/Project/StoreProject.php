@@ -37,8 +37,10 @@ class StoreProject extends Job implements SelfHandling
         $this->data = [
             'name' => $request->get('name'),
             'title' => $request->get('title'),
+            'short_title' => $request->get('short_title'),
             'description' => $request->get('description'),
             'logo' => $request->file('logo'),
+            'active' => $request->get('active'),
         ];
 
         $this->config = \config('fb.project');
@@ -49,6 +51,7 @@ class StoreProject extends Job implements SelfHandling
         $this->project = new GalleryProject([
             'name' => !empty($this->data['name'])?$this->data['name']:'',
             'title' => !empty($this->data['title'])?$this->data['title']:'',
+            'short_title' => !empty($this->data['short_title'])?$this->data['short_title']:$this->data['title'],
             'description' => !empty($this->data['description'])?$this->data['description']:'',
             'active' => !empty($this->data['active'])?$this->data['active']:'',
         ]);

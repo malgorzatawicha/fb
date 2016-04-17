@@ -12,34 +12,21 @@
 @section('gallery_content')
     <h1>{{$category->title}}</h1>
     {!! $category->description !!}
-    @foreach($category->children as $child)
+    @foreach($category->allProjects()->chunk(4) as $projects)
         <div class="row">
             <div class="col-md-12">
-                <h2><a href="{{route('gallery', ['pages' => $page->slug, 'category' => $child->slug])}}">{{$child->title}}</a></h2>
-                <div class="row gallery">
-                    <a href="{{route('gallery', ['pages' => $page->slug, 'category' => $child->slug])}}">
-                        @foreach($child->randomImages(4) as $image)
-                            <div class="col-md-3"><img class="borderable" src="{{route('image', ['fileId' => $image->thumb_id])}}" style="width: 100%" alt="{{$image->name}}"></div>
-                        @endforeach
-                    </a>
-                </div>
+                @foreach($projects as $project)
+                    <div class="col-md-3">
+                        <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
+                            <img class="borderable"
+                                 src="@if($project->hasMainImage()){{route('image', ['fileId' => $project->mainImage()->image_id])}}@else{{''}}@endif"
+                                 style="width: 100%" alt="{{$project->title}}">
+                        </a>
+                        <div class="project-thumb-label">{{$project->short_title}}</div>
+                    </div>
+                @endforeach
             </div>
         </div>
     @endforeach
-    @foreach($category->projects as $project)
-        <div class="row">
-            <div class="col-md-12">
-                <h2><a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">{{$project->title}}</a></h2>
-                <div class="row gallery">
-                    <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
-                        @foreach($project->randomImages(4) as $image)
-                            <div class="col-md-3"><img class="borderable" src="{{route('image', ['fileId' => $image->thumb_id])}}" style="width: 100%" alt="{{$image->name}}"></div>
-                        @endforeach
-                    </a>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
 
 @endsection

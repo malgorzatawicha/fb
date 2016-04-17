@@ -99,6 +99,7 @@ return [
             'edit' => 'Edytuj Projekt',
             'name' => 'Nazwa',
             'title' => 'Tytuł',
+            'short_title' => 'Krótki tytuł',
             'description' => 'Opis',
             'logo' => 'Logo',
             'active'=> 'Aktywny',

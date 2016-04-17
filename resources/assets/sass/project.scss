@@ -119,6 +119,13 @@
 .image-list {
   display: none;
 }
+
+.project-thumb-label {
+  text-align: center;
+  margin-top: 5px;
+}
+
+
 @media (max-width:768px){
   .well{display: none;}
  .carousel{display:none;}

@@ -82,15 +82,10 @@ class GalleryCategory extends Node implements SluggableInterface {
         return $result;
     }
 
-    public function randomImages($limit)
+    public function allProjects()
     {
         $categories = $this->getDescendantsAndSelf()->lists('id');
-        return DB::table('gallery_project_images')
-            ->select('gallery_project_images.name', 'gallery_project_images.thumb_id')
-            ->join('gallery_projects', 'gallery_project_images.gallery_project_id', '=', 'gallery_projects.id')
-            ->whereIn('gallery_projects.gallery_category_id', $categories)
-            ->orderByRaw("RAND()")
-            ->limit($limit)->get();
+        return GalleryProject::whereIn('gallery_category_id', $categories)->get();
     }
 
     public function logoFile()

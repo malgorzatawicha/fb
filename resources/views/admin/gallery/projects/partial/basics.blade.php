@@ -16,6 +16,12 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="project-short-title" class="col-sm-3 control-label">{{ trans('admin.gallery.projects.short_title') }}</label>
+        <div class="col-sm-9">
+            <input type="text" name="short_title" value="" id="project-short-title" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="project-description" class="col-sm-3 control-label">{{ trans('admin.gallery.projects.description') }}</label>
         <div class="col-sm-9">
 

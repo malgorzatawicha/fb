@@ -36,6 +36,7 @@ class UpdateProject extends Job implements SelfHandling
         $this->data = [
             'name' => $request->get('name'),
             'title' => $request->get('title'),
+            'short_title' => $request->get('short_title'),
             'description' => $request->get('description'),
             'logo' => $request->file('logo'),
             'active' => $request->get('active'),
@@ -48,6 +49,7 @@ class UpdateProject extends Job implements SelfHandling
     {
         $this->project->name = $this->data['name'];
         $this->project->title = $this->data['title'];
+        $this->project->short_title = $this->data['short_title'];
         $this->project->description = $this->data['description'];
         $this->project->active = $this->data['active'];
         $this->project->save();
