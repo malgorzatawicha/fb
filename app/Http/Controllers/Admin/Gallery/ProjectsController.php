@@ -1,8 +1,10 @@
 <?php namespace Fb\Http\Controllers\Admin\Gallery;
 
+use Fb\Jobs\Gallery\Project\DestroyProject;
 use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Http\Request;
-
+use Fb\Jobs\Gallery\Project\ActivateProject;
+use Fb\Jobs\Gallery\Project\DeactivateProject;
 use Fb\Http\Requests;
 use Fb\Http\Controllers\Controller;
 use Fb\Models\Gallery\GalleryCategory;
@@ -93,8 +95,21 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(GalleryCategory $category, GalleryProject $project)
     {
-        //
+        $this->dispatchFromArray(DestroyProject::class, ['project' => $project]);
+        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
+    }
+
+    public function activate(GalleryCategory $category, GalleryProject $project)
+    {
+        $this->dispatchFromArray(ActivateProject::class, ['project' => $project]);
+        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
+    }
+
+    public function deactivate(GalleryCategory $category, GalleryProject $project)
+    {
+        $this->dispatchFromArray(DeactivateProject::class, ['project' => $project]);
+        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
     }
 }
