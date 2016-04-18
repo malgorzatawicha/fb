@@ -135,8 +135,6 @@
 .mobile-tree .icon {
   padding: 15px;
 }
-@media (min-width: 768px) {
-  .mobile-tree {
-    display: none;
-  }
-}
+
+.row.mobile-tree {
+  padding-left:0; padding-right: 0}

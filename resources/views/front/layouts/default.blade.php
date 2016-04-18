@@ -13,9 +13,10 @@
 </head>
 
 <body>
-<div class="wrapper">
-    <div class="container">
-        <img class="img-responsive" src="{{route('image', ['fileId' => $site->banner_id, 'width' => 1170, 'height'=>336])}}"/>
+
+<div class="container">
+    <div class="wrapper">
+        <img class="img-responsive lg" src="{{route('image', ['fileId' => $site->banner_id, 'width' => 1170, 'height'=>336])}}"/>
         <div class="page-body">
             @yield('content')
         </div>

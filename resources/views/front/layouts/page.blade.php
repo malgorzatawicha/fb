@@ -22,7 +22,7 @@
     </nav>
     <div class="page-content">
         @if ($page->logo_id or $page->description or $page->type == 'gallery')
-                <div class="left-side">
+                <div class="left-side row">
                     @yield('page_description')
                 </div>
                 <div class="right-side">

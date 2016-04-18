@@ -12,21 +12,19 @@
 @section('gallery_content')
     <h1>{{$category->title}}</h1>
     {!! $category->description !!}
-    @foreach($category->allProjects()->chunk(4) as $projects)
-        <div class="row">
-            <div class="col-md-12">
-                @foreach($projects as $project)
-                    <div class="col-md-3">
-                        <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
-                            <img class="borderable"
-                                 src="@if($project->hasMainImage()){{route('image', ['fileId' => $project->mainImage()->image_id])}}@else{{''}}@endif"
-                                 style="width: 100%" alt="{{$project->title}}">
-                        </a>
-                        <div class="project-thumb-label">{{$project->short_title}}</div>
-                    </div>
-                @endforeach
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            @foreach($category->allProjects() as $project)
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
+                        <img class="borderable"
+                             src="@if($project->hasMainImage()){{route('image', ['fileId' => $project->mainImage()->image_id])}}@else{{''}}@endif"
+                             style="width: 100%" alt="{{$project->title}}">
+                    </a>
+                    <div class="project-thumb-label">{{$project->short_title}}</div>
+                </div>
+            @endforeach
         </div>
-    @endforeach
+    </div>
 
 @endsection

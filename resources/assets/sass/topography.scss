@@ -1,76 +1,70 @@
-body {
-  margin-bottom: 0;
-}
-.wrapper{padding-right:0;padding-left:0;margin-right:auto;margin-left:auto; }
-@media (min-width:768px){.wrapper{width:768px; padding-right:30px;padding-left:30px;margin-right:auto;margin-left:auto;}}
-@media (min-width:992px){.wrapper{width:1022px}}
-@media (min-width:1200px){.wrapper{width:1230px}}
 .container{
-  padding: 0;
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto;
+  width: 100%;
 }
 
-.page-content {
-  display: table;
-  width:100%;
-  height: 100%;
+.left-side img {display: none};
+.tree {display: none;}
+@media (min-width: 768px) {
+  .left-side img {display: block;}
+  .navbar-brand {display: none}
 }
+@media (min-width: 992px) {
+  .container {width: 992px;}
 
-.left-side {
-  display: table;
-  width: 100%;
-  vertical-align: top;
-}
-.right-side {
-  display: table;
-  width: 100%;
-  vertical-align: top;
-}
-@media (min-width:768px){
   .left-side {
     display: table-cell;
     width: 25%;
   }
   .right-side {
     display: table-cell;
-    width: 75%;
   }
-}
-.row {
-  margin: 0;
-  padding: 0;
+
+  .wrapper{
+    padding-right:30px;padding-left:30px;margin-right:auto;margin-left:auto;
+  }
+
+  .tree {display: block};
+  .mobile-tree {display: none;}
 }
 
-.footer {
-  position: relative;
+@media (min-width:1200px)
+{
+  .container {width: 1200px;}
 }
+
+@media (min-width:1260px)
+{
+  .container{width:1260px;}
+
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.row {
+  margin-left: 0; margin-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.footer > .container {
+  width: 100%;
+  border-top: 1px solid;
+  height: 60px;
+}
+
+.img-responsive {width: 100%;}
 
 .breadcrumb {
   margin-bottom: 0;
   border-radius: 0;
 }
-footer.footer > .container {
-  border-top: 1px solid;
-  height: 60px;
-}
-.navbar {
-  border-radius: 0;
-  margin-bottom: 0;
-}
-.wrapper .img-responsive {
-  width: 100%;
-}
 
-.left-side .page-description {
-  padding: 10px;
-}
-
-.row-content {
-  padding: 10px;
-}
-
-@media (max-width:768px){
-  .left-side{display: none;}
-}
-@media (min-width: 768px) {
-  .navbar-brand {display: none}
-}
+.row.mobile-tree {
+  padding-left:0; padding-right: 0}

@@ -1,11 +1,13 @@
 @extends('front.layouts.page')
 @section('page_description')
     @if($page->logo_id)
-        <div class="row"><img title="{{$page->title}}" alt="logo" src="{{route('image',['fileId'=>$page->logo_id, 'width'=>300, 'height' => 300])}}" width="100%"></div>
+        <div class="row col-sm-2 col-md-12">
+            <img title="{{$page->title}}" alt="logo" src="{{route('image',['fileId'=>$page->logo_id, 'width'=>300, 'height' => 300])}}" width="100%">
+        </div>
     @endif
 
     @if($page->description)
-        <div class="row page-description">{!! $page->description !!}</div>
+        <div class="row col-sm-10 page-description">{!! $page->description !!}</div>
     @endif
 @endsection
 

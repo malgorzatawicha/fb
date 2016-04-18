@@ -22,7 +22,7 @@
                 @foreach ($project->images as $index => $image)
                     <div class="item @if($index == 0) active @endif">
                         <a href="{{route('image', ['fileId' => $image->image_id])}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
-                            <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id])}}" alt="{{$image->name}}">
+                            <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id, 'width' => 800, 'height' => 600])}}" alt="{{$image->name}}">
                         </a>
                         {{$image->description}}
                     </div>
@@ -66,7 +66,7 @@
                                     @foreach($items as $image)
                                         <div class="col-sm-3">
                                             <a data-item="{{$counter}}" href="#" class="thumbnail">
-                                                <img class="img-responsive borderable" src="{{route('image', ['fileId' => $image->thumb_id])}}" alt="{{$image->name}}">
+                                                <img class="img-responsive borderable" src="{{route('image', ['fileId' => $image->thumb_id, 'width' => 150, 'height' => 150])}}" alt="{{$image->name}}">
                                             </a>
                                         </div>
                                         <?php $counter++ ?>
