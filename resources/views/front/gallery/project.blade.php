@@ -64,7 +64,7 @@
                     <div class="carousel-inner">
                         @foreach($project->images->chunk(4) as $items)
                             <div class="item @if($counter == 0) active @endif">
-                                <div class="row" style="height: 200px; width: 800px;">
+                                <div class="row">
                                     @foreach($items as $image)
                                         <div class="col-sm-3">
                                             <a data-item="{{$counter}}" href="#" class="thumbnail">
