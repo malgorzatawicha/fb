@@ -138,3 +138,33 @@
 
 .row.mobile-tree {
   padding-left:0; padding-right: 0}
+
+.project-description {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.gallery-cell {
+  position: relative;
+}
+
+.gallery-cell:before{
+  content: "";
+  display: block;
+  padding-top: 120%;
+}
+
+.gallery-cell-content{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+@media (min-width: 992px) {
+  .gallery-cell:before{
+    padding-top: 150%;
+  }
+}

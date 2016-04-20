@@ -19,14 +19,18 @@ class DashboardController extends Controller
     {
         $file = File::findOrFail($imageId);
         $location = $file->path . '/' . $file->filename;
-        $image = Image::make($location);
-        if (!empty($width) && !empty($height)) {
-            if ($crop) {
-                $image = $image->fit($width, $height);
-            } else {
-                $image = $image->resize($width, $height);
+
+
+        $image = Image::cache(function($image) use($location, $width, $height, $crop) {
+            $image = $image->make($location);
+            if (!empty($width) && !empty($height)) {
+                if ($crop) {
+                    $image->fit($width, $height);
+                } else {
+                    $image->resize($width, $height);
+                }
             }
-        }
+        }, 5, true);
         return $image->response($file->extension);
     }
 }

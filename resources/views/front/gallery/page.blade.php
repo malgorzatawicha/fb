@@ -14,14 +14,17 @@
     {!! $category->description !!}
     <div class="row">
         <div class="col-md-12">
-            @foreach($category->allProjects() as $project)
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
+            @foreach($category->allActiveProjects() as $project)
+                <div class="col-lg-3 col-md-4 col-sm-6 gallery-cell">
+                   <div class="gallery-cell-content">
+                       <a href="{{route('project', ['pages' => $page->slug, 'category' => $category->slug, 'project' => $project->slug])}}">
                         <img class="borderable"
-                             src="@if($project->hasMainImage()){{route('image', ['fileId' => $project->mainImage()->image_id])}}@else{{''}}@endif"
+                             src="@if($project->hasMainImage()){{route('image', ['fileId' => $project->mainImage()->thumb_id])}}@else{{''}}@endif"
                              style="width: 100%" alt="{{$project->title}}">
                     </a>
+
                     <div class="project-thumb-label">{{$project->short_title}}</div>
+                   </div>
                 </div>
             @endforeach
         </div>

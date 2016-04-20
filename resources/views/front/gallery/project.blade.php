@@ -22,7 +22,7 @@
                 @foreach ($project->images as $index => $image)
                     <div class="item @if($index == 0) active @endif">
                         <a href="{{route('image', ['fileId' => $image->image_id])}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
-                            <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id, 'width' => 800, 'height' => 600])}}" alt="{{$image->name}}">
+                            <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id, 'width' => 800, 'height' => 538])}}" alt="{{$image->name}}">
                         </a>
                         {{$image->description}}
                     </div>
@@ -39,7 +39,9 @@
                 <span class="sr-only">Next</span>
             </a>
      </div><!-- End Carousel -->
-        {!! $project->description !!}
+     <div class="row project-description">
+         {!! $project->description !!}
+     </div>
 
     </div>
     </div>

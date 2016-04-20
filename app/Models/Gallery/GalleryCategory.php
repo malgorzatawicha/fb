@@ -5,8 +5,6 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Fb\Models\Cms\Page;
 use Fb\Models\File;
-use Illuminate\Database\Eloquent\Builder;
-use DB;
 
 /**
 * GalleryCategory
@@ -82,10 +80,10 @@ class GalleryCategory extends Node implements SluggableInterface {
         return $result;
     }
 
-    public function allProjects()
+    public function allActiveProjects()
     {
         $categories = $this->getDescendantsAndSelf()->lists('id');
-        return GalleryProject::whereIn('gallery_category_id', $categories)->get();
+        return GalleryProject::whereIn('gallery_category_id', $categories)->where('active', 1)->get();
     }
 
     public function logoFile()

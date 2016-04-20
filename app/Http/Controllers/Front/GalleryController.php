@@ -36,10 +36,13 @@ class GalleryController extends Controller
     {
         $file = File::findOrFail($imageId);
         $location = $file->path . '/' . $file->filename;
-        $image = Image::make($location);
-        if (!empty($width) && !empty($height)) {
-            $image->resize($width, $height);
-        }
+
+        $image = Image::cache(function($image) use($location, $width, $height) {
+            $image = $image->make($location);
+            if (!empty($width) && !empty($height)) {
+                $image->resize($width, $height);
+            }
+        }, 5, true);
         return $image->response($file->extension);
     }
 
