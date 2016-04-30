@@ -42,7 +42,7 @@ class GalleryController extends Controller
             if (!empty($width) && !empty($height)) {
                 $image->resize($width, $height);
             }
-        }, 5, true);
+        }, 60, true);
         return $image->response($file->extension);
     }
 

@@ -30,7 +30,7 @@ class DashboardController extends Controller
                     $image->resize($width, $height);
                 }
             }
-        }, 5, true);
+        }, 60, true);
         return $image->response($file->extension);
     }
 }
