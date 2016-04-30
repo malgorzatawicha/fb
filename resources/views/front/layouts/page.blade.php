@@ -21,18 +21,20 @@
         </div><!--/.container-fluid -->
     </nav>
     <div class="page-content">
-        @if ($page->logo_id or $page->description or $page->type == 'gallery')
-                <div class="left-side row">
-                    @yield('page_description')
-                </div>
-                <div class="right-side">
-                    @yield('page_content')
-                </div>
+        <div class="page-content-inner">
+            @if ($page->logo_id or $page->description or $page->type == 'gallery')
+                    <div class="left-side row">
+                        @yield('page_description')
+                    </div>
+                    <div class="right-side">
+                        @yield('page_content')
+                    </div>
             @else
                 <div class="full-width">
                     @yield('page_content')
 
                 </div>
             @endif
+        </div>
     </div>
 @endsection
