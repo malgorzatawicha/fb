@@ -1,7 +1,7 @@
 <div class="panel-heading">
     <div class="pull-right">
         <a class="btn btn-primary" title="{{ trans('admin.pages.banners.create') }}" href="#"
-           data-page="{{json_encode($page)}}"
+           data-page="{{escapeJson($page)}}"
            data-submit-action="{{ route('admin.cms.pages.banners.store', [$page->slug]) }}"
            data-toggle="modal" data-target="#bannerModal" >
             {{ trans('admin.pages.banners.create') }}
@@ -23,12 +23,12 @@
                         {{ method_field('DELETE') }}
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
-                               data-image="{{json_encode($banner)}}"
+                               data-image="{{escapeJson($banner)}}"
                                data-file="{{json_encode([
                                 'big' =>route('admin.image', ['fileId' => $banner->file_id]),
                                  'thumb' => route('admin.image', ['fileId' => $banner->file_id, 'width' => 213, 'height' => 160])
                                ])}}"
-                               data-page="{{json_encode($page)}}"
+                               data-page="{{escapeJson($page)}}"
                                data-edit-title="{{trans('admin.pages.banners.edit')}}"
                                data-submit-action="{{ route('admin.cms.pages.banners.update', [ 'pages' => $page->getKey(), 'banners' => $banner->getKey()]) }}"
                                data-toggle="modal" data-target="#bannerModal">

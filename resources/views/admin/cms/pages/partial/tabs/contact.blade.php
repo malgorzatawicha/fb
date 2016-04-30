@@ -1,7 +1,7 @@
 <div class="panel-heading">
     <div class="pull-right">
         <a class="btn btn-primary" title="{{ trans('admin.pages.contacts.create') }}" href="#"
-           data-page="{{json_encode($page)}}"
+           data-page="{{escapeJson($page)}}"
            data-submit-action="{{ route('admin.cms.pages.contacts.store', [$page->slug]) }}"
            data-toggle="modal" data-target="#contactModal" >
             {{ trans('admin.pages.contacts.create') }}
@@ -39,8 +39,8 @@
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
-                               data-contact="{{json_encode($contact)}}"
-                               data-page="{{json_encode($contact->page)}}"
+                               data-contact="{{escapeJson($contact)}}"
+                               data-page="{{escapeJson($contact->page)}}"
                                data-edit-title="{{trans('admin.pages.contacts.edit')}}"
                                data-submit-action="{{ route('admin.cms.pages.contacts.update', [ 'pages' => $page->getKey(), 'contact' => $contact->getKey()]) }}"
                                data-toggle="modal" data-target="#contactModal" >

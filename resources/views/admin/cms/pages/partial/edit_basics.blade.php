@@ -2,7 +2,7 @@
 <form action="{{ route('admin.cms.pages.update', [$page->slug]) }}" method="POST" class="form-horizontal page-form"  enctype="multipart/form-data">
     {{ method_field('PUT') }}
     {{ csrf_field() }}
-    <span id="page" data-page="{{$page}}"></span>
+    <span id="page" data-page="{{escapeJson($page)}}"></span>
     <div class="form-group">
         <label for="page-name" class="col-sm-2 control-label">{{ trans('admin.pages.name') }} <span class="required">*</span></label>
         <div class="col-sm-9">

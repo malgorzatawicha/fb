@@ -1,8 +1,8 @@
 <div class="panel-heading">
     <div class="pull-right">
         <a class="btn btn-primary" title="{{ trans('admin.gallery.projects.images.create') }}" href="#"
-           data-category="{{json_encode($category)}}"
-           data-project="{{json_encode($project)}}"
+           data-category="{{escapeJson($category)}}"
+           data-project="{{escapeJson($project)}}"
            data-submit-action="{{ route('admin.gallery.categories.projects.images.store', ['categories'=>$category->getKey(), 'projects' => $project->getKey()]) }}"
            data-toggle="modal" data-target="#imageModal" >
             {{ trans('admin.gallery.projects.images.create') }}
@@ -26,7 +26,7 @@
                         {{ method_field('DELETE') }}
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
-                               data-image="{{json_encode($image)}}"
+                               data-image="{{escapeJson($image)}}"
                                data-image-file="{{json_encode([
                                 'big' =>route('admin.image', ['fileId' => $image->image_id]),
                                  'thumb' => route('admin.image', ['fileId' => $image->image_id, 'width' => 213, 'height' => 160])
@@ -35,8 +35,8 @@
                                     'big' =>route('admin.image', ['fileId' => $image->thumb_id]),
                                  'thumb' => route('admin.image', ['fileId' => $image->thumb_id, 'width' => 160, 'height' => 160])
                                ])}}"
-                               data-project="{{json_encode($project)}}"
-                               data-category="{{json_encode($category)}}"
+                               data-project="{{escapeJson($project)}}"
+                               data-category="{{escapeJson($category)}}"
                                data-edit-title="{{trans('admin.gallery.projects.images.edit')}}"
                                data-submit-action="{{ route('admin.gallery.categories.projects.images.update', ['categories'=>$category->getKey(), 'projects' => $project->getKey(), 'images' => $image->getKey()]) }}"
                                data-toggle="modal" data-target="#imageModal">

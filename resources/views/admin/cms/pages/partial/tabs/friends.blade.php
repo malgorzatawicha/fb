@@ -1,7 +1,7 @@
 <div class="panel-heading">
     <div class="pull-right">
         <a class="btn btn-primary" title="{{ trans('admin.pages.friends.create') }}" href="#"
-           data-page="{{json_encode($page)}}"
+           data-page="{{escapeJson($page)}}"
            data-submit-action="{{ route('admin.cms.pages.friends.store', [$page->slug]) }}"
            data-toggle="modal" data-target="#friendModal" >
             {{ trans('admin.pages.friends.create') }}
@@ -23,12 +23,12 @@
                         {{ method_field('DELETE') }}
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-primary btn-sm" title="edit" href="#"
-                               data-friend="{{json_encode($friend)}}"
+                               data-friend="{{escapeJson($friend)}}"
                                data-file="{{json_encode([
                                 'big' =>route('admin.image', ['fileId' => $friend->file_id]),
                                  'thumb' => route('admin.image', ['fileId' => $friend->file_id, 'width' => 213, 'height' => 160])
                                ])}}"
-                               data-page="{{json_encode($friend->page)}}"
+                               data-page="{{escapeJson($friend->page)}}"
                                data-edit-title="{{trans('admin.pages.friends.edit')}}"
                                data-submit-action="{{ route('admin.cms.pages.friends.update', [ 'pages' => $page->getKey(), 'friends' => $friend->getKey()]) }}"
                                data-toggle="modal" data-target="#friendModal" >

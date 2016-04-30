@@ -12,7 +12,7 @@
             <form action="{{ route('admin.site.update') }}" method="POST" class="form-horizontal site-form" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
-                <span id="site" data-site="{{$site}}"></span>
+                <span id="site" data-site="{{escapeJson($site)}}"></span>
                 <div class="form-group">
                     <label for="site-title" class="col-sm-3 control-label">{{trans('admin.site.title')}} <span class="required">*</span></label>
                     <div class="col-sm-6">

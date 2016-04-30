@@ -9,7 +9,7 @@
             <form action="{{ route('admin.gallery.categories.update', [$category->id]) }}" method="POST" class="form-horizontal category-form" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
-                <span id="category" data-category="{{$category}}"></span>
+                <span id="category" data-category="{{escapeJson($category)}}"></span>
                 <div class="form-group">
                     <label for="category-parent" class="col-sm-3 control-label">{{trans('admin.gallery.categories.parent')}}</label>
                     <div class="col-sm-9">

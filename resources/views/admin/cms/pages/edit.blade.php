@@ -3,7 +3,7 @@
     <div class="panel panel-default">
         <div
                 id="pageInfo"
-                data-project="{{json_encode($page)}}"
+                data-project="{{escapeJson($page)}}"
                 data-logo="{{json_encode([
                                 'big' =>route('admin.image', ['fileId' => $page->logo_id]),
                                  'thumb' => route('admin.image', ['fileId' => $page->logo_id, 'width' => 160, 'height' => 160])
