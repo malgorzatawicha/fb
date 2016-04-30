@@ -39,10 +39,6 @@
                 <span class="sr-only">Next</span>
             </a>
      </div><!-- End Carousel -->
-     <div class="row project-description">
-         {!! $project->description !!}
-     </div>
-
     </div>
     </div>
     <div class="image-list">
@@ -93,6 +89,9 @@
 
         </div>
 
+    </div>
+    <div class="row project-description">
+        {!! $project->description !!}
     </div>
 @endsection
 
