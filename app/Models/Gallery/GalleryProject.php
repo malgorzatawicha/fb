@@ -21,12 +21,12 @@ class GalleryProject extends Model implements SluggableInterface
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'title', 'short_title', 'active', 'description', 'position'
+        'name', 'title', 'short_title', 'active', 'description', 'position', 'gallery_category_id'
     ];
 
     public function category()
     {
-        return $this->belongsTo(GalleryCategory::class);
+        return $this->belongsTo(GalleryCategory::class, 'gallery_category_id');
     }
 
     public function images()

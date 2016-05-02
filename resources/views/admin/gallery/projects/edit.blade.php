@@ -8,11 +8,11 @@
                                 'big' =>route('admin.image', ['fileId' => $project->logo_id]),
                                  'thumb' => route('admin.image', ['fileId' => $project->logo_id, 'width' => 160, 'height' => 160])
                                ])}}"
-                data-submit-action="{{ route('admin.gallery.categories.projects.update', ['categories'=>$category->getKey(), 'projects' => $project->getKey()]) }}"
+                data-submit-action="{{ route('admin.gallery.projects.update', ['projects' => $project->getKey()]) }}"
 
         ></div>
         <div class="panel-heading">
-            <h3>{{ trans('admin.gallery.projects.edit') }}: {{$category->title}} {{trans('admin.gallery.projects.in_category')}}: {{$project->title}}</h3>
+            <h3>{{ trans('admin.gallery.projects.edit') }}: {{$project->title}}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -40,4 +40,22 @@
 
 @section('scripts')
     <script src="{{ elixir('js/admin/project.js') }}"></script>
+    <script>
+        $("#tree").treeview({
+            data: {!! createTree($categories, $category) !!}
+        });
+
+        @if($category)
+            $('#category').val({{$category->getKey()}});
+                @endif
+
+        var selectedNodes = $('#tree').treeview('getSelected');
+        if (selectedNodes.length) {
+            var selected = selectedNodes[0];
+            $("#tree").treeview('revealNode', selected);
+        }
+        $('#tree').on('nodeSelected', function(event, data) {
+            $('#category').val(data.id);
+        });
+    </script>
 @stop

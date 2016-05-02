@@ -4,6 +4,13 @@
     {{ method_field('POST') }}
     {{ csrf_field() }}
     <div class="form-group">
+        <label for="category" class="col-sm-3 control-label">{{trans('admin.gallery.projects.category')}} <span class="required">*</span></label>
+        <div class="col-sm-9">
+            <div id="tree"></div>
+            <input type="hidden" name="category" id='category' value="">
+        </div>
+    </div>
+    <div class="form-group">
         <label for="project-name" class="col-sm-3 control-label">{{ trans('admin.gallery.projects.name') }} <span class="required">*</span></label>
         <div class="col-sm-9">
             <input type="text" name="name" value="" id="project-name" class="form-control"/>
@@ -43,7 +50,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
-            <a href="{{route('admin.gallery.categories.projects.index', [$category->getKey()])}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
+            <a href="{{route('admin.gallery.projects.index')}}" class="btn btn-primary">{{ trans('admin.back') }}</a>
             <button type="submit" class="btn btn-default submit-form">
                 <span class="glyphicon glyphicon-plus-sign"></span> {{ trans('admin.save') }}
             </button>
@@ -51,3 +58,4 @@
     </div>
 </form>
 </span>
+

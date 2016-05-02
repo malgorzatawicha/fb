@@ -3,6 +3,7 @@
 namespace Fb\Jobs\Gallery\Project;
 
 use Fb\Jobs\Job;
+use Fb\Models\Gallery\GalleryCategory;
 use Fb\Models\Gallery\GalleryProject;
 use Fb\Services\StoragePaths\ProjectPath;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -34,6 +35,7 @@ class UpdateProject extends Job implements SelfHandling
     private function initialize(Request $request)
     {
         $this->data = [
+            'category' => $request->get('category'),
             'name' => $request->get('name'),
             'title' => $request->get('title'),
             'short_title' => $request->get('short_title'),
@@ -53,6 +55,11 @@ class UpdateProject extends Job implements SelfHandling
         $this->project->description = $this->data['description'];
         $this->project->active = $this->data['active'];
         $this->project->save();
+
+        $category = GalleryCategory::find($this->data['category']);
+        if(!empty($category)) {
+            $this->project->category()->associate($category);
+        }
 
         $this->saveLogo();
         $this->project->save();

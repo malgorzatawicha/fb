@@ -98,6 +98,7 @@ return [
         'projects' => [
             'create' => 'New Project',
             'edit' => 'Edit Project',
+            'category' => 'Category',
             'name' => 'Name',
             'title' => 'Title',
             'short_title' => 'Short Title',
@@ -105,7 +106,6 @@ return [
             'logo' => 'Logo',
             'active'=> 'Active',
             'no_records' => 'You have not any project',
-            'in_category' => 'in category',
             'images' => [
                 'create' => 'Create Project Image',
                 'edit' => 'Edit Project Image',

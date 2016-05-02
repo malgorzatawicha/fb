@@ -26,15 +26,15 @@ class StoreProject extends Job implements SelfHandling
 
     private $project;
 
-    public function __construct(GalleryCategory $category, Request $request)
+    public function __construct(Request $request)
     {
-        $this->category = $category;
         $this->initialize($request);
     }
 
     private function initialize(Request $request)
     {
         $this->data = [
+            'category' => $request->get('category'),
             'name' => $request->get('name'),
             'title' => $request->get('title'),
             'short_title' => $request->get('short_title'),
@@ -55,7 +55,7 @@ class StoreProject extends Job implements SelfHandling
             'description' => !empty($this->data['description'])?$this->data['description']:'',
             'active' => !empty($this->data['active'])?$this->data['active']:'',
         ]);
-        $this->category->projects()->save($this->project);
+        GalleryCategory::find($this->data['category'])->projects()->save($this->project);
 
         $this->saveLogo();
 

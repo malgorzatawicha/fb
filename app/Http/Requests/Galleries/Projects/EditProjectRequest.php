@@ -24,6 +24,7 @@ class EditProjectRequest extends Request
     public function rules()
     {
         return [
+            'category' => 'required',
             'name' => 'required|max:255',
             'title' => 'required|max:255',
             'short_title' => 'max:255',

@@ -33,7 +33,7 @@ class ProjectsController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.gallery.projects.create');
+        return view('admin.gallery.projects.create', ['categories' => GalleryCategory::getTree(), 'category' => null]);
     }
 
     /**
@@ -68,7 +68,10 @@ class ProjectsController extends Controller
     public function edit(GalleryProject $projects)
     {
         return view('admin.gallery.projects.edit', [
-            'project' => $projects
+            'categories' => GalleryCategory::getTree(),
+            'project' => $projects,
+            'category' => $projects->category
+
         ]);
     }
 

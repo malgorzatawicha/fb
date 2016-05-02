@@ -4,10 +4,10 @@
     <div class="panel panel-default">
         <div
                 id="projectInfo"
-                data-submit-action="{{ route('admin.gallery.categories.projects.store', ['categories'=>$category->getKey()]) }}"
+                data-submit-action="{{ route('admin.gallery.projects.store') }}"
         ></div>
         <div class="panel-heading">
-            <h4>{{trans('admin.gallery.projects.create')}} {{trans('admin.gallery.projects.in_category')}}: {{$category->title}}</h4>
+            <h4>{{trans('admin.gallery.projects.create')}}</h4>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -28,4 +28,22 @@
 @stop
 @section('scripts')
     <script src="{{ elixir('js/admin/project.js') }}"></script>
+    <script>
+        $("#tree").treeview({
+            data: {!! createTree($categories, $category) !!}
+        });
+
+        @if($category)
+            $('#category').val({{$category->getKey()}});
+                @endif
+
+        var selectedNodes = $('#tree').treeview('getSelected');
+        if (selectedNodes.length) {
+            var selected = selectedNodes[0];
+            $("#tree").treeview('revealNode', selected);
+        }
+        $('#tree').on('nodeSelected', function(event, data) {
+            $('#category').val(data.id);
+        });
+    </script>
 @stop

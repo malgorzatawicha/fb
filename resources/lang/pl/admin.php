@@ -98,6 +98,7 @@ return [
         'projects' => [
             'create' => 'Nowy Projekt',
             'edit' => 'Edytuj Projekt',
+            'category' => 'Kategoria',
             'name' => 'Nazwa',
             'title' => 'Tytuł',
             'short_title' => 'Krótki tytuł',
@@ -105,7 +106,6 @@ return [
             'logo' => 'Logo',
             'active'=> 'Aktywny',
             'no_records' => 'Nie masz żadnego projektu',
-            'in_category' => 'w kategorii',
             'images' => [
                 'create' => 'Nowe zdjęcie projektu',
                 'edit' => 'Edytuj zdjęcie projektu',
