@@ -18,18 +18,36 @@ class HierarchicalCollection extends Collection
     }
 
     protected function activeHierarchical($result) {
-        return $this->clearInactive($this->hierarchical($result));
+        return $this->clearEmpty($this->clearInactive($this->hierarchical($result)));
+    }
+
+    private function clearEmpty($nodes) {
+        return $this->clear($nodes, function($nodes){
+            $subtree = $nodes->getDescendantsAndSelf();
+            foreach ($subtree as $node) {
+                $projects = $node->allActiveProjects();
+                if (count($projects)) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     private function clearInactive($nodes) {
+        return $this->clear($nodes, function($nodes){
+            return ($nodes->active);
+        });
+    }
+
+    private function clear($nodes, callable $callable) {
         if ($nodes instanceof Model) {
-            if (!$nodes->active) {
+            if (!$callable($nodes)) {
                 return null;
             }
             if (count($nodes->children) > 0) {
-
                 foreach ($nodes->children as $key => $child) {
-                    $result = $this->clearInactive($child);
+                    $result = $this->clear($child, $callable);
                     if (!$result) {
                         unset($nodes->children[$key]);
                     } else {
@@ -41,7 +59,7 @@ class HierarchicalCollection extends Collection
         } else {
             $result = [];
             foreach ($nodes as $key => $node) {
-                $result[$key] = $this->clearInactive($node);
+                $result[$key] = $this->clear($node, $callable);
             }
             return $result;
         }
