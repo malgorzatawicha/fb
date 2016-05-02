@@ -7,10 +7,11 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
 use Fb\Models\File;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Rutorika\Sortable\SortableTrait;
 
 class GalleryProject extends Model implements SluggableInterface
 {
-    use SluggableTrait;
+    use SluggableTrait, SortableTrait;
 
     protected $sluggable = [
         'build_from' => 'name',
@@ -23,7 +24,7 @@ class GalleryProject extends Model implements SluggableInterface
     protected $fillable = [
         'name', 'title', 'short_title', 'active', 'description', 'position', 'gallery_category_id'
     ];
-
+    protected static $sortableField = 'position';
     public function category()
     {
         return $this->belongsTo(GalleryCategory::class, 'gallery_category_id');

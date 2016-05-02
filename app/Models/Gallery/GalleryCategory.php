@@ -88,7 +88,7 @@ class GalleryCategory extends Node implements SluggableInterface {
     public function allActiveProjects()
     {
         $categories = $this->getDescendantsAndSelf()->lists('id');
-        return GalleryProject::whereIn('gallery_category_id', $categories)->where('active', 1)->get();
+        return GalleryProject::whereIn('gallery_category_id', $categories)->where('active', 1)->orderBy('position')->get();
     }
 
     public function logoFile()

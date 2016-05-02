@@ -36,6 +36,7 @@ elixir(function(mix) {
             'app.css'
         ], 'public/css/all.css')
         .styles([
+            '../../../vendor/components/jqueryui/themes/smoothness/jquery-ui.min.css',
             '../../../bower_components/bootstrap/dist/css/bootstrap.min.css',
             '../../../bower_components/bootstrap-fileinput/css/fileinput.min.css',
             '../../../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css',
@@ -44,6 +45,7 @@ elixir(function(mix) {
         ], 'public/css/admin.css')
         .scripts([
             '../../../bower_components/jquery/dist/jquery.min.js',
+            '../../../vendor/components/jqueryui/jquery-ui.min.js',
             '../../../bower_components/bootstrap/dist/js/bootstrap.min.js',
             '../../../bower_components/lightbox2/dist/js/lightbox.min.js',
             '../../../bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js'

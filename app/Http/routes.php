@@ -125,6 +125,11 @@ Route::group(
             $router->resource('categories.projects.images', 'ProjectsImagesController');
 
         });
+
+        $router->post('sort', [
+            'uses' =>'\Rutorika\Sortable\SortableController@sort',
+            'as' => 'admin.sort'
+        ]);
     }
 );
 

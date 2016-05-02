@@ -16,7 +16,8 @@
         "baum/baum": "~1.1",
         "rutorika/sortable": "^3.1",
         "doctrine/dbal": "^2.5",
-        "intervention/imagecache": "^2.3"
+        "intervention/imagecache": "^2.3",
+        "components/jqueryui": "^1.11"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

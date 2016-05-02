@@ -2,6 +2,7 @@
 
 namespace Fb\Providers;
 
+use Fb\Models\Gallery\GalleryProject;
 use Illuminate\Support\ServiceProvider;
 use Fb\Models\Site;
 use App;
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->share('site', Site::firstOrNew([]));
         App::setLocale('pl');
+
+        GalleryProject::deleting(function ($model) {
+            $model->next()->decrement('position');
+        });
     }
 
     /**

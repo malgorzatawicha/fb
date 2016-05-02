@@ -23,7 +23,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return view('admin.gallery.projects.index', ['projects' => GalleryProject::all()]);
+        return view('admin.gallery.projects.index', ['projects' => GalleryProject::sorted()->get()]);
     }
 
     /**
