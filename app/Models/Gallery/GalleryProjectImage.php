@@ -14,6 +14,9 @@ class GalleryProjectImage extends Model
         'name', 'active', 'watermarked', 'description', 'position'
     ];
 
+    protected static $sortableField = 'position';
+    protected static $sortableGroupField = 'gallery_project_id';
+
     public function project()
     {
         return $this->belongsTo(GalleryProject::class, 'gallery_project_id', 'id');

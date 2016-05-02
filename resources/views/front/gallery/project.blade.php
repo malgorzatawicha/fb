@@ -19,7 +19,7 @@
         <div id="myCarousel" class="carousel slide borderable">
 
             <div class="carousel-inner" role="listbox">
-                @foreach ($project->images as $index => $image)
+                @foreach ($project->sortedImages() as $index => $image)
                     <div class="item @if($index == 0) active @endif">
                         <a href="{{route('image', ['fileId' => $image->image_id])}}" data-lightbox="roadtrip" data-title="{{$image->name}}">
                             <img class="img-responsive" src="{{route('image', ['fileId' => $image->image_id, 'width' => 800, 'height' => 538])}}" alt="{{$image->name}}">
@@ -42,7 +42,7 @@
     </div>
     </div>
     <div class="image-list">
-        @foreach ($project->images as $index => $image)
+        @foreach ($project->sortedImages() as $index => $image)
             <div class="row">
                  <img class="img-responsive borderable" src="{{route('image', ['fileId' => $image->image_id])}}" alt="{{$image->name}}">
                 {{$image->description}}
@@ -58,7 +58,7 @@
                 <?php $counter = 0; $chunkCount = 0;?>
                 <div id="thumbnailCarousel" class="carousel slide">
                     <div class="carousel-inner">
-                        @foreach($project->images->chunk(4) as $items)
+                        @foreach($project->sortedImages()->chunk(4) as $items)
                             <div class="item @if($counter == 0) active @endif">
                                 <div class="row">
                                     @foreach($items as $image)

@@ -30,6 +30,10 @@ class GalleryProject extends Model implements SluggableInterface
         return $this->belongsTo(GalleryCategory::class, 'gallery_category_id');
     }
 
+    public function sortedImages()
+    {
+        return GalleryProjectImage::where('gallery_project_id', $this->getKey())->orderBy('position')->get();
+    }
     public function images()
     {
         return $this->hasMany(GalleryProjectImage::class, 'gallery_project_id', 'id');
@@ -44,8 +48,9 @@ class GalleryProject extends Model implements SluggableInterface
     {
         return !empty($this->mainImage());
     }
+    
     public function mainImage()
     {
-        return GalleryProjectImage::where('gallery_project_id', $this->getKey())->first();
+        return GalleryProjectImage::where('gallery_project_id', $this->getKey())->orderBy('position')->first();
     }
 }

@@ -23,6 +23,8 @@ elixir(function(mix) {
         .copy('bower_components/bootstrap-fileinput/img', 'public/build/img')
         /**          LIGHTBOX2 */
         .copy('bower_components/lightbox2/dist/images', 'public/build/images')
+        /**          JQUERY UI */
+        .copy('vendor/components/jqueryui/themes/smoothness/images', 'public/build/css/images')
         /**       FONT AWESOME */
         .copy('bower_components/font-awesome/fonts', 'public/build/fonts/')
         /**   CUSTOM RESOURCES */

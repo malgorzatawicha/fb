@@ -12,9 +12,9 @@
 </div>
 <div class="panel-body">
     @if (count($project->images)>0)
-        <div class="row project-images">
-            @foreach($project->images as $image )
-                <div class="col-sm-3 thumb">
+        <div class="row project-images" id="sortable-images"  data-entityname="images">
+            @foreach($project->sortedImages() as $image )
+                <div class="col-sm-3 thumb" data-parentid="{{$image->project->getKey()}}" data-itemid="{{$image->getKey()}}">
                     <a class="thumbnail"
                        href="#"
                        data-toggle="modal" data-target="#showModal">
@@ -50,9 +50,13 @@
                     </form>
                 </div>
             @endforeach
+            </ul>
         </div>
     @else
         <p>{{trans('admin.gallery.projects.images.no_records')}}</p>
     @endif
 </div>
 @include('admin.gallery.projects.partial.image_modal')
+
+
+

@@ -38,6 +38,11 @@
     </div>
 @stop
 
+@section('styles')
+    <style>
+            </style>
+@stop
+
 @section('scripts')
     <script src="{{ elixir('js/admin/project.js') }}"></script>
     <script>
@@ -56,6 +61,53 @@
         }
         $('#tree').on('nodeSelected', function(event, data) {
             $('#category').val(data.id);
+        });
+
+
+        $.ajaxSetup({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        });
+
+        var changePosition = function(requestData){
+
+            $.ajax({
+                'url': '{{route('admin.sort')}}',
+                'type': 'POST',
+                'data': requestData
+            });
+        };
+
+
+        $(function() {
+            $( "#sortable-images" ).sortable({
+                update: function(a, b){
+
+                    var entityName = $(this).data('entityname');
+                    var $sorted = b.item;
+
+                    var $previous = $sorted.prev();
+                    var $next = $sorted.next();
+
+                    if ($previous.length > 0) {
+                        changePosition({
+                            parentId: $sorted.data('parentid'),
+                            type: 'moveAfter',
+                            entityName: entityName,
+                            id: $sorted.data('itemid'),
+                            positionEntityId: $previous.data('itemid')
+                        });
+                    } else if ($next.length > 0) {
+                        changePosition({
+                            parentId: $sorted.data('parentid'),
+                            type: 'moveBefore',
+                            entityName: entityName,
+                            id: $sorted.data('itemid'),
+                            positionEntityId: $next.data('itemid')
+                        });
+                    }
+                }
+            });
+            $( "#sortable-images" ).disableSelection();
         });
     </script>
 @stop
