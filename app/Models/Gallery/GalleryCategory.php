@@ -5,6 +5,7 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Fb\Models\Cms\Page;
 use Fb\Models\File;
+use Fb\Services\HierarchicalCollection;
 
 /**
 * GalleryCategory
@@ -28,15 +29,19 @@ class GalleryCategory extends Node implements SluggableInterface {
         'name', 'title', 'active', 'description',
     ];
 
+    public function newCollection(array $models = array())
+    {
+        return new HierarchicalCollection($models);
+    }
 
     public static function getTree()
     {
         return self::all()->toHierarchy();
     }
 
-    public function tree()
+    public function activeTree()
     {
-        return $this->getDescendantsAndSelf()->toHierarchy();
+        return $this->getDescendantsAndSelf()->toActiveHierarchy();
     }
 
     public function page()
