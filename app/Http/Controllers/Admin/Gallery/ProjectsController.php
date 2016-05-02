@@ -21,9 +21,9 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(GalleryCategory $categories)
+    public function index()
     {
-        return view('admin.gallery.projects.index', ['category' => $categories]);
+        return view('admin.gallery.projects.index', ['projects' => GalleryProject::all()]);
     }
 
     /**
@@ -31,11 +31,9 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, GalleryCategory $categories)
+    public function create(Request $request)
     {
-        return view('admin.gallery.projects.create', [
-            'category' => $categories,
-        ]);
+        return view('admin.gallery.projects.create');
     }
 
     /**
@@ -44,10 +42,10 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateProjectRequest $request, GalleryCategory $categories)
+    public function store(CreateProjectRequest $request)
     {
-        $this->dispatchFromArray(StoreProject::class, ['category' => $categories, 'request' => $request]);
-        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
+        $this->dispatchFromArray(StoreProject::class, ['request' => $request]);
+        return Redirect::route('admin.gallery.projects.index');
     }
 
     /**
@@ -67,11 +65,10 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(GalleryCategory $categories, GalleryProject $projects)
+    public function edit(GalleryProject $projects)
     {
         return view('admin.gallery.projects.edit', [
-            'project' => $projects,
-            'category' => $categories
+            'project' => $projects
         ]);
     }
 
@@ -82,11 +79,11 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditProjectRequest $request, GalleryCategory $categories, GalleryProject $project)
+    public function update(EditProjectRequest $request, GalleryProject $project)
     {
         $this->dispatchFromArray(UpdateProject::class,
             ['project' => $project, 'request' => $request]);
-        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $categories->getKey()]);
+        return Redirect::route('admin.gallery.projects.index');
     }
 
     /**
@@ -95,21 +92,21 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GalleryCategory $category, GalleryProject $project)
+    public function destroy(GalleryProject $project)
     {
         $this->dispatchFromArray(DestroyProject::class, ['project' => $project]);
-        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
+        return Redirect::route('admin.gallery.projects.index');
     }
 
-    public function activate(GalleryCategory $category, GalleryProject $project)
+    public function activate(GalleryProject $project)
     {
         $this->dispatchFromArray(ActivateProject::class, ['project' => $project]);
-        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
+        return Redirect::route('admin.gallery.projects.index');
     }
 
-    public function deactivate(GalleryCategory $category, GalleryProject $project)
+    public function deactivate(GalleryProject $project)
     {
         $this->dispatchFromArray(DeactivateProject::class, ['project' => $project]);
-        return Redirect::route('admin.gallery.categories.projects.index', ['categories' => $category->getKey()]);
+        return Redirect::route('admin.gallery.projects.index');
     }
 }

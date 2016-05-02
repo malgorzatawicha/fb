@@ -36,6 +36,8 @@
                         <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">{{trans('admin.menu.gallery')}} <span class="caret"></span></a>
                         <ul class="dropdown-menu inverse-dropdown">
                             <li><a href="{{ route('admin.gallery.categories.index') }}">{{trans('admin.menu.categories')}}</a></li>
+                            <li><a href="{{ route('admin.gallery.projects.index') }}">{{trans('admin.menu.projects')}}</a></li>
+
                         </ul>
                     </li>
                 </ul>

@@ -18,6 +18,7 @@ return [
         'pages' => 'Pages',
         'gallery' => 'Gallery',
         'categories' => 'Categories',
+        'projects' => 'Projects',
     ],
     'site' => [
         'title' => 'Title',

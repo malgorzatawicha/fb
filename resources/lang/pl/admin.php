@@ -18,6 +18,7 @@ return [
         'pages' => 'Strony',
         'gallery' => 'Galeria',
         'categories' => 'Kategorie',
+        'projects' => 'Projekty',
         ],
     'site' => [
         'title' => 'Tytuł',
