@@ -111,17 +111,7 @@ Route::group(
                 'as' => 'admin.gallery.pages.attach'
             ]);
             $router->resource('categories', 'CategoriesController');
-
-            $router->resource('categories.projects', 'ProjectsController');
-            $router->patch('categories/{categories}/projects/{projects}/activate', [
-                'uses' => 'ProjectsController@activate',
-                'as'   => 'admin.gallery.categories.projects.activate'
-            ]);
-            $router->patch('categories/{categories}/projects/{projects}/deactivate', [
-                'uses' => 'ProjectsController@deactivate',
-                'as'   => 'admin.gallery.categories.projects.deactivate'
-            ]);
-
+            
             $router->resource('categories.projects.images', 'ProjectsImagesController');
 
         });
